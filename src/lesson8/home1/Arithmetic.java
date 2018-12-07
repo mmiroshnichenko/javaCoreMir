@@ -13,6 +13,8 @@ public class Arithmetic {
             }
         }
 
-        return (min + max) > 100;
+        long sum = min + max;
+
+        return sum > 100;
     }
 }
