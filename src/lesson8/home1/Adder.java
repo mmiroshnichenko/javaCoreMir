@@ -1,7 +1,7 @@
 package lesson8.home1;
 
 public class Adder extends Arithmetic{
-    public long add(int a, int b) {
+    public long adds(int a, int b) {
         long sum = a + b;
 
         return sum;
