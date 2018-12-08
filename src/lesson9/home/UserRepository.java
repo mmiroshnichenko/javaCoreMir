@@ -23,7 +23,7 @@ public class UserRepository {
             return null;
         }
 
-        if (users != null && users.length == 2147483647) {
+        if (users != null && users.length == 2147483646) {
             return null;
         }
 
