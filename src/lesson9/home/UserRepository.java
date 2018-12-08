@@ -1,5 +1,7 @@
 package lesson9.home;
 
+import java.util.Arrays;
+
 public class UserRepository {
     private User[] users;
 
@@ -17,13 +19,22 @@ public class UserRepository {
             return names;
         }
 
-        String[] names = new String[users.length];
+        /*String[] names = new String[users.length];
 
         int index = 0;
         for (User user : users) {
             if (user.getName() != null) {
                 names[index] = user.getName();
                 index++;
+            }
+        }*/
+        String[] names = new String[0];
+
+        for (User user : users) {
+            if (user.getName() != null) {
+                int count = names.length;
+                names = Arrays.copyOf(names, count +  1);
+                names[count] = user.getName();
             }
         }
 
