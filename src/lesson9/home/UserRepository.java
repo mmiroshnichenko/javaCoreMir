@@ -53,7 +53,7 @@ public class UserRepository {
         }
 
         for (User user : users) {
-            if (user != null && user.getId() == id) {
+            if (user != null && user.getId() > 0 && user.getId() == id) {
                 return user.getName();
             }
         }
