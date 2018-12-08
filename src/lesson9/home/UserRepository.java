@@ -23,7 +23,15 @@ public class UserRepository {
             return null;
         }
 
-        if (users != null && users.length == 2147483647) {
+        for (User us : users) {
+            if (us == null) {
+                us = user;
+                return user;
+            }
+        }
+
+        return null;
+        /*if (users != null && users.length == 2147483647) {
             return null;
         }
 
@@ -33,9 +41,9 @@ public class UserRepository {
 
         int count = users.length;
         users = Arrays.copyOf(users, count + 1);
-        users[count] = user;
+        users[count] = user;*/
 
-        return user;
+        //return user;
     }
 
     private boolean isCorrectUser(User user) {
