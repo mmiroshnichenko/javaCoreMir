@@ -31,7 +31,7 @@ public class UserRepository {
         String[] names = new String[0];
 
         for (User user : users) {
-            if (user.getName() != null) {
+            if (user != null && user.getName() != null) {
                 int count = names.length;
                 names = Arrays.copyOf(names, count +  1);
                 names[count] = user.getName();
