@@ -13,6 +13,7 @@ public class DemoHome {
         UserRepository userRepository = new UserRepository(users);
 
         User user4 = userRepository.save(new User(18, "Igorok", "465465"));
+        User user6 = userRepository.save(new User(18, "Igorok", "465465"));
         User user5 = userRepository.save(null);
 
         String[] names = userRepository.getUserNames();

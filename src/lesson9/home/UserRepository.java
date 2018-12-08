@@ -14,24 +14,16 @@ public class UserRepository {
     }
 
     public User save(User user) {
-       /* if (!isCorrectUser(user)) {
+        if (!isCorrectUser(user)) {
             return null;
-        }*/
+        }
 
         User existUser = this.findById(user.getId());
         if (existUser != null) {
             return null;
         }
 
-        for (User us : users) {
-            if (us == null) {
-                us = user;
-                return user;
-            }
-        }
-
-        return null;
-        /*if (users != null && users.length == 2147483647) {
+        if (users != null && users.length == 2147483647) {
             return null;
         }
 
@@ -41,9 +33,9 @@ public class UserRepository {
 
         int count = users.length;
         users = Arrays.copyOf(users, count + 1);
-        users[count] = user;*/
+        users[count] = user;
 
-        //return user;
+        return user;
     }
 
     private boolean isCorrectUser(User user) {
