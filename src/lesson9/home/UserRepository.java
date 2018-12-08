@@ -23,14 +23,16 @@ public class UserRepository {
             return null;
         }
 
-        for (User us : users) {
+        return user;
+
+        /*for (User us : users) {
             if (us == null) {
                 us = user;
                 return user;
             }
-        }
+        }*/
 
-        return null;
+        //return null;
         /*if (users != null && users.length == 2147483647) {
             return null;
         }
