@@ -13,6 +13,36 @@ public class UserRepository {
         return users;
     }
 
+    public User save(User user) {
+        if (!isCorrectUser(user)) {
+            return null;
+        }
+
+        User existUser = this.findById(user.getId());
+        if (existUser != null) {
+            return null;
+        }
+
+        if (users != null && users.length == 2147483647) {
+            return null;
+        }
+
+        if (users == null) {
+            this.users = new User[0];
+        }
+
+        int count = users.length;
+        users = Arrays.copyOf(users, count + 1);
+        users[count] = user;
+
+        return user;
+    }
+
+    private boolean isCorrectUser(User user) {
+        return user != null && user.getId() > 0;
+    }
+
+
     public String[] getUserNames() {
         String[] names = new String[0];
         if (users == null) {
@@ -75,7 +105,7 @@ public class UserRepository {
         return null;
     }
 
-    public User getUserById(long id) {
+    private User findById(long id) {
         if (users == null) {
             return null;
         }
