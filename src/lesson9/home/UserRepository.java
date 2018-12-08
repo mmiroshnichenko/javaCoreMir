@@ -14,7 +14,7 @@ public class UserRepository {
     }
 
     public User save(User user) {
-        if (!isCorrectUser(user)) {
+        /*if (!isCorrectUser(user)) {
             return null;
         }
 
@@ -33,7 +33,7 @@ public class UserRepository {
 
         int count = users.length;
         users = Arrays.copyOf(users, count + 1);
-        users[count] = user;
+        users[count] = user;*/
 
         return user;
     }
@@ -49,7 +49,7 @@ public class UserRepository {
     }
 
     private boolean isCorrectUser(User user) {
-        return user != null;// && user.getName() != null && user.getSessionId() != null;
+        return user != null && user.getName() != null && user.getSessionId() != null;
     }
 
 
