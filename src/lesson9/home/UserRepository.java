@@ -49,7 +49,7 @@ public class UserRepository {
 
     public String getUserNameById(long id) {
         if (users == null) {
-            return "";
+            return null;
         }
 
         for (User user : users) {
@@ -58,6 +58,6 @@ public class UserRepository {
             }
         }
 
-        return "";
+        return null;
     }
 }
