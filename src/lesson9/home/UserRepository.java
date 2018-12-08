@@ -18,10 +18,10 @@ public class UserRepository {
             return null;
         }
 
-        User existUser = this.findById(user.getId());
+        /*User existUser = this.findById(user.getId());
         if (existUser != null) {
             return null;
-        }
+        }*/
 
         return user;
 
