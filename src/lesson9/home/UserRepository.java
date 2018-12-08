@@ -14,21 +14,10 @@ public class UserRepository {
     }
 
     public String[] getUserNames() {
+        String[] names = new String[0];
         if (users == null) {
-            String[] names = new String[0];
             return names;
         }
-
-        /*String[] names = new String[users.length];
-
-        int index = 0;
-        for (User user : users) {
-            if (user.getName() != null) {
-                names[index] = user.getName();
-                index++;
-            }
-        }*/
-        String[] names = new String[0];
 
         for (User user : users) {
             if (user != null && user.getName() != null) {
@@ -42,17 +31,17 @@ public class UserRepository {
     }
 
     public long[] getUserIds() {
+        long[] ids = new long[0];
         if (users == null) {
-            long[] ids = new long[0];
             return ids;
         }
 
-        long[] ids = new long[users.length];
-
-        int index = 0;
         for (User user: users) {
-            ids[index] = user.getId();
-            index++;
+            if (user != null && user.getId() > 0) {
+                int count = ids.length;
+                ids = Arrays.copyOf(ids, count +  1);
+                ids[count] = user.getId();
+            }
         }
 
         return ids;
@@ -64,7 +53,7 @@ public class UserRepository {
         }
 
         for (User user : users) {
-            if (user.getId() == id) {
+            if (user != null && user.getId() == id) {
                 return user.getName();
             }
         }
