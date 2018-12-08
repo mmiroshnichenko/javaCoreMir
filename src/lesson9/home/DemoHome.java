@@ -8,7 +8,7 @@ public class DemoHome {
         User user2 = new User(14, "Roman", "8798798");
         User user3 = new User(17, "Igor", "465465");
 
-        User[] users = {user1, user2, user3};
+        User[] users = {user1, user2, user3, null, null};
 
         UserRepository userRepository = new UserRepository(users);
 
