@@ -10,7 +10,7 @@ public class DemoHome {
 
         User[] users = {user1, user2, user3};
 
-        UserRepository userRepository = new UserRepository(null);
+        UserRepository userRepository = new UserRepository(users);
 
         String[] names = userRepository.getUserNames();
 

@@ -21,8 +21,10 @@ public class UserRepository {
 
         int index = 0;
         for (User user : users) {
-            names[index] = user.getName();
-            index++;
+            if (user.getName() != "") {
+                names[index] = user.getName();
+                index++;
+            }
         }
 
         return names;
