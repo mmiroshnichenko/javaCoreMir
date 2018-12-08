@@ -14,10 +14,6 @@ public class UserRepository {
     }
 
     public User save(User user) {
-        if (user == null) {
-            return null;
-        }
-
         if (!isCorrectUser(user)) {
             return null;
         }
@@ -53,7 +49,7 @@ public class UserRepository {
     }
 
     private boolean isCorrectUser(User user) {
-        return user != null && user.getId() > 0 && user.getName() != null && user.getSessionId() != null;
+        return user != null && user.getId() != 0 && user.getName() != null && user.getSessionId() != null;
     }
 
 
