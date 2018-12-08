@@ -14,16 +14,16 @@ public class UserRepository {
     }
 
     public User save(User user) {
+        if (user == null) {
+            return null;
+        }
+
         if (!isCorrectUser(user)) {
             return null;
         }
 
         User existUser = this.findById(user.getId());
         if (existUser != null) {
-            return null;
-        }
-
-        if (!existPlaceForNewUser()) {
             return null;
         }
 
