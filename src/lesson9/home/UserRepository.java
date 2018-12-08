@@ -39,7 +39,7 @@ public class UserRepository {
     }
 
     private boolean isCorrectUser(User user) {
-        return user != null && user.getId() > 0;
+        return user != null && user.getId() > 0 && user.getName() != null && user.getSessionId() != null;
     }
 
 
