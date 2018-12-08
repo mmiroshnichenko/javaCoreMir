@@ -14,25 +14,23 @@ public class UserRepository {
     }
 
     public User save(User user) {
-        if (!isCorrectUser(user)) {
-            return null;
-        }
-
-        /*User existUser = this.findById(user.getId());
-        if (existUser != null) {
+       /* if (!isCorrectUser(user)) {
             return null;
         }*/
 
-        return user;
+        User existUser = this.findById(user.getId());
+        if (existUser != null) {
+            return null;
+        }
 
-        /*for (User us : users) {
+        for (User us : users) {
             if (us == null) {
                 us = user;
                 return user;
             }
-        }*/
+        }
 
-        //return null;
+        return null;
         /*if (users != null && users.length == 2147483647) {
             return null;
         }
