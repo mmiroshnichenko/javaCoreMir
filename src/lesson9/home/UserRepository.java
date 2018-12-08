@@ -16,7 +16,7 @@ public class UserRepository {
     public String[] getUserNames() {
         String[] names = new String[0];
         if (users == null) {
-            return null;
+            return names;
         }
 
         for (User user : users) {
@@ -60,4 +60,48 @@ public class UserRepository {
 
         return null;
     }
+
+    public User getUserByName(String name) {
+        if (users == null) {
+            return null;
+        }
+
+        for (User user : users) {
+            if (user != null && user.getName() == name) {
+                return user;
+            }
+        }
+
+        return null;
+    }
+
+    public User getUserById(long id) {
+        if (users == null) {
+            return null;
+        }
+
+        for (User user : users) {
+            if (user != null && user.getId() == id) {
+                return user;
+            }
+        }
+
+        return null;
+    }
+
+    public User getUserBySessionId(String sessionId) {
+        if (users == null) {
+            return null;
+        }
+
+        for (User user : users) {
+            if (user != null && user.getSessionId() == sessionId) {
+                return user;
+            }
+        }
+
+        return null;
+    }
+
+
 }
