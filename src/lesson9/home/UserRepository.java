@@ -23,6 +23,10 @@ public class UserRepository {
             return null;
         }
 
+        if (!existPlaceForNewUser()) {
+            return null;
+        }
+
         if (users != null && users.length == 2147483647) {
             return null;
         }
@@ -36,6 +40,16 @@ public class UserRepository {
         users[count] = user;
 
         return user;
+    }
+
+    private boolean existPlaceForNewUser() {
+        for (User user: users) {
+            if (user == null) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private boolean isCorrectUser(User user) {
