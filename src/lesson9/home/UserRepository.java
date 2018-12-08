@@ -16,7 +16,7 @@ public class UserRepository {
     public String[] getUserNames() {
         String[] names = new String[0];
         if (users == null) {
-            return names;
+            return null;
         }
 
         for (User user : users) {
