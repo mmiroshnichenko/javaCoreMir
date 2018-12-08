@@ -1,5 +1,7 @@
 package lesson9.home;
 
+import java.util.Arrays;
+
 public class DemoHome {
     public static void main(String[] args) {
         User user1 = new User(12, "Pavel", "5465364");
@@ -8,9 +10,11 @@ public class DemoHome {
 
         User[] users = {user1, user2, user3};
 
-        UserRepository userRepository = new UserRepository(users);
+        UserRepository userRepository = new UserRepository(null);
 
         String[] names = userRepository.getUserNames();
+
+        System.out.println(Arrays.toString(names));
     }
 
 

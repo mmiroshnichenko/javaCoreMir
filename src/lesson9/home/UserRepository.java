@@ -14,11 +14,17 @@ public class UserRepository {
     }
 
     public String[] getUserNames() {
-        String[] names = new String[0];
+        if (users == null) {
+            String[] names = new String[0];
+            return names;
+        }
 
+        String[] names = new String[users.length];
+
+        int index = 0;
         for (User user : users) {
-            names = Arrays.copyOf(names, names.length + 1);
-            names[names.length] = user.getName();
+            names[index] = user.getName();
+            index++;
         }
 
         return names;
