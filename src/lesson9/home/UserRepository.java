@@ -1,7 +1,5 @@
 package lesson9.home;
 
-import java.util.Arrays;
-
 public class UserRepository {
     private User[] users;
 
@@ -15,7 +13,8 @@ public class UserRepository {
 
     public String[] getUserNames() {
         if (users == null) {
-            return null;
+            String[] names = new String[0];
+            return names;
         }
 
         String[] names = new String[users.length];
@@ -30,6 +29,11 @@ public class UserRepository {
     }
 
     public long[] getUserIds() {
+        if (users == null) {
+            long[] ids = new long[0];
+            return ids;
+        }
+
         long[] ids = new long[users.length];
 
         int index = 0;
@@ -42,6 +46,10 @@ public class UserRepository {
     }
 
     public String getUserNameById(long id) {
+        if (users == null) {
+            return "";
+        }
+
         for (User user : users) {
             if (user.getId() == id) {
                 return user.getName();
