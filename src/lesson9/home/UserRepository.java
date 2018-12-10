@@ -14,42 +14,20 @@ public class UserRepository {
     }
 
     public User save(User user) {
-        if (!isCorrectUser(user)) {
-            return null;
-        }
 
-        User existUser = this.findById(user.getId());
+        User existUser = findById(user.getId());
         if (existUser != null) {
             return null;
         }
 
-        if (users != null && users.length == (Integer.MAX_VALUE - 4)) {
-            return null;
-        }
-
-        if (users == null) {
-            this.users = new User[0];
-        }
-
-        int count = users.length;
-        users = Arrays.copyOf(users, count + 1);
-        users[count] = user;
-
-        return user;
-    }
-
-    private boolean existPlaceForNewUser() {
-        for (User user: users) {
-            if (user == null) {
-                return true;
+        for (int i = 0; i < users.length; i++) {
+            if (users[i] == null) {
+                users[i] = user;
+                return user;
             }
         }
 
-        return false;
-    }
-
-    private boolean isCorrectUser(User user) {
-        return user != null && user.getName() != null && user.getSessionId() != null;
+        return null;
     }
 
 
