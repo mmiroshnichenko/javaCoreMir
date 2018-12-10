@@ -31,13 +31,9 @@ public class UserRepository {
     }
 
     public User update(User user) {
-        User existUser = findById(user.getId());
-        if (existUser == null) {
-            return null;
-        }
 
         for (int i = 0; i < users.length; i++) {
-            if (users[i] == existUser) {
+            if (users[i].getId() == user.getId()) {
                 users[i] = user;
                 return user;
             }
