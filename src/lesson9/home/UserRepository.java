@@ -30,6 +30,36 @@ public class UserRepository {
         return null;
     }
 
+    public User update(User user) {
+        User existUser = findById(user.getId());
+        if (existUser == null) {
+            return null;
+        }
+
+        for (int i = 0; i < users.length; i++) {
+            if (users[i] == existUser) {
+                users[i] = user;
+                return user;
+            }
+        }
+
+        return null;
+    }
+
+    public void delete(long id) {
+        User existUser = findById(id);
+        if (existUser == null) {
+            return;
+        }
+
+        for (int i = 0; i < users.length; i++) {
+            if (users[i] == existUser) {
+                users[i] = null;
+                return;
+            }
+        }
+    }
+
 
     public String[] getUserNames() {
         String[] names = new String[0];
