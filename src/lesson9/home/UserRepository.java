@@ -123,7 +123,7 @@ public class UserRepository {
         return null;
     }
 
-    private User findById(long id) {
+    public User findById(long id) {
         if (users == null) {
             return null;
         }
