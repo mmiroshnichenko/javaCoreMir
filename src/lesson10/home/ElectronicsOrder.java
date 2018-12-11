@@ -25,11 +25,11 @@ public class ElectronicsOrder extends Order {
     public void calculatePrice() {
         int shipmentPercent = (getShipToCity() == "Киев" || getShipToCity() == "Одесса") ? 10 : 15;
         double shipmentPrice = getBasePrice() * shipmentPercent / 100;
-        double totalPrice = getBasePrice();
+        double totalPrice = getBasePrice() + shipmentPrice;
         if (totalPrice > 1000) {
             totalPrice -= totalPrice * 5 / 100;
         }
-        totalPrice += shipmentPrice;
+        //totalPrice += shipmentPrice;
         setTotalPrice(totalPrice);
     }
 
