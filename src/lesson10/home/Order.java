@@ -28,7 +28,7 @@ public abstract class Order {
     abstract protected String[] getAllowedShipFromCity();
     abstract protected int getMinPrice();
 
-    void confirmShipping() {
+    public void confirmShipping() {
         if (dateShipped == null) {
             dateShipped = new Date();
         }
