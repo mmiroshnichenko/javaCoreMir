@@ -22,7 +22,7 @@ public class ElectronicsOrder extends Order {
     }
 
     @Override
-    protected void calculatePrice() {
+    void calculatePrice() {
         int shipmentPercent = (getShipToCity() == "Киев" || getShipToCity() == "Одесса") ? 10 : 15;
         double shipmentPrice = getBasePrice() * shipmentPercent / 100;
         double totalPrice = getBasePrice();

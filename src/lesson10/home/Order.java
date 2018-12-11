@@ -23,7 +23,7 @@ public abstract class Order {
     }
 
     abstract void validateOrder();
-    abstract protected void calculatePrice();
+    abstract void calculatePrice();
     abstract protected String[] getAllowedShipToCity();
     abstract protected String[] getAllowedShipFromCity();
     abstract protected int getMinPrice();
