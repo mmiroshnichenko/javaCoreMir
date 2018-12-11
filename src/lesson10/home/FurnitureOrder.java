@@ -24,7 +24,7 @@ public class FurnitureOrder extends Order {
     void calculatePrice() {
         int shipmentPercent = getBasePrice() < 5000 ? 5 : 2;
         double shipmentPrice = getBasePrice() * shipmentPercent / 100;
-        double totalPrice = getBasePrice() + shipmentPrice;
+        double totalPrice = getBasePrice() + shipmentPrice + 15;
 
         setTotalPrice(totalPrice);
     }
