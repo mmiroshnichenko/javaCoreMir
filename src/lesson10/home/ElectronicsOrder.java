@@ -12,7 +12,7 @@ public class ElectronicsOrder extends Order {
     }
 
     @Override
-    void validateOrder() {
+    public void validateOrder() {
         if (validateShipmentCities()
             && validateMinPrice()
             && getCustomerOwned().getGender() == "Женский"
@@ -22,7 +22,7 @@ public class ElectronicsOrder extends Order {
     }
 
     @Override
-    void calculatePrice() {
+    public void calculatePrice() {
         int shipmentPercent = (getShipToCity() == "Киев" || getShipToCity() == "Одесса") ? 10 : 15;
         double shipmentPrice = getBasePrice() * shipmentPercent / 100;
         double totalPrice = getBasePrice();

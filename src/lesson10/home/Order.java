@@ -22,8 +22,8 @@ public abstract class Order {
         this.customerOwned = customerOwned;
     }
 
-    abstract void validateOrder();
-    abstract void calculatePrice();
+    abstract public void validateOrder();
+    abstract public void calculatePrice();
     abstract protected String[] getAllowedShipToCity();
     abstract protected String[] getAllowedShipFromCity();
     abstract protected int getMinPrice();
