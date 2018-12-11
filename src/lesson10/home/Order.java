@@ -29,8 +29,8 @@ public abstract class Order {
     abstract protected int getMinPrice();
 
     void confirmShipping() {
-        if (dateConfirmed == null) {
-            dateConfirmed = new Date();
+        if (dateShipped == null) {
+            dateShipped = new Date();
         }
     }
 
