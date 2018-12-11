@@ -29,7 +29,7 @@ public class ElectronicsOrder extends Order {
         if (totalPrice > 1000) {
             totalPrice -= totalPrice * 5 / 100;
         }
-        totalPrice += shipmentPrice + 15;
+        totalPrice += shipmentPrice;
         setTotalPrice(totalPrice);
     }
 
