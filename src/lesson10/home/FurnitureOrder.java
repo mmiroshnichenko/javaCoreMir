@@ -21,7 +21,7 @@ public class FurnitureOrder extends Order {
     }
 
     @Override
-    public void calculatePrice() {
+    protected void calculatePrice() {
         int shipmentPercent = getBasePrice() < 5000 ? 5 : 2;
         double shipmentPrice = getBasePrice() * shipmentPercent / 100;
         double totalPrice = getBasePrice() + shipmentPrice;
