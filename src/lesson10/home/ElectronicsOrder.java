@@ -1,4 +1,4 @@
-package lesson10.Home;
+package lesson10.home;
 
 import java.util.Date;
 
@@ -22,7 +22,7 @@ public class ElectronicsOrder extends Order {
     }
 
     @Override
-    void calculatePrice() {
+    public void calculatePrice() {
         int shipmentPercent = (getShipToCity() == "Киев" || getShipToCity() == "Одесса") ? 10 : 15;
         double shipmentPrice = getBasePrice() * shipmentPercent / 100;
         double totalPrice = getBasePrice();

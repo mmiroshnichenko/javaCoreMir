@@ -1,4 +1,4 @@
-package lesson10.Home;
+package lesson10.home;
 
 import java.util.Date;
 

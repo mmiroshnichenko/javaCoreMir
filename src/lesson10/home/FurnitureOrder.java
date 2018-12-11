@@ -1,4 +1,4 @@
-package lesson10.Home;
+package lesson10.home;
 
 import java.util.Date;
 
@@ -21,7 +21,7 @@ public class FurnitureOrder extends Order {
     }
 
     @Override
-    void calculatePrice() {
+    public void calculatePrice() {
         int shipmentPercent = getBasePrice() < 5000 ? 5 : 2;
         double shipmentPrice = getBasePrice() * shipmentPercent / 100;
         double totalPrice = getBasePrice() + shipmentPrice;

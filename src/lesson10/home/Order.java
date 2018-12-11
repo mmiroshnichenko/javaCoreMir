@@ -1,4 +1,4 @@
-package lesson10.home;
+package lesson10.Home;
 
 import java.util.Date;
 
@@ -23,7 +23,7 @@ public abstract class Order {
     }
 
     abstract void validateOrder();
-    abstract public void calculatePrice();
+    abstract void calculatePrice();
     abstract protected String[] getAllowedShipToCity();
     abstract protected String[] getAllowedShipFromCity();
     abstract protected int getMinPrice();
