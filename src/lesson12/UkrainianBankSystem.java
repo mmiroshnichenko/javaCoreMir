@@ -32,6 +32,11 @@ public class UkrainianBankSystem implements BankSystem {
         if (!checkFundingLimit(toUser, amount)) {
             return;
         }
+
+        if (!checkTransferCurrency(fromUser, toUser)) {
+            return;
+        }
+
         withdraw(fromUser, amount);
         fund(toUser, amount);
     }
@@ -39,6 +44,20 @@ public class UkrainianBankSystem implements BankSystem {
     @Override
     public void paySalary(User user) {
         fund(user, user.getSalary());
+    }
+
+    private boolean checkTransferCurrency(User fromUser, User toUser) {
+        if (fromUser.getBank().getCurrency() != toUser.getBank().getCurrency()) {
+            printTransferErrorMsg(fromUser, toUser);
+
+            return false;
+        }
+
+        return true;
+    }
+
+    private void printTransferErrorMsg(User fromUser, User toUser) {
+        System.err.println("Can't transfer currency " + fromUser.getBank().getCurrency() + " to " + toUser.getBank().getCurrency());
     }
 
     private boolean checkFundingLimit(User user, int amount) {
