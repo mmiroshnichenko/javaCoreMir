@@ -15,4 +15,13 @@ public class Phone {
     public void orderPhone(){
         System.out.println("order phone invoked...");
     }
+
+    @Override
+    public String toString() {
+        return "Phone{" +
+                "price=" + price +
+                ", weight=" + weight +
+                ", countryProduced='" + countryProduced + '\'' +
+                '}';
+    }
 }

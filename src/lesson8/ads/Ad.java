@@ -15,4 +15,13 @@ public class Ad extends BaseEntity{
     void publishAd() {
         // some logic
     }
+
+    @Override
+    public String toString() {
+        return "Ad{" +
+                "price=" + price +
+                ", dateCreated=" + dateCreated +
+                ", id=" + id +
+                '}';
+    }
 }

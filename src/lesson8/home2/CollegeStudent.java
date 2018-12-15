@@ -1,5 +1,7 @@
 package lesson8.home2;
 
+import java.util.Arrays;
+
 public class CollegeStudent extends Student {
     String collegeName;
     int rating;
@@ -16,5 +18,17 @@ public class CollegeStudent extends Student {
         this.id = id;
     }
 
-
+    @Override
+    public String toString() {
+        return "CollegeStudent{" +
+                "collegeName='" + collegeName + '\'' +
+                ", rating=" + rating +
+                ", id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", group=" + group +
+                ", coursesTaken=" + Arrays.toString(coursesTaken) +
+                ", age=" + age +
+                '}';
+    }
 }

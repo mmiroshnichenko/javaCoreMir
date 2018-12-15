@@ -15,4 +15,16 @@ public class Android extends Phone {
     public void installNewAndroidVersion() {
         System.out.println("installNewAndroidVersion invoked...");
     }
+
+    @Override
+    public String toString() {
+        return "Android{" +
+                "androidVersion='" + androidVersion + '\'' +
+                ", screenSize=" + screenSize +
+                ", secretDeviceCode='" + secretDeviceCode + '\'' +
+                ", price=" + price +
+                ", weight=" + weight +
+                ", countryProduced='" + countryProduced + '\'' +
+                '}';
+    }
 }

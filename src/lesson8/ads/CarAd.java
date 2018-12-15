@@ -14,4 +14,18 @@ public class CarAd extends Ad {
     void confirmAd() {
         //some logic
     }
+
+    @Override
+    public String toString() {
+        return "CarAd{" +
+                "yearOfManufacturing=" + yearOfManufacturing +
+                ", color='" + color + '\'' +
+                ", ownerName='" + ownerName + '\'' +
+                ", weight=" + weight +
+                ", horsePower=" + horsePower +
+                ", price=" + price +
+                ", dateCreated=" + dateCreated +
+                ", id=" + id +
+                '}';
+    }
 }

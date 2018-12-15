@@ -14,7 +14,7 @@ public class HouseAd extends  Ad{
         this.floors = floors;
     }
 
-    boolean heckOwner() {
+    boolean checkOwner() {
         Owners owners = new Owners();
 
         for (String owner : owners.owners) {
@@ -24,5 +24,18 @@ public class HouseAd extends  Ad{
         }
 
         return false;
+    }
+
+    @Override
+    public String toString() {
+        return "HouseAd{" +
+                "ownerName='" + ownerName + '\'' +
+                ", address='" + address + '\'' +
+                ", square=" + square +
+                ", floors=" + floors +
+                ", price=" + price +
+                ", dateCreated=" + dateCreated +
+                ", id=" + id +
+                '}';
     }
 }

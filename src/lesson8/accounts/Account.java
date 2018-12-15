@@ -22,6 +22,8 @@ public class Account {
     }
 
     void changeOwnerName(String newOwnerName) {
-        ownerName = newOwnerName;
+        if (newOwnerName != null) {
+            ownerName = newOwnerName;
+        }
     }
 }

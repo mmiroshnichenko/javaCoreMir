@@ -1,5 +1,6 @@
 package lesson8.home2;
 
+import java.util.Arrays;
 import java.util.Date;
 
 public class Course {
@@ -15,5 +16,16 @@ public class Course {
         this.hoursDuration = hoursDuration;
         this.teacherName = teacherName;
         this.students = students;
+    }
+
+    @Override
+    public String toString() {
+        return "Course{" +
+                "startDate=" + startDate +
+                ", name='" + name + '\'' +
+                ", hoursDuration=" + hoursDuration +
+                ", teacherName='" + teacherName + '\'' +
+                ", students=" + Arrays.toString(students) +
+                '}';
     }
 }

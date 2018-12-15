@@ -10,7 +10,7 @@ public class SavingAccount extends Account{
 
     @Override
     void changeOwnerName(String newOwnerName) {
-        if (newOwnerName == "Jack" || newOwnerName == "Ann") {
+        if (newOwnerName != null && (newOwnerName.equals("Jack") || newOwnerName.equals("Ann"))) {
             ownerName = newOwnerName;
         } else {
             System.out.println("Sorry, you cant't change owner name of this saving account");

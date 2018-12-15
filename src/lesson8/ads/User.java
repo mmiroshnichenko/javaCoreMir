@@ -9,4 +9,13 @@ public class User extends BaseEntity{
         this.userName = userName;
         this.location = location;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userName='" + userName + '\'' +
+                ", location='" + location + '\'' +
+                ", id=" + id +
+                '}';
+    }
 }

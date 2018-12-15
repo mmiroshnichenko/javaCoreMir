@@ -28,4 +28,16 @@ public class Message extends BaseEntity{
 
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "Message{" +
+                "userFrom=" + userFrom +
+                ", userTo=" + userTo +
+                ", dateSent=" + dateSent +
+                ", dateRead=" + dateRead +
+                ", message='" + message + '\'' +
+                ", id=" + id +
+                '}';
+    }
 }

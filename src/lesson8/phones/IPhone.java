@@ -13,4 +13,14 @@ public class IPhone extends Phone{
     public void deleteIPhoneFromDb() {
         System.out.println("deletePhoneFromDb invoked...");
     }
+
+    @Override
+    public String toString() {
+        return "IPhone{" +
+                "fingerPrint=" + fingerPrint +
+                ", price=" + price +
+                ", weight=" + weight +
+                ", countryProduced='" + countryProduced + '\'' +
+                '}';
+    }
 }
