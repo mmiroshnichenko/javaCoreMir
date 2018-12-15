@@ -1,18 +1,16 @@
 package lesson9.home;
 
 public class UserRepository {
-    private User[] users;
-
-    public UserRepository(User[] users) {
-        this.users = users;
-    }
+    private User[] users = new User[10];
 
     public User[] getUsers() {
         return users;
     }
 
     public User save(User user) {
-
+        if (user == null) {
+            return null;
+        }
         User existUser = findById(user.getId());
         if (existUser != null) {
             return null;

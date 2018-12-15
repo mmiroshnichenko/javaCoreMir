@@ -1,6 +1,6 @@
 package lesson1;
 
-import lesson9.Company;
+import lesson9.company.Company;
 
 public class FinancialCompany extends Company {
     public static void main(String[] args) {

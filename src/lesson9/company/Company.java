@@ -1,4 +1,4 @@
-package lesson9;
+package lesson9.company;
 
 public class Company {
     private String name;
@@ -23,5 +23,15 @@ public class Company {
 
     public void setCountryFounded(String countryFounded) {
         this.countryFounded = countryFounded;
+    }
+
+    @Override
+    public String toString() {
+        return "Company{" +
+                "name='" + name + '\'' +
+                ", countryFounded='" + countryFounded + '\'' +
+                ", code='" + code + '\'' +
+                ", someField=" + someField +
+                '}';
     }
 }

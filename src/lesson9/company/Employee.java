@@ -1,4 +1,4 @@
-package lesson9;
+package lesson9.company;
 
 public class Employee {
     String name;
@@ -9,5 +9,14 @@ public class Employee {
         this.name = name;
         this.company = company;
         this.monthlySalary = monthlySalary;
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "name='" + name + '\'' +
+                ", company=" + company +
+                ", monthlySalary=" + monthlySalary +
+                '}';
     }
 }
