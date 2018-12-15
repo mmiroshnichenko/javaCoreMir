@@ -35,4 +35,15 @@ public class User {
     void increaseAge() {
         age++;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                ", city='" + city + '\'' +
+                ", lastActiveDate=" + lastActiveDate +
+                ", isActive=" + isActive +
+                '}';
+    }
 }

@@ -10,6 +10,12 @@ public class ArraysPractice {
     }
 
     public static int maxElement(int[] array) {
+        if (array.length == 0) {
+            System.out.println("Empty array");
+
+            return 0;
+        }
+
         int max = array[0];
 
         for(int el : array) {

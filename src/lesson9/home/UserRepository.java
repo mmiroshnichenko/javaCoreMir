@@ -1,7 +1,5 @@
 package lesson9.home;
 
-import java.util.Arrays;
-
 public class UserRepository {
     private User[] users;
 
@@ -58,16 +56,27 @@ public class UserRepository {
 
 
     public String[] getUserNames() {
-        String[] names = new String[0];
         if (users == null) {
-            return names;
+            return new String[0];
         }
 
+        int length = 0;
         for (User user : users) {
             if (user != null && user.getName() != null) {
-                int count = names.length;
-                names = Arrays.copyOf(names, count +  1);
-                names[count] = user.getName();
+                length++;
+            }
+        }
+
+        if (length == 0) {
+            return new String[0];
+        }
+
+        int index = 0;
+        String[] names = new String[length];
+        for (User user : users) {
+            if (user != null && user.getName() != null) {
+                names[index] = user.getName();
+                index++;
             }
         }
 
@@ -75,16 +84,27 @@ public class UserRepository {
     }
 
     public long[] getUserIds() {
-        long[] ids = new long[0];
         if (users == null) {
-            return ids;
+            return new long[0];
         }
 
+        int length = 0;
         for (User user: users) {
             if (user != null && user.getId() > 0) {
-                int count = ids.length;
-                ids = Arrays.copyOf(ids, count +  1);
-                ids[count] = user.getId();
+                length++;
+            }
+        }
+
+        if (length == 0) {
+            return new long[0];
+        }
+
+        long[] ids = new long[length];
+        int index = 0;
+        for (User user: users) {
+            if (user != null && user.getId() > 0) {
+                ids[index] = user.getId();
+                index++;
             }
         }
 
@@ -97,7 +117,7 @@ public class UserRepository {
         }
 
         for (User user : users) {
-            if (user != null && user.getId() > 0 && user.getId() == id) {
+            if (user != null && user.getId() == id) {
                 return user.getName();
             }
         }

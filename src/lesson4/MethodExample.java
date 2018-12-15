@@ -26,6 +26,10 @@ public class MethodExample {
     }
 
     public static int findDivCount(short a, short b, int n) {
+        if (n == 0) {
+            System.out.println("Error: Div by zero");
+            return 0;
+        }
         int count = 0;
         for (int i = a; i <= b; i++) {
             if (i % n == 0) {
@@ -36,7 +40,14 @@ public class MethodExample {
     }
 
     public static String concat(String first, String second, String third) {
-        return first + second + third;
+        String res = "";
+        String[] words = {first, second, third};
+        for (String word : words) {
+            if (word != null) {
+                res += word;
+            }
+        }
+        return res;
     }
 
     public static int increaser(int a, int index) {

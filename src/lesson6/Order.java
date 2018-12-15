@@ -40,4 +40,18 @@ public class Order {
     public boolean isValidType() {
         return type == "Buy" || type == "Sale";
     }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", price=" + price +
+                ", dateCreated=" + dateCreated +
+                ", isConfirmed=" + isConfirmed +
+                ", dateConfirmed=" + dateConfirmed +
+                ", city='" + city + '\'' +
+                ", country='" + country + '\'' +
+                ", type='" + type + '\'' +
+                '}';
+    }
 }

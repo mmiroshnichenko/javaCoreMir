@@ -72,14 +72,18 @@ public class BanksPractice {
             }
         }
 
-        String[] results = new String[count];
+        int resIndex = 0;
+        String[] results = new String[resIndex];
 
         int index = 0;
-        int resIndex = 0;
+
         for (int balance : balances) {
             if (balance >= n) {
-                results[resIndex] = clients[index];
-                resIndex++;
+                if (clients[index] != null) {
+                    results = Arrays.copyOf(results, resIndex + 1);
+                    results[resIndex] = clients[index];
+                    resIndex++;
+                }
             }
             index++;
         }
@@ -97,12 +101,13 @@ public class BanksPractice {
             }
         }
 
-        String[] results = new String[count];
+        int resIndex = 0;
+        String[] results = new String[resIndex];
 
         int index = 0;
-        int resIndex = 0;
         for (int balance : balances) {
-            if (balance < 0) {
+            if (balance < 0 && clients[index] != null) {
+                results = Arrays.copyOf(results, resIndex + 1);
                 results[resIndex] = clients[index];
                 resIndex++;
             }

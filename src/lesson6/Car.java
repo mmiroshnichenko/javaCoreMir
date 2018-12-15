@@ -23,7 +23,20 @@ public class Car {
     }
 
     void changeOwner(String newOwnerName) {
-        ownerName = newOwnerName;
+        if (newOwnerName != null) {
+            ownerName = newOwnerName;
+        }
     }
 
+    @Override
+    public String toString() {
+        return "Car{" +
+                "price=" + price +
+                ", yearOfManufacturing=" + yearOfManufacturing +
+                ", color='" + color + '\'' +
+                ", ownerName='" + ownerName + '\'' +
+                ", weight=" + weight +
+                ", horsePower=" + horsePower +
+                '}';
+    }
 }
