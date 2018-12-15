@@ -6,6 +6,9 @@ public class ElectronicsOrder extends Order {
 
     private int guaranteeMonths;
 
+    private String[] allowedFromCities = {"Киев", "Одесса", "Днепр", "Харьков"};
+    private String[] allowedToCities = {"Киев", "Одесса", "Днепр", "Харьков"};
+
     public ElectronicsOrder(String itemName, Date dateCreated, String shipFromCity, String shipToCity, int basePrice, Customer customerOwned, int guaranteeMonths) {
         super(itemName, dateCreated, shipFromCity, shipToCity, basePrice, customerOwned);
         this.guaranteeMonths = guaranteeMonths;
@@ -13,8 +16,6 @@ public class ElectronicsOrder extends Order {
 
     @Override
     public void validateOrder() {
-        String[] allowedFromCities = {"Киев", "Одесса", "Днепр", "Харьков"};
-        String[] allowedToCities = {"Киев", "Одесса", "Днепр", "Харьков"};
         if (inArray(allowedFromCities, getShipFromCity()) && inArray(allowedToCities, getShipToCity())
             && getBasePrice() > 100
             && getCustomerOwned().getGender() == "Женский"

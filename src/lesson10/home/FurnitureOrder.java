@@ -5,6 +5,8 @@ import java.util.Date;
 public class FurnitureOrder extends Order {
     private String furnitureCode;
 
+    private String[] allowedFromCities = {"Киев", "Львов"};
+
     public FurnitureOrder(String itemName, Date dateCreated, String shipFromCity, String shipToCity, int basePrice, Customer customerOwned, String furnitureCode) {
         super(itemName, dateCreated, shipFromCity, shipToCity, basePrice, customerOwned);
         this.furnitureCode = furnitureCode;
@@ -12,8 +14,6 @@ public class FurnitureOrder extends Order {
 
     @Override
     public void validateOrder() {
-        String[] allowedFromCities = {"Киев", "Львов"};
-
         if (inArray(allowedFromCities, getShipFromCity())
                 && getBasePrice() > 500
                 && getCustomerOwned().getName() != "Тест"
