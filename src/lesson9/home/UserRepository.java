@@ -29,7 +29,7 @@ public class UserRepository {
     }
 
     public User update(User user) {
-        if (user == null) {
+        if (user == null || users == null) {
             return null;
         }
 
