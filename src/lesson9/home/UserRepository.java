@@ -34,7 +34,7 @@ public class UserRepository {
         }
 
         for (int i = 0; i < users.length; i++) {
-            if (users[i].getId() == user.getId()) {
+            if (users[i] != null && users[i].getId() == user.getId()) {
                 users[i] = user;
                 return user;
             }
