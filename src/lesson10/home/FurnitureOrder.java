@@ -12,8 +12,10 @@ public class FurnitureOrder extends Order {
 
     @Override
     public void validateOrder() {
-        if (validateShipmentCities()
-                && validateMinPrice()
+        String[] allowedFromCities = {"Киев", "Львов"};
+
+        if (inArray(allowedFromCities, getShipFromCity())
+                && getBasePrice() > 500
                 && getCustomerOwned().getName() != "Тест"
         ) {
             setDateConfirmed(new Date());
@@ -33,22 +35,4 @@ public class FurnitureOrder extends Order {
         return furnitureCode;
     }
 
-    @Override
-    protected String[] getAllowedShipToCity() {
-        String[] allowedCities = new String[0];
-
-        return allowedCities;
-    };
-
-    @Override
-    protected String[] getAllowedShipFromCity() {
-        String[] allowedCities = {"Киев", "Львов"};
-
-        return allowedCities;
-    };
-
-    @Override
-    protected int getMinPrice() {
-        return 500;
-    }
 }

@@ -24,9 +24,6 @@ public abstract class Order {
 
     abstract public void validateOrder();
     abstract public void calculatePrice();
-    abstract protected String[] getAllowedShipToCity();
-    abstract protected String[] getAllowedShipFromCity();
-    abstract protected int getMinPrice();
 
     public void confirmShipping() {
         if (dateShipped == null) {
@@ -82,25 +79,7 @@ public abstract class Order {
         this.totalPrice = totalPrice;
     }
 
-    protected boolean validateShipmentCities() {
-
-        return validateCity(getAllowedShipFromCity(), getShipFromCity())
-                && validateCity(getAllowedShipToCity(), getShipToCity());
-    }
-
-    protected boolean validateMinPrice() {
-        return getBasePrice() > getMinPrice();
-    }
-
-    private boolean validateCity(String[] shipmentCities, String city) {
-        if (shipmentCities.length == 0) {
-            return true;
-        }
-
-        return inArray(shipmentCities, city);
-    }
-
-    private boolean inArray(String[] array, String element) {
+    protected boolean inArray(String[] array, String element) {
         for (String el : array) {
             if (el == element) {
                 return true;

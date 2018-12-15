@@ -13,8 +13,10 @@ public class ElectronicsOrder extends Order {
 
     @Override
     public void validateOrder() {
-        if (validateShipmentCities()
-            && validateMinPrice()
+        String[] allowedFromCities = {"Киев", "Одесса", "Днепр", "Харьков"};
+        String[] allowedToCities = {"Киев", "Одесса", "Днепр", "Харьков"};
+        if (inArray(allowedFromCities, getShipFromCity()) && inArray(allowedToCities, getShipToCity())
+            && getBasePrice() > 100
             && getCustomerOwned().getGender() == "Женский"
         ) {
             setDateConfirmed(new Date());
@@ -29,30 +31,10 @@ public class ElectronicsOrder extends Order {
         if (totalPrice > 1000) {
             totalPrice -= totalPrice * 5 / 100;
         }
-        //totalPrice += shipmentPrice;
         setTotalPrice(totalPrice);
     }
 
     public int getGuaranteeMonths() {
         return guaranteeMonths;
-    }
-
-    @Override
-    protected String[] getAllowedShipToCity() {
-        String[] allowedCities = {"Киев", "Одесса", "Днепр", "Харьков"};
-
-        return allowedCities;
-    };
-
-    @Override
-    protected String[] getAllowedShipFromCity() {
-        String[] allowedCities = {"Киев", "Одесса", "Днепр", "Харьков"};
-
-        return allowedCities;
-    };
-
-    @Override
-    protected int getMinPrice() {
-        return 100;
     }
 }
