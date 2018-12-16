@@ -9,6 +9,11 @@ public class SimpleReader implements Readable {
 
     @Override
     public void readFileFromStorage(Storage storage) {
+        if (storage == null || storage.getFiles() == null) {
+            System.out.println("Storage is empty");
+            return;
+        }
+
         for (File file : storage.getFiles()) {
             if (file != null) {
                 System.out.println(file.getName());

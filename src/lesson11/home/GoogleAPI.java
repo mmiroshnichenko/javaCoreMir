@@ -13,7 +13,6 @@ public class GoogleAPI implements API {
     public Room[] findRooms(int price, int persons, String city, String hotel) {
         int length = 0;
 
-
         for (Room elRoom : rooms) {
             if (elRoom != null
                     && elRoom.getPrice() == price && elRoom.getPersons() == persons
@@ -44,5 +43,12 @@ public class GoogleAPI implements API {
     @Override
     public Room[] getAll() {
         return rooms;
+    }
+
+    @Override
+    public String toString() {
+        return "GoogleAPI{" +
+                "rooms=" + Arrays.toString(rooms) +
+                '}';
     }
 }

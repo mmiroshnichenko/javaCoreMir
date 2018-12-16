@@ -16,9 +16,17 @@ public class Demo {
 
         read(storage, fileReader);
         read(storage, simpleReader);
+
+        read(null, fileReader);
+        read(null, simpleReader);
+
+        Storage storage2 = new Storage(null);
+        read(storage2, fileReader);
+        read(storage2, simpleReader);
     }
 
     private static void read(Storage storage, Readable readable) {
+        System.out.println();
         System.out.println("method is starting");
         readable.readFileFromStorage(storage);
     }

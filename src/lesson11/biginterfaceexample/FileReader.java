@@ -4,6 +4,10 @@ public class FileReader implements Readable {
 
     @Override
     public void readFileFromStorage(Storage storage) {
+        if (storage == null || storage.getFiles() == null) {
+            System.out.println("Storage is empty");
+            return;
+        }
         printFile(findMaxSizeFile(storage.getFiles()));
     }
 
