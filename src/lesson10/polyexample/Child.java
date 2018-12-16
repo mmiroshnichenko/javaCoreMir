@@ -11,4 +11,9 @@ public class Child extends Human{
         System.out.println("Child class is called...");
         super.run();
     }
+
+    @Override
+    public String toString() {
+        return "Child{}";
+    }
 }

@@ -1,5 +1,6 @@
 package lesson10.home;
 
+import java.util.Arrays;
 import java.util.Date;
 
 public class ElectronicsOrder extends Order {
@@ -21,11 +22,18 @@ public class ElectronicsOrder extends Order {
             && getCustomerOwned().getGender() == "Женский"
         ) {
             setDateConfirmed(new Date());
+        } else {
+            printErrorIncorrectOrderData();
         }
     }
 
     @Override
     public void calculatePrice() {
+        if (getDateConfirmed() == null) {
+            printErrorIncorrectOrderData();
+            return;
+        }
+
         int shipmentPercent = (getShipToCity() == "Киев" || getShipToCity() == "Одесса") ? 10 : 15;
         double shipmentPrice = getBasePrice() * shipmentPercent / 100;
         double totalPrice = getBasePrice() + shipmentPrice;
@@ -37,5 +45,18 @@ public class ElectronicsOrder extends Order {
 
     public int getGuaranteeMonths() {
         return guaranteeMonths;
+    }
+
+    protected void printErrorIncorrectOrderData() {
+        System.out.println("Incorrect electronics order data");
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + " ElectronicsOrder{" +
+                "guaranteeMonths=" + guaranteeMonths +
+                ", allowedFromCities=" + Arrays.toString(allowedFromCities) +
+                ", allowedToCities=" + Arrays.toString(allowedToCities) +
+                '}';
     }
 }

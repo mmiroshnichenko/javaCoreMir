@@ -1,5 +1,7 @@
 package lesson10.abstractbigexample;
 
+import java.util.Arrays;
+
 public abstract class Employee {
     private String name;
     private int age;
@@ -8,12 +10,25 @@ public abstract class Employee {
 
     private int salaryPerMonth;
     private BankAccount bankAccount;
-    private Company[] companiesWorked = new Company[10];
-    private String[] positionsWorked = new String[10];
+    private Company[] companiesWorked;
+    private String[] positionsWorked;
+
+    public Employee(String name, int age, int yearsOfExperience, String curPosition, int salaryPerMonth, Company[] companiesWorked, String[] positionsWorked) {
+        this.name = name;
+        this.age = age;
+        this.yearsOfExperience = yearsOfExperience;
+        this.curPosition = curPosition;
+        this.salaryPerMonth = salaryPerMonth;
+        this.companiesWorked = companiesWorked;
+        this.positionsWorked = positionsWorked;
+    }
 
     abstract void paySalary();
 
     void changePosition(String newPosition) {
+        if (newPosition == null) {
+            System.out.println("Wrong new position");
+        }
         saveCurPositionToHistory();
         curPosition = newPosition;
     }
@@ -37,11 +52,34 @@ public abstract class Employee {
         return bankAccount;
     }
 
+    public void setBankAccount(BankAccount bankAccount) {
+        if (bankAccount.getEmployee().equals(this)) {
+            this.bankAccount = bankAccount;
+        } else {
+            System.out.println("Wrong bank account!");
+        }
+
+    }
+
     public int getSalaryPerMonth() {
         return salaryPerMonth;
     }
 
     public String getName() {
         return name;
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                ", yearsOfExperience=" + yearsOfExperience +
+                ", curPosition='" + curPosition + '\'' +
+                ", salaryPerMonth=" + salaryPerMonth +
+                ", bankAccount=" + bankAccount +
+                ", companiesWorked=" + Arrays.toString(companiesWorked) +
+                ", positionsWorked=" + Arrays.toString(positionsWorked) +
+                '}';
     }
 }

@@ -11,4 +11,11 @@ public class Human {
         System.out.println("Human class is called...");
         System.out.println(name + " is running");
     }
+
+    @Override
+    public String toString() {
+        return "Human{" +
+                "name='" + name + '\'' +
+                '}';
+    }
 }

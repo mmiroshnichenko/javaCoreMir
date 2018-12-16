@@ -24,8 +24,14 @@ public abstract class Order {
 
     abstract public void validateOrder();
     abstract public void calculatePrice();
+    abstract protected void printErrorIncorrectOrderData();
 
     public void confirmShipping() {
+        if (dateConfirmed == null || totalPrice <= 0) {
+            printErrorIncorrectOrderData();
+            return;
+        }
+
         if (dateShipped == null) {
             dateShipped = new Date();
         }
@@ -89,4 +95,18 @@ public abstract class Order {
         return false;
     }
 
+    @Override
+    public String toString() {
+        return "Order{" +
+                "itemName='" + itemName + '\'' +
+                ", dateCreated=" + dateCreated +
+                ", dateConfirmed=" + dateConfirmed +
+                ", dateShipped=" + dateShipped +
+                ", shipFromCity='" + shipFromCity + '\'' +
+                ", shipToCity='" + shipToCity + '\'' +
+                ", basePrice=" + basePrice +
+                ", totalPrice=" + totalPrice +
+                ", customerOwned=" + customerOwned +
+                '}';
+    }
 }

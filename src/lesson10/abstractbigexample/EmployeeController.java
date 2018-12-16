@@ -6,7 +6,7 @@ public class EmployeeController {
     void paySalaryToEmployees() {
         for (Employee employee : employees) {
             employee.paySalary();
-            System.out.println("Salary waas paid successfully to " + employee.getName() + " employee");
+            System.out.println("Salary was paid successfully to " + employee.getName() + " employee");
         }
     }
 }

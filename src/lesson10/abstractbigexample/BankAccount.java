@@ -16,4 +16,16 @@ public class BankAccount {
     public void setBalance(int balance) {
         this.balance = balance;
     }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    @Override
+    public String toString() {
+        return "BankAccount{" +
+                "employee=" + employee.getName() +
+                ", balance=" + balance +
+                '}';
+    }
 }
