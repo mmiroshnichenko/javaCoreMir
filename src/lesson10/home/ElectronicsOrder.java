@@ -17,7 +17,9 @@ public class ElectronicsOrder extends Order {
 
     @Override
     public void validateOrder() {
-        if (inArray(allowedFromCities, getShipFromCity()) && inArray(allowedToCities, getShipToCity())
+
+        if (Arrays.asList(allowedFromCities).contains(getShipFromCity())
+            && Arrays.asList(allowedToCities).contains(getShipToCity())
             && getBasePrice() > 100
             && getCustomerOwned().getGender() == "Женский"
         ) {

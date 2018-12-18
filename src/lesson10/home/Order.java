@@ -85,16 +85,6 @@ public abstract class Order {
         this.totalPrice = totalPrice;
     }
 
-    protected boolean inArray(String[] array, String element) {
-        for (String el : array) {
-            if (el == element) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
     @Override
     public String toString() {
         return "Order{" +

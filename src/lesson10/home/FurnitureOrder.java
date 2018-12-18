@@ -15,7 +15,7 @@ public class FurnitureOrder extends Order {
 
     @Override
     public void validateOrder() {
-        if (inArray(allowedFromCities, getShipFromCity())
+        if (Arrays.asList(allowedFromCities).contains(getShipFromCity())
                 && getBasePrice() > 500
                 && getCustomerOwned().getName() != "Тест"
         ) {
