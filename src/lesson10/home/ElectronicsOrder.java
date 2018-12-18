@@ -29,11 +29,6 @@ public class ElectronicsOrder extends Order {
 
     @Override
     public void calculatePrice() {
-        if (getDateConfirmed() == null) {
-            printErrorIncorrectOrderData();
-            return;
-        }
-
         int shipmentPercent = (getShipToCity() == "Киев" || getShipToCity() == "Одесса") ? 10 : 15;
         double shipmentPrice = getBasePrice() * shipmentPercent / 100;
         double totalPrice = getBasePrice() + shipmentPrice;
