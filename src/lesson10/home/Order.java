@@ -27,11 +27,6 @@ public abstract class Order {
     abstract protected void printErrorIncorrectOrderData();
 
     public void confirmShipping() {
-        if (dateConfirmed != null) {
-            printErrorIncorrectOrderData();
-            return;
-        }
-
         if (dateShipped == null) {
             dateShipped = new Date();
         }
