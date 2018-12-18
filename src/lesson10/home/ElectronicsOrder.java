@@ -24,8 +24,6 @@ public class ElectronicsOrder extends Order {
             && getCustomerOwned().getGender() == "Женский"
         ) {
             setDateConfirmed(new Date());
-        } else {
-            printErrorIncorrectOrderData();
         }
     }
 
