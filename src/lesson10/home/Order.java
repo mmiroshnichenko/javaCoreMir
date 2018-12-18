@@ -24,7 +24,6 @@ public abstract class Order {
 
     abstract public void validateOrder();
     abstract public void calculatePrice();
-    abstract protected void printErrorIncorrectOrderData();
 
     public void confirmShipping() {
         if (dateShipped == null) {

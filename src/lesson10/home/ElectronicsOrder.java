@@ -42,10 +42,6 @@ public class ElectronicsOrder extends Order {
         return guaranteeMonths;
     }
 
-    protected void printErrorIncorrectOrderData() {
-        System.out.println("Incorrect electronics order data");
-    }
-
     @Override
     public String toString() {
         return super.toString() + " ElectronicsOrder{" +
