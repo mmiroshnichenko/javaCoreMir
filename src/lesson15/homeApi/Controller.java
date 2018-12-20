@@ -43,7 +43,7 @@ public class Controller {
             if (api1Room != null) {
                 for (Room api2Room : api2Rooms) {
                     if (api2Room != null) {
-                        if (api2Room.equals(api1Room) && api2Room.hashCode() == api1Room.hashCode())
+                        if (api2Room.equals(api1Room))
                         {
                             length++;
                         }
@@ -63,7 +63,7 @@ public class Controller {
             if (api1Room != null) {
                 for (Room api2Room : api2Rooms) {
                     if (api2Room != null) {
-                        if (api2Room.equals(api1Room) && api2Room.hashCode() == api1Room.hashCode())
+                        if (api2Room.equals(api1Room))
                         {
                             matchRooms[index] = api1Room;
                             index++;
