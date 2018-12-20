@@ -1,5 +1,7 @@
 package lesson15.equals;
 
+import java.util.Objects;
+
 public class File {
     private int size;
     private String path;
@@ -13,30 +15,38 @@ public class File {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o)
-            return true;
-
-        if (o == null || getClass() != o.getClass())
-            return false;
-
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
         File file = (File) o;
-
-        if (size != file.size) return  false;
-        if (!path.equals(file.path)) return  false;
-        if (!extension.equals(file.extension)) return  false;
-        return true;
+        return path.equals(file.path);
     }
-
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(size, path, extension);
-//    }
 
     @Override
     public int hashCode() {
-        int result = size;
-        result = 31 * result + path.hashCode();
-        result = 31 * result + extension.hashCode();
-        return result;
+        return path.hashCode();
     }
+
+    //    @Override
+//    public boolean equals(Object o) {
+//        if (this == o)
+//            return true;
+//
+//        if (o == null || getClass() != o.getClass())
+//            return false;
+//
+//        File file = (File) o;
+//
+//        if (size != file.size) return  false;
+//        if (!path.equals(file.path)) return  false;
+//        if (!extension.equals(file.extension)) return  false;
+//        return true;
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        int result = size;
+//        result = 31 * result + path.hashCode();
+//        result = 31 * result + extension.hashCode();
+//        return result;
+//    }
 }
