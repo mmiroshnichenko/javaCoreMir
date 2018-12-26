@@ -4,20 +4,20 @@ import java.util.Date;
 
 public class Issue {
     private long id;
-    private Visitor visitor;
+    private User user;
     private Book book;
     private Date issueDate;
     private Date returnDate;
 
-    public Issue(long id, Visitor visitor, Book book, Date issueDate) {
+    public Issue(long id, User user, Book book, Date issueDate) {
         this.id = id;
-        this.visitor = visitor;
+        this.user = user;
         this.book = book;
         this.issueDate = issueDate;
     }
 
-    public Issue(Visitor visitor, Book book, Date issueDate) {
-        this.visitor = visitor;
+    public Issue(User user, Book book, Date issueDate) {
+        this.user = user;
         this.book = book;
         this.issueDate = issueDate;
     }
@@ -30,8 +30,8 @@ public class Issue {
         this.id = id;
     }
 
-    public Visitor getVisitor() {
-        return visitor;
+    public User getUser() {
+        return user;
     }
 
     public Book getBook() {
@@ -54,7 +54,7 @@ public class Issue {
     public String toString() {
         return "Issue{" +
                 "id=" + id +
-                ", visitor=" + visitor +
+                ", user=" + user +
                 ", book=" + book +
                 ", issueDate=" + issueDate +
                 ", returnDate=" + returnDate +

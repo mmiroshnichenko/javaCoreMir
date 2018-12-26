@@ -1,6 +1,7 @@
 package lesson15.library.repository;
 
 import lesson15.library.entity.User;
+import lesson15.library.entity.UserRole;
 
 import java.util.Date;
 
@@ -15,19 +16,9 @@ public class UserRepository {
         return users;
     }
 
-    public User getAdminByNameAndPassword(String name, String password) {
+    public User getUserByNamePasswordAndRole(String name, String password, UserRole userRole) {
         for (User user : users) {
-            if (user != null && user.isAdmin() && name.equals(user.getName()) && password.equals(user.getPassword())) {
-                return user;
-            }
-        }
-
-        return null;
-    }
-
-    public User getLibrarianByNameAndPassword(String name, String password) {
-        for (User user : users) {
-            if (user != null && !user.isAdmin() && name.equals(user.getName()) && password.equals(user.getPassword())) {
+            if (user != null && user.getUserRole() == userRole && name.equals(user.getName()) && password.equals(user.getPassword())) {
                 return user;
             }
         }
@@ -43,16 +34,6 @@ public class UserRepository {
         }
     }
 
-    public User getUserByNameAndEmail(String name, String email) {
-        for (User user : users) {
-            if (user != null && name.equals(user.getName()) && email.equals(user.getEmail())) {
-                return user;
-            }
-        }
-
-        return null;
-    }
-
     public User getUserById(long id) {
         for (User user : users) {
             if (user != null && user.getId() == id) {
@@ -61,6 +42,15 @@ public class UserRepository {
         }
 
         return null;
+    }
+
+    public boolean deleteUserById(long id) {
+        User user = getUserById(id);
+        if (user == null || user.isAdmin()) {
+            return false;
+        }
+
+        return deleteUser(user);
     }
 
     public boolean deleteUser(User user) {
@@ -112,6 +102,16 @@ public class UserRepository {
         }
 
         return librarian;
+    }
+
+    private User getUserByNameAndEmail(String name, String email) {
+        for (User user : users) {
+            if (user != null && name.equals(user.getName()) && email.equals(user.getEmail())) {
+                return user;
+            }
+        }
+
+        return null;
     }
 
     private long getNextUserId() {

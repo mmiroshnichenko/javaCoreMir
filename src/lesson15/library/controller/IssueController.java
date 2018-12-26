@@ -3,72 +3,50 @@ package lesson15.library.controller;
 import lesson15.library.entity.Book;
 import lesson15.library.entity.Issue;
 import lesson15.library.entity.User;
-import lesson15.library.entity.Visitor;
 import lesson15.library.repository.BookRepository;
 import lesson15.library.repository.IssueRepository;
-import lesson15.library.repository.VisitorRepository;
+import lesson15.library.repository.UserRepository;
 
 import java.util.Calendar;
 import java.util.Date;
 
 public class IssueController {
-    private User userLibrarian;
+    private User user;
     private IssueRepository issueRepository;
     private BookRepository bookRepository;
-    private VisitorRepository visitorRepository;
+    private UserRepository userRepository;
 
-    public IssueController(User userLibrarian, IssueRepository issueRepository, BookRepository bookRepository, VisitorRepository visitorRepository) {
-        this.userLibrarian = userLibrarian;
+    public IssueController(User user, IssueRepository issueRepository, BookRepository bookRepository, UserRepository userRepository) {
+        this.user = user;
         this.issueRepository = issueRepository;
         this.bookRepository = bookRepository;
-        this.visitorRepository = visitorRepository;
+        this.userRepository = userRepository;
     }
 
-    public void addIssue(String bookCallNo, long visitorId, String visitorName, String visitorContact) {
-        if (userLibrarian.isAdmin() || !userLibrarian.isAuthorized()) {
+    public Issue addIssue(String bookCallNo, long visitorId, String visitorName, String visitorContact) {
+        if (!user.isLibrarian() || !user.isAuthorized()) {
             System.err.println("Access denied!");
 
-            return;
+            return null;
         }
 
         Book book = bookRepository.getBookByCallNo(bookCallNo);
         if (book == null) {
-            System.err.println("Incorrect book callno!");
-
-            return;
+            return null;
         }
 
-        Visitor visitor = visitorRepository.getVisitorById(visitorId);
-        if (visitor == null) {
-            System.err.println("Please check visitor ID carefully before issuing book!");
-
-            return;
-        }
-
-        Issue existIssue = issueRepository.getIssueByBookAndVisitor(book, visitor);
-        if (existIssue != null) {
-            System.err.println("Issue book for this visitor already exist!");
-
-            return;
+        User visitor = userRepository.getUserById(visitorId);
+        if (visitor == null || !visitor.isVisitor()) {
+            return null;
         }
 
         if (book.getQuantity() == 0){
-            System.err.println("Please check quantity of book!");
-
-            return;
+            return null;
         }
 
-        Date minIssueDate = issueRepository.getMinIssueDateForVisitor(visitor);
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(new Date());
-        cal.add(Calendar.MONTH, -1);
-        Date compareDate = cal.getTime();
-        if (minIssueDate != null && minIssueDate.compareTo(compareDate) <= 0) {
-            System.err.println("Visitor has not returned issued book from " + minIssueDate.toString());
-
-            return;
+        if (!checkExpiredIssueDatesForVisitor(visitor)) {
+            return null;
         }
-
 
         Issue newIssue = issueRepository.addIssue(new Issue(visitor, book, new Date()));
         if (newIssue != null) {
@@ -76,14 +54,29 @@ public class IssueController {
             int newIssued = book.getIssued() + 1;
             book.setQuantity(newQuantity);
             book.setIssued(newIssued);
-            System.out.println("Book issued successfully!");
-        } else {
-            System.err.println("Wrong adding issue book!");
+            bookRepository.update(book);
+
+            return newIssue;
         }
+
+        return null;
+    }
+
+    private boolean checkExpiredIssueDatesForVisitor(User visitor) {
+        Date minIssueDate = issueRepository.getMinIssueDateForVisitor(visitor);
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new Date());
+        cal.add(Calendar.MONTH, -1);
+        Date compareDate = cal.getTime();
+        if (minIssueDate != null && minIssueDate.compareTo(compareDate) <= 0) {
+            return false;
+        }
+
+        return true;
     }
 
     public Issue[] viewIssues() {
-        if (userLibrarian.isAdmin() || !userLibrarian.isAuthorized()) {
+        if (!user.isLibrarian() || !user.isAuthorized()) {
             System.err.println("Access denied!");
 
             return null;
@@ -92,25 +85,21 @@ public class IssueController {
         return issueRepository.getAllActiveIssues();
     }
 
-    public void returnBook(String bookCallNo, long visitorId) {
-        if (userLibrarian.isAdmin() || !userLibrarian.isAuthorized()) {
+    public boolean returnBook(String bookCallNo, long visitorId) {
+        if (!user.isLibrarian() || !user.isAuthorized()) {
             System.err.println("Access denied!");
 
-            return;
+            return false;
         }
 
         Book book = bookRepository.getBookByCallNo(bookCallNo);
         if (book == null) {
-            System.err.println("Incorrect book callno!");
-
-            return;
+            return false;
         }
 
-        Visitor visitor = visitorRepository.getVisitorById(visitorId);
-        if (visitor == null) {
-            System.err.println("Please check visitor ID carefully before issuing book!");
-
-            return;
+        User visitor = userRepository.getUserById(visitorId);
+        if (visitor == null || !visitor.isVisitor()) {
+            return false;
         }
 
         Issue issue = issueRepository.getIssueByBookAndVisitor(book, visitor);
@@ -120,9 +109,11 @@ public class IssueController {
             int newIssued = book.getIssued() - 1;
             book.setQuantity(newQuantity);
             book.setIssued(newIssued);
-            System.out.println("Book returned successfully!");
-        } else {
-            System.err.println("Wrong returning issue book!");
+            bookRepository.update(book);
+
+            return true;
         }
+
+        return false;
     }
 }

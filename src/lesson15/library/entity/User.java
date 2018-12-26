@@ -10,12 +10,12 @@ public class User {
     private String address;
     private String city;
     private String contactNumber;
-    private boolean isAdmin;
+    private UserRole userRole;
 
     private Date sessionStart;
     private Date sessionEnd;
 
-    public User(long id, String name, String password, String email, String address, String city, String contactNumber, boolean isAdmin) {
+    public User(long id, String name, String password, String email, String address, String city, String contactNumber, UserRole userRole) {
         this.id = id;
         this.name = name;
         this.password = password;
@@ -23,17 +23,17 @@ public class User {
         this.address = address;
         this.city = city;
         this.contactNumber = contactNumber;
-        this.isAdmin = isAdmin;
+        this.userRole = userRole;
     }
 
-    public User(String name, String password, String email, String address, String city, String contactNumber, boolean isAdmin) {
+    public User(String name, String password, String email, String address, String city, String contactNumber, UserRole userRole) {
         this.name = name;
         this.password = password;
         this.email = email;
         this.address = address;
         this.city = city;
         this.contactNumber = contactNumber;
-        this.isAdmin = isAdmin;
+        this.userRole = userRole;
     }
 
     public long getId() {
@@ -68,8 +68,20 @@ public class User {
         return contactNumber;
     }
 
+    public UserRole getUserRole() {
+        return userRole;
+    }
+
     public boolean isAdmin() {
-        return isAdmin;
+        return userRole == UserRole.admin;
+    }
+
+    public boolean isLibrarian() {
+        return userRole == UserRole.librarian;
+    }
+
+    public boolean isVisitor() {
+        return userRole == UserRole.visitor;
     }
 
     public Date getSessionStart() {
@@ -104,7 +116,7 @@ public class User {
         User user = (User) o;
 
         if (id != user.id) return false;
-        if (isAdmin != user.isAdmin) return false;
+        if (userRole != user.userRole) return false;
         if (!name.equals(user.name)) return false;
         if (!password.equals(user.password)) return false;
         if (!email.equals(user.email)) return false;
@@ -122,7 +134,7 @@ public class User {
         result = 31 * result + address.hashCode();
         result = 31 * result + city.hashCode();
         result = 31 * result + contactNumber.hashCode();
-        result = 31 * result + (isAdmin ? 1 : 0);
+        result = 31 * result + userRole.hashCode();
         return result;
     }
 
@@ -136,7 +148,7 @@ public class User {
                 ", address='" + address + '\'' +
                 ", city='" + city + '\'' +
                 ", contactNumber='" + contactNumber + '\'' +
-                ", isAdmin=" + isAdmin +
+                ", userRole=" + userRole +
                 ", sessionStart=" + sessionStart +
                 ", sessionEnd=" + sessionEnd +
                 '}';

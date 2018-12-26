@@ -7,19 +7,19 @@ import lesson15.library.repository.BookRepository;
 import java.util.Date;
 
 public class BookController {
-    private User userLibrarian;
+    private User user;
     private BookRepository bookRepository;
 
-    public BookController(User userLibrarian, BookRepository bookRepository) {
-        this.userLibrarian = userLibrarian;
+    public BookController(User user, BookRepository bookRepository) {
+        this.user = user;
         this.bookRepository = bookRepository;
     }
 
-    public void addBooks(String callNo, String name, String author, String publisher, int quantity) {
-        if (userLibrarian.isAdmin() || !userLibrarian.isAuthorized()) {
+    public Book addBooks(String callNo, String name, String author, String publisher, int quantity) {
+        if (!user.isLibrarian() || !user.isAuthorized()) {
             System.err.println("Access denied!");
 
-            return;
+            return null;
         }
 
         Book existBook = bookRepository.getBookByCallNo(callNo);
@@ -27,20 +27,14 @@ public class BookController {
             quantity += existBook.getQuantity();
             existBook.setQuantity(quantity);
 
-            System.out.println("Books added successfully!");
-            return;
+            return bookRepository.update(existBook);
         }
 
-        Book newBook = bookRepository.addBook(new Book(callNo, name, author, publisher, quantity, new Date()));
-        if (newBook != null) {
-            System.out.println("Books added successfully!");
-        } else {
-            System.err.println("Wrong adding books!");
-        }
+        return bookRepository.addBook(new Book(callNo, name, author, publisher, quantity, new Date()));
     }
 
     public Book[] viewBooks() {
-        if (userLibrarian.isAdmin() || !userLibrarian.isAuthorized()) {
+        if (!user.isLibrarian() || !user.isAuthorized()) {
             System.err.println("Access denied!");
 
             return null;

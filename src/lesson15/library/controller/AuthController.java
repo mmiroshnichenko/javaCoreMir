@@ -1,6 +1,7 @@
 package lesson15.library.controller;
 
 import lesson15.library.entity.User;
+import lesson15.library.entity.UserRole;
 import lesson15.library.repository.UserRepository;
 
 import java.util.Date;
@@ -13,7 +14,7 @@ public class AuthController {
     }
 
     public User loginAdmin(String name, String password) {
-        User user = userRepository.getAdminByNameAndPassword(name, password);
+        User user = userRepository.getUserByNamePasswordAndRole(name, password, UserRole.admin);
         if (user != null) {
             userRepository.logoutAllExceptUser(user);
             user.setSessionStart(new Date());
@@ -29,7 +30,7 @@ public class AuthController {
     }
 
     public User loginLibrarian(String name, String password) {
-        User user = userRepository.getLibrarianByNameAndPassword(name, password);
+        User user = userRepository.getUserByNamePasswordAndRole(name, password, UserRole.librarian);
         if (user != null) {
             userRepository.logoutAllExceptUser(user);
             user.setSessionStart(new Date());

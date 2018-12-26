@@ -24,6 +24,11 @@ public class BookRepository {
     }
 
     public Book addBook(Book book) {
+        Book existBook = getBookByCallNo(book.getCallNo());
+        if (existBook != null) {
+            return null;
+        }
+
         book.setId(getNextBookId());
 
         for (int i = 0; i < books.length; i++) {
@@ -36,6 +41,8 @@ public class BookRepository {
 
         return null;
     }
+
+
 
     public Book[] getAllBooks() {
         int length = 0;
@@ -55,6 +62,19 @@ public class BookRepository {
         }
 
         return allBooks;
+    }
+
+    public Book update(Book book) {
+        for (int i = 0; i < books.length; i++) {
+            if (books[i] != null
+                    && books[i].getId() == book.getId() && books[i].getCallNo() == book.getCallNo()) {
+                books[i] = book;
+
+                return book;
+            }
+        }
+
+        return null;
     }
 
     private long getNextBookId() {

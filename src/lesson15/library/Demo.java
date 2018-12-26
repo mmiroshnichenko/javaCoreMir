@@ -4,23 +4,21 @@ import lesson15.library.controller.AuthController;
 import lesson15.library.controller.BookController;
 import lesson15.library.controller.IssueController;
 import lesson15.library.controller.UserController;
-import lesson15.library.entity.Book;
-import lesson15.library.entity.Issue;
-import lesson15.library.entity.User;
-import lesson15.library.entity.Visitor;
+import lesson15.library.entity.*;
 import lesson15.library.repository.BookRepository;
 import lesson15.library.repository.IssueRepository;
 import lesson15.library.repository.UserRepository;
-import lesson15.library.repository.VisitorRepository;
 
 import java.util.Arrays;
 import java.util.Date;
 
 public class Demo {
     public static void main(String[] args) {
-        User admin = new User(101, "Admin", "admin123", "admin@gmail.com", "test address", "Kiev", "546546546", true);
-        User librarian = new User(102, "Pavel", "fhgh123", "pavel.librarian@gmail.com", "test2 address", "Kharkov", "454654654", false);
-        User[] users = {admin, librarian, null, null, null, null};
+        User admin = new User(101, "Admin", "admin123", "admin@gmail.com", "test address", "Kiev", "546546546", UserRole.admin);
+        User librarian = new User(102, "Pavel", "fhgh123", "pavel.librarian@gmail.com", "test2 address", "Kharkov", "454654654", UserRole.librarian);
+        User visitor1 = new User(301, "Ivan", "jkhfkj", "ttt@ggg.vom", "test3 address", "Lvov",  "6732546327", UserRole.visitor);
+        User visitor2 = new User(301, "Inga", "jkhttkj", "tjt@ggg.vom", "test4 address", "Lvov",  "67666327", UserRole.visitor);
+        User[] users = {admin, librarian, visitor1, visitor2, null, null, null};
         UserRepository userRepository = new UserRepository(users);
 
         //тестируем авторизацию пользователей
@@ -30,6 +28,7 @@ public class Demo {
         System.out.println(admin1);
         authController.logout(admin1);
         System.out.println(admin1);
+
         //неверный пароль админа
         User admin2 = authController.loginAdmin("Admin", "admi3123");
         System.out.println(admin2);
@@ -60,6 +59,7 @@ public class Demo {
         Book book1 = new Book(201, "$ddf", "Test name1", "test author1", "test publisher1", 5, 0, new Date());
         Book book2 = new Book(202, "$dff", "Test name2", "test author2", "test publisher2", 6, 0, new Date());
 
+
         Book[] books = {book1, book2, null, null, null, null, null};
         BookRepository bookRepository = new BookRepository(books);
         BookController bookController = new BookController(librarian2, bookRepository);
@@ -68,14 +68,9 @@ public class Demo {
         System.out.println(Arrays.deepToString(bookController.viewBooks()));
 
         //выдаем книгу
-        //public Visitor(long id, String name, String contact) {
-        Visitor visitor1 = new Visitor(301, "Ivan", "6732546327");
-        Visitor visitor2 = new Visitor(302, "Inga", "6734545327");
-        Visitor[] visitors = {visitor1, visitor2, null, null, null, null};
-        VisitorRepository visitorRepository = new VisitorRepository(visitors);
         Issue[] issues = {null, null, null, null, null, null};
         IssueRepository issueRepository = new IssueRepository(issues);
-        IssueController issueController = new IssueController(librarian2, issueRepository, bookRepository, visitorRepository);
+        IssueController issueController = new IssueController(librarian2, issueRepository, bookRepository, userRepository);
         issueController.addIssue("$ddf", 301, "Ivan", "6732546327");
         System.out.println(Arrays.deepToString(issueController.viewIssues()));
         System.out.println(Arrays.deepToString(bookController.viewBooks()));

@@ -2,7 +2,7 @@ package lesson15.library.repository;
 
 import lesson15.library.entity.Book;
 import lesson15.library.entity.Issue;
-import lesson15.library.entity.Visitor;
+import lesson15.library.entity.User;
 
 import java.util.Date;
 
@@ -17,7 +17,7 @@ public class IssueRepository {
         return issues;
     }
 
-    public Date getMinIssueDateForVisitor(Visitor visitor) {
+    public Date getMinIssueDateForVisitor(User visitor) {
         Issue[] visitorIssues = getActiveIssuesForVisitor(visitor);
         if (visitorIssues.length == 0) {
             return null;
@@ -34,6 +34,10 @@ public class IssueRepository {
     }
 
     public Issue addIssue(Issue issue) {
+        if (getIssueByBookAndVisitor(issue.getBook(), issue.getUser()) != null) {
+            return null;
+        }
+
         issue.setId(getNextIssueId());
 
         for (int i = 0; i < issues.length; i++) {
@@ -67,10 +71,10 @@ public class IssueRepository {
         return activeIssues;
     }
 
-    public Issue getIssueByBookAndVisitor(Book book, Visitor visitor) {
+    public Issue getIssueByBookAndVisitor(Book book, User user) {
         for (Issue issue : issues) {
             if (issue != null && issue.getReturnDate() == null
-                    && visitor.equals(issue.getVisitor()) && visitor.hashCode() == issue.getVisitor().hashCode()
+                    && user.equals(issue.getUser()) && user.hashCode() == issue.getUser().hashCode()
                     && book.equals(issue.getBook()) && book.hashCode() == issue.getBook().hashCode()) {
                 return issue;
             }
@@ -79,11 +83,11 @@ public class IssueRepository {
         return null;
     }
 
-    private Issue[] getActiveIssuesForVisitor(Visitor visitor) {
+    private Issue[] getActiveIssuesForVisitor(User user) {
         int length = 0;
         for (Issue issue : issues) {
             if (issue != null && issue.getReturnDate() == null
-                    && visitor.equals(issue.getVisitor()) && visitor.hashCode() == issue.getVisitor().hashCode()) {
+                    && user.equals(issue.getUser()) && user.hashCode() == issue.getUser().hashCode()) {
                 length++;
             }
         }
@@ -92,7 +96,7 @@ public class IssueRepository {
         int index = 0;
         for (Issue issue : issues) {
             if (issue != null && issue.getReturnDate() == null
-                    && visitor.equals(issue.getVisitor()) && visitor.hashCode() == issue.getVisitor().hashCode()) {
+                    && user.equals(issue.getUser()) && user.hashCode() == issue.getUser().hashCode()) {
                 visitorIssues[index] = issue;
                 index++;
             }
