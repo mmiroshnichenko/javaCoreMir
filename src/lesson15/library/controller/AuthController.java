@@ -14,32 +14,21 @@ public class AuthController {
     }
 
     public User loginAdmin(String name, String password) {
-        User user = userRepository.getUserByNamePasswordAndRole(name, password, UserRole.admin);
-        if (user != null) {
-            userRepository.logoutAllExceptUser(user);
-            user.setSessionStart(new Date());
-            user.setSessionEnd(null);
-            System.out.println("Admin logged in");
-
-            return user;
-        } else {
-            System.err.println("Incorrect name or password");
-        }
-
-        return null;
+        return loginUser(name, password, UserRole.admin);
     }
 
     public User loginLibrarian(String name, String password) {
-        User user = userRepository.getUserByNamePasswordAndRole(name, password, UserRole.librarian);
+        return loginUser(name, password, UserRole.librarian);
+    }
+
+    private User loginUser(String name, String password, UserRole userRole) {
+        User user = userRepository.getUserByNamePasswordAndRole(name, password, userRole);
         if (user != null) {
             userRepository.logoutAllExceptUser(user);
             user.setSessionStart(new Date());
             user.setSessionEnd(null);
-            System.out.println("Librarian logged in");
 
             return user;
-        } else {
-            System.err.println("Incorrect name or password");
         }
 
         return null;
