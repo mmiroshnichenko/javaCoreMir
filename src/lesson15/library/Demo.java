@@ -65,7 +65,7 @@ public class Demo {
         BookStorageRepository bookStorageRepository = new BookStorageRepository(bookStorages);
         BookStorageController bookStorageController = new BookStorageController(librarian2, bookStorageRepository, sessionRepository);
         System.out.println(Arrays.deepToString(bookStorageController.viewBooks()));
-        bookStorageController.addBooksToStorage("@ddf", "Test name3", "test author3", "test publisher3", 7);
+        bookStorageController.addBooksToStorage(new BookStorage("@ddf", "Test name3", "test author3", "test publisher3", 7, new Date()));
         System.out.println(Arrays.deepToString(bookStorageController.viewBooks()));
 
         //выдаем книгу

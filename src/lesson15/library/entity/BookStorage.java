@@ -81,28 +81,18 @@ public class BookStorage {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        BookStorage bookStorage = (BookStorage) o;
+        BookStorage that = (BookStorage) o;
 
-        if (id != bookStorage.id) return false;
-        if (quantity != bookStorage.quantity) return false;
-        if (issued != bookStorage.issued) return false;
-        if (!callNo.equals(bookStorage.callNo)) return false;
-        if (!name.equals(bookStorage.name)) return false;
-        if (!author.equals(bookStorage.author)) return false;
-        if (!publisher.equals(bookStorage.publisher)) return false;
-        return addedDate.equals(bookStorage.addedDate);
+        if (!name.equals(that.name)) return false;
+        if (!author.equals(that.author)) return false;
+        return publisher.equals(that.publisher);
     }
 
     @Override
     public int hashCode() {
-        int result = (int) (id ^ (id >>> 32));
-        result = 31 * result + callNo.hashCode();
-        result = 31 * result + name.hashCode();
+        int result = name.hashCode();
         result = 31 * result + author.hashCode();
         result = 31 * result + publisher.hashCode();
-        result = 31 * result + quantity;
-        result = 31 * result + issued;
-        result = 31 * result + addedDate.hashCode();
         return result;
     }
 

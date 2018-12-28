@@ -23,26 +23,27 @@ public class BookStorageRepository {
         return null;
     }
 
-    public BookStorage addBook(BookStorage bookStorage) {
-        BookStorage existBookStorage = getBookByCallNo(bookStorage.getCallNo());
+    public BookStorage addBookStorage(BookStorage bookStorage) {
+        BookStorage existBookStorage = getEqualBookStorage(bookStorage);
         if (existBookStorage != null) {
-            return null;
-        }
+            int quantity = existBookStorage.getQuantity() + bookStorage.getQuantity();
+            existBookStorage.setQuantity(quantity);
 
-        bookStorage.setId(getNextBookId());
+            return existBookStorage;
+        } else {
+            bookStorage.setId(getNextBookId());
 
-        for (int i = 0; i < bookStorages.length; i++) {
-            if (bookStorages[i] == null) {
-                bookStorages[i] = bookStorage;
+            for (int i = 0; i < bookStorages.length; i++) {
+                if (bookStorages[i] == null) {
+                    bookStorages[i] = bookStorage;
 
-                return bookStorage;
+                    return bookStorage;
+                }
             }
         }
 
         return null;
     }
-
-
 
     public BookStorage[] getAllBooks() {
         int length = 0;
@@ -71,6 +72,16 @@ public class BookStorageRepository {
                 bookStorages[i] = bookStorage;
 
                 return bookStorage;
+            }
+        }
+
+        return null;
+    }
+
+    private BookStorage getEqualBookStorage(BookStorage bookStorage) {
+        for (BookStorage elBookStorage : bookStorages) {
+            if (elBookStorage != null && elBookStorage.equals(bookStorage) && elBookStorage.hashCode() == bookStorage.hashCode()) {
+                return elBookStorage;
             }
         }
 
