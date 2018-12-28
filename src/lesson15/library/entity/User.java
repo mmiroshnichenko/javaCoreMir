@@ -73,15 +73,15 @@ public class User {
     }
 
     public boolean isAdmin() {
-        return userRole == UserRole.admin;
+        return userRole == UserRole.ADMIN;
     }
 
     public boolean isLibrarian() {
-        return userRole == UserRole.librarian;
+        return userRole == UserRole.LIBRARIAN;
     }
 
     public boolean isVisitor() {
-        return userRole == UserRole.visitor;
+        return userRole == UserRole.VISITOR;
     }
 
     public Date getSessionStart() {
@@ -98,14 +98,6 @@ public class User {
 
     public void setSessionEnd(Date sessionEnd) {
         this.sessionEnd = sessionEnd;
-    }
-
-    public boolean isAuthorized() {
-        if (sessionStart != null && sessionEnd == null) {
-            return true;
-        }
-
-        return false;
     }
 
     @Override

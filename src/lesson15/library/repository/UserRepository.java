@@ -3,8 +3,6 @@ package lesson15.library.repository;
 import lesson15.library.entity.User;
 import lesson15.library.entity.UserRole;
 
-import java.util.Date;
-
 public class UserRepository {
     private User[] users;
 
@@ -24,14 +22,6 @@ public class UserRepository {
         }
 
         return null;
-    }
-
-    public void logoutAllExceptUser(User user) {
-        for (User elUser : users) {
-            if (elUser != null && !(elUser.equals(user) && elUser.hashCode() == user.hashCode())) {
-                elUser.setSessionEnd(new Date());
-            }
-        }
     }
 
     public User getUserById(long id) {

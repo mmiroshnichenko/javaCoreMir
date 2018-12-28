@@ -2,7 +2,7 @@ package lesson15.library.entity;
 
 import java.util.Date;
 
-public class Book {
+public class BookStorage {
     private long id;
     private String callNo;
     private String name;
@@ -12,7 +12,7 @@ public class Book {
     private int issued = 0;
     private Date addedDate;
 
-    public Book(long id, String callNo, String name, String author, String publisher, int quantity, int issued, Date addedDate) {
+    public BookStorage(long id, String callNo, String name, String author, String publisher, int quantity, int issued, Date addedDate) {
         this.id = id;
         this.callNo = callNo;
         this.name = name;
@@ -23,7 +23,7 @@ public class Book {
         this.addedDate = addedDate;
     }
 
-    public Book(String callNo, String name, String author, String publisher, int quantity, Date addedDate) {
+    public BookStorage(String callNo, String name, String author, String publisher, int quantity, Date addedDate) {
         this.callNo = callNo;
         this.name = name;
         this.author = author;
@@ -81,16 +81,16 @@ public class Book {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Book book = (Book) o;
+        BookStorage bookStorage = (BookStorage) o;
 
-        if (id != book.id) return false;
-        if (quantity != book.quantity) return false;
-        if (issued != book.issued) return false;
-        if (!callNo.equals(book.callNo)) return false;
-        if (!name.equals(book.name)) return false;
-        if (!author.equals(book.author)) return false;
-        if (!publisher.equals(book.publisher)) return false;
-        return addedDate.equals(book.addedDate);
+        if (id != bookStorage.id) return false;
+        if (quantity != bookStorage.quantity) return false;
+        if (issued != bookStorage.issued) return false;
+        if (!callNo.equals(bookStorage.callNo)) return false;
+        if (!name.equals(bookStorage.name)) return false;
+        if (!author.equals(bookStorage.author)) return false;
+        if (!publisher.equals(bookStorage.publisher)) return false;
+        return addedDate.equals(bookStorage.addedDate);
     }
 
     @Override
@@ -108,7 +108,7 @@ public class Book {
 
     @Override
     public String toString() {
-        return "Book{" +
+        return "BookStorage{" +
                 "id=" + id +
                 ", callNo='" + callNo + '\'' +
                 ", name='" + name + '\'' +

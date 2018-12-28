@@ -1,10 +1,11 @@
 package lesson15.library.controller;
 
-import lesson15.library.entity.Book;
+import lesson15.library.entity.BookStorage;
 import lesson15.library.entity.Issue;
 import lesson15.library.entity.User;
-import lesson15.library.repository.BookRepository;
+import lesson15.library.repository.BookStorageRepository;
 import lesson15.library.repository.IssueRepository;
+import lesson15.library.repository.SessionRepository;
 import lesson15.library.repository.UserRepository;
 
 import java.util.Calendar;
@@ -13,48 +14,42 @@ import java.util.Date;
 public class IssueController {
     private User user;
     private IssueRepository issueRepository;
-    private BookRepository bookRepository;
+    private BookStorageRepository bookStorageRepository;
     private UserRepository userRepository;
+    private SessionRepository sessionRepository;
 
-    public IssueController(User user, IssueRepository issueRepository, BookRepository bookRepository, UserRepository userRepository) {
+    public IssueController(User user, IssueRepository issueRepository,
+                           BookStorageRepository bookStorageRepository,
+                           UserRepository userRepository,
+                           SessionRepository sessionRepository) {
         this.user = user;
         this.issueRepository = issueRepository;
-        this.bookRepository = bookRepository;
+        this.bookStorageRepository = bookStorageRepository;
         this.userRepository = userRepository;
+        this.sessionRepository = sessionRepository;
     }
 
     public Issue addIssue(String bookCallNo, long visitorId, String visitorName, String visitorContact) {
-        if (!user.isLibrarian() || !user.isAuthorized()) {
-            System.err.println("Access denied!");
-
+        if (!user.isLibrarian() || !sessionRepository.userAuthorized(user)) {
             return null;
         }
 
-        Book book = bookRepository.getBookByCallNo(bookCallNo);
-        if (book == null) {
-            return null;
-        }
-
+        BookStorage bookStorage = bookStorageRepository.getBookByCallNo(bookCallNo);
         User visitor = userRepository.getUserById(visitorId);
-        if (visitor == null || !visitor.isVisitor()) {
+        if (bookStorage == null || bookStorage.getQuantity() == 0
+                || visitor == null || !visitor.isVisitor()
+                || !checkExpiredIssueDatesForVisitor(visitor)) {
             return null;
         }
 
-        if (book.getQuantity() == 0){
-            return null;
-        }
 
-        if (!checkExpiredIssueDatesForVisitor(visitor)) {
-            return null;
-        }
-
-        Issue newIssue = issueRepository.addIssue(new Issue(visitor, book, new Date()));
+        Issue newIssue = issueRepository.addIssue(new Issue(visitor, bookStorage, new Date()));
         if (newIssue != null) {
-            int newQuantity = book.getQuantity() - 1;
-            int newIssued = book.getIssued() + 1;
-            book.setQuantity(newQuantity);
-            book.setIssued(newIssued);
-            bookRepository.update(book);
+            int newQuantity = bookStorage.getQuantity() - 1;
+            int newIssued = bookStorage.getIssued() + 1;
+            bookStorage.setQuantity(newQuantity);
+            bookStorage.setIssued(newIssued);
+            bookStorageRepository.update(bookStorage);
 
             return newIssue;
         }
@@ -76,9 +71,7 @@ public class IssueController {
     }
 
     public Issue[] viewIssues() {
-        if (!user.isLibrarian() || !user.isAuthorized()) {
-            System.err.println("Access denied!");
-
+        if (!user.isLibrarian() || !sessionRepository.userAuthorized(user)) {
             return null;
         }
 
@@ -86,30 +79,24 @@ public class IssueController {
     }
 
     public boolean returnBook(String bookCallNo, long visitorId) {
-        if (!user.isLibrarian() || !user.isAuthorized()) {
-            System.err.println("Access denied!");
-
+        if (!user.isLibrarian() || !sessionRepository.userAuthorized(user)) {
             return false;
         }
 
-        Book book = bookRepository.getBookByCallNo(bookCallNo);
-        if (book == null) {
-            return false;
-        }
-
+        BookStorage bookStorage = bookStorageRepository.getBookByCallNo(bookCallNo);
         User visitor = userRepository.getUserById(visitorId);
-        if (visitor == null || !visitor.isVisitor()) {
+        if (bookStorage == null || visitor == null || !visitor.isVisitor()) {
             return false;
         }
 
-        Issue issue = issueRepository.getIssueByBookAndVisitor(book, visitor);
+        Issue issue = issueRepository.getIssueByBookAndVisitor(bookStorage, visitor);
         if (issue != null) {
             issue.setReturnDate(new Date());
-            int newQuantity = book.getQuantity() + 1;
-            int newIssued = book.getIssued() - 1;
-            book.setQuantity(newQuantity);
-            book.setIssued(newIssued);
-            bookRepository.update(book);
+            int newQuantity = bookStorage.getQuantity() + 1;
+            int newIssued = bookStorage.getIssued() - 1;
+            bookStorage.setQuantity(newQuantity);
+            bookStorage.setIssued(newIssued);
+            bookStorageRepository.update(bookStorage);
 
             return true;
         }

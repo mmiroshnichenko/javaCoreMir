@@ -1,6 +1,6 @@
 package lesson15.library.repository;
 
-import lesson15.library.entity.Book;
+import lesson15.library.entity.BookStorage;
 import lesson15.library.entity.Issue;
 import lesson15.library.entity.User;
 
@@ -34,7 +34,7 @@ public class IssueRepository {
     }
 
     public Issue addIssue(Issue issue) {
-        if (getIssueByBookAndVisitor(issue.getBook(), issue.getUser()) != null) {
+        if (getIssueByBookAndVisitor(issue.getBookStorage(), issue.getUser()) != null) {
             return null;
         }
 
@@ -71,11 +71,11 @@ public class IssueRepository {
         return activeIssues;
     }
 
-    public Issue getIssueByBookAndVisitor(Book book, User user) {
+    public Issue getIssueByBookAndVisitor(BookStorage bookStorage, User user) {
         for (Issue issue : issues) {
             if (issue != null && issue.getReturnDate() == null
                     && user.equals(issue.getUser()) && user.hashCode() == issue.getUser().hashCode()
-                    && book.equals(issue.getBook()) && book.hashCode() == issue.getBook().hashCode()) {
+                    && bookStorage.equals(issue.getBookStorage()) && bookStorage.hashCode() == issue.getBookStorage().hashCode()) {
                 return issue;
             }
         }

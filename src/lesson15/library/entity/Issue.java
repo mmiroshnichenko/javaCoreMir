@@ -5,20 +5,20 @@ import java.util.Date;
 public class Issue {
     private long id;
     private User user;
-    private Book book;
+    private BookStorage bookStorage;
     private Date issueDate;
     private Date returnDate;
 
-    public Issue(long id, User user, Book book, Date issueDate) {
+    public Issue(long id, User user, BookStorage bookStorage, Date issueDate) {
         this.id = id;
         this.user = user;
-        this.book = book;
+        this.bookStorage = bookStorage;
         this.issueDate = issueDate;
     }
 
-    public Issue(User user, Book book, Date issueDate) {
+    public Issue(User user, BookStorage bookStorage, Date issueDate) {
         this.user = user;
-        this.book = book;
+        this.bookStorage = bookStorage;
         this.issueDate = issueDate;
     }
 
@@ -34,8 +34,8 @@ public class Issue {
         return user;
     }
 
-    public Book getBook() {
-        return book;
+    public BookStorage getBookStorage() {
+        return bookStorage;
     }
 
     public Date getIssueDate() {
@@ -55,7 +55,7 @@ public class Issue {
         return "Issue{" +
                 "id=" + id +
                 ", user=" + user +
-                ", book=" + book +
+                ", bookStorage=" + bookStorage +
                 ", issueDate=" + issueDate +
                 ", returnDate=" + returnDate +
                 '}';
