@@ -2,11 +2,9 @@ package lesson15.library.controller;
 
 import lesson15.library.entity.Session;
 import lesson15.library.entity.User;
-import lesson15.library.entity.UserRole;
 import lesson15.library.repository.SessionRepository;
 import lesson15.library.repository.UserRepository;
 
-import java.util.Date;
 
 public class AuthController {
     private UserRepository userRepository;
