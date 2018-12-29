@@ -14,9 +14,9 @@ public class UserRepository {
         return users;
     }
 
-    public User getUserByNamePasswordAndRole(String name, String password, UserRole userRole) {
+    public User getUserByNameAndPassword(String name, String password) {
         for (User user : users) {
-            if (user != null && user.getUserRole() == userRole && name.equals(user.getName()) && password.equals(user.getPassword())) {
+            if (user != null && name.equals(user.getName()) && password.equals(user.getPassword())) {
                 return user;
             }
         }

@@ -97,6 +97,7 @@ public class IssueController {
             bookStorage.setQuantity(newQuantity);
             bookStorage.setIssued(newIssued);
             bookStorageRepository.update(bookStorage);
+            issueRepository.delete(issue);
 
             return true;
         }

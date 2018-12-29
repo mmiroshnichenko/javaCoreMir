@@ -17,16 +17,8 @@ public class AuthController {
         this.sessionRepository = sessionRepository;
     }
 
-    public User loginAdmin(String name, String password) {
-        return loginUser(name, password, UserRole.ADMIN);
-    }
-
-    public User loginLibrarian(String name, String password) {
-        return loginUser(name, password, UserRole.LIBRARIAN);
-    }
-
-    private User loginUser(String name, String password, UserRole userRole) {
-        User user = userRepository.getUserByNamePasswordAndRole(name, password, userRole);
+    public User loginUser(String name, String password) {
+        User user = userRepository.getUserByNameAndPassword(name, password);
         if (user != null) {
             Session session = new Session(user);
             sessionRepository.saveSession(session);

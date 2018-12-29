@@ -29,16 +29,16 @@ public class BookStorageRepository {
             int quantity = existBookStorage.getQuantity() + bookStorage.getQuantity();
             existBookStorage.setQuantity(quantity);
 
-            return existBookStorage;
-        } else {
-            bookStorage.setId(getNextBookId());
+            return update(existBookStorage);
+        }
 
-            for (int i = 0; i < bookStorages.length; i++) {
-                if (bookStorages[i] == null) {
-                    bookStorages[i] = bookStorage;
+        bookStorage.setId(getNextBookId());
 
-                    return bookStorage;
-                }
+        for (int i = 0; i < bookStorages.length; i++) {
+            if (bookStorages[i] == null) {
+                bookStorages[i] = bookStorage;
+
+                return bookStorage;
             }
         }
 
@@ -80,7 +80,7 @@ public class BookStorageRepository {
 
     private BookStorage getEqualBookStorage(BookStorage bookStorage) {
         for (BookStorage elBookStorage : bookStorages) {
-            if (elBookStorage != null && elBookStorage.equals(bookStorage) && elBookStorage.hashCode() == bookStorage.hashCode()) {
+            if (elBookStorage != null && elBookStorage.equals(bookStorage)) {
                 return elBookStorage;
             }
         }

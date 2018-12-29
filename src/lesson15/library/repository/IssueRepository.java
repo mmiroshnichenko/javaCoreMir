@@ -83,6 +83,18 @@ public class IssueRepository {
         return null;
     }
 
+    public boolean delete(Issue issue) {
+        for (int i = 0; i < issues.length; i++) {
+            if (issues[i] != null && issues[i].equals(issue) && issues[i].hashCode() == issue.hashCode()) {
+                issues[i] = null;
+
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     private Issue[] getActiveIssuesForVisitor(User user) {
         int length = 0;
         for (Issue issue : issues) {

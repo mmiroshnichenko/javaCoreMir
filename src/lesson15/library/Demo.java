@@ -24,30 +24,30 @@ public class Demo {
         SessionRepository sessionRepository = new SessionRepository();
         //тестируем авторизацию пользователей
         AuthController authController = new AuthController(userRepository, sessionRepository);
-        User admin1 = authController.loginAdmin("Admin", "admin123");
+        User admin1 = authController.loginUser("Admin", "admin123");
 
         System.out.println(admin1);
         authController.logout(admin1);
         System.out.println(admin1);
 
         //неверный пароль админа
-        User admin2 = authController.loginAdmin("Admin", "admi3123");
+        User admin2 = authController.loginUser("Admin", "admi3123");
         System.out.println(admin2);
 
-        User admin3 = authController.loginAdmin("Admin", "admin123");
+        User admin3 = authController.loginUser("Admin", "admin123");
         System.out.println(admin3);
-        User librarian1 = authController.loginLibrarian("Pavel", "fhgh123");
+        User librarian1 = authController.loginUser("Pavel", "fhgh123");
         System.out.println(admin3);
         System.out.println(librarian1);
         authController.logout(librarian1);
         System.out.println(librarian1);
 
         //тестируем работу с библиотекарями
-        User admin4 = authController.loginAdmin("Admin", "admin123");
+        User admin4 = authController.loginUser("Admin", "admin123");
         UserController userController = new UserController(admin4, userRepository, sessionRepository);
         userController.addLibrarian("Denis", "retyeuy", "test@test.com", "test3 address", "Lvov", "4654654");
         System.out.println(Arrays.deepToString(userController.viewLibrarian()));
-        User librarian2 = authController.loginLibrarian("Denis", "retyeuy");
+        User librarian2 = authController.loginUser("Denis", "retyeuy");
         System.out.println(librarian2);
         // пробую добавить библиотекаря неавторизованным админом
         UserController userController2 = new UserController(admin4, userRepository, sessionRepository);
