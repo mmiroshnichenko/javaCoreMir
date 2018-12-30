@@ -46,8 +46,7 @@ public class Solution {
         char[] letters = string.toCharArray();
 
         for (char letter : letters) {
-            int code = (int)letter;
-            if (!Character.isLetter(letter) && !(code == 33 || (code > 43 && code < 47))) {
+            if (!Character.isLetter(letter)) {
                 return false;
             }
         }
