@@ -60,4 +60,28 @@ public class Issue {
                 ", returnDate=" + returnDate +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Issue issue = (Issue) o;
+
+        if (id != issue.id) return false;
+        if (!user.equals(issue.user)) return false;
+        if (!bookStorage.equals(issue.bookStorage)) return false;
+        if (!issueDate.equals(issue.issueDate)) return false;
+        return returnDate.equals(issue.returnDate);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + user.hashCode();
+        result = 31 * result + bookStorage.hashCode();
+        result = 31 * result + issueDate.hashCode();
+        result = 31 * result + returnDate.hashCode();
+        return result;
+    }
 }

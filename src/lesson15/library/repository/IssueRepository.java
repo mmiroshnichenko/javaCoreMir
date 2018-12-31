@@ -74,8 +74,7 @@ public class IssueRepository {
     public Issue getIssueByBookAndVisitor(BookStorage bookStorage, User user) {
         for (Issue issue : issues) {
             if (issue != null && issue.getReturnDate() == null
-                    && user.equals(issue.getUser()) && user.hashCode() == issue.getUser().hashCode()
-                    && bookStorage.equals(issue.getBookStorage()) && bookStorage.hashCode() == issue.getBookStorage().hashCode()) {
+                    && user.equals(issue.getUser()) && bookStorage.equals(issue.getBookStorage())) {
                 return issue;
             }
         }
@@ -85,7 +84,7 @@ public class IssueRepository {
 
     public boolean delete(Issue issue) {
         for (int i = 0; i < issues.length; i++) {
-            if (issues[i] != null && issues[i].equals(issue) && issues[i].hashCode() == issue.hashCode()) {
+            if (issues[i] != null && issues[i].equals(issue)) {
                 issues[i] = null;
 
                 return true;
@@ -98,8 +97,7 @@ public class IssueRepository {
     private Issue[] getActiveIssuesForVisitor(User user) {
         int length = 0;
         for (Issue issue : issues) {
-            if (issue != null && issue.getReturnDate() == null
-                    && user.equals(issue.getUser()) && user.hashCode() == issue.getUser().hashCode()) {
+            if (issue != null && issue.getReturnDate() == null && user.equals(issue.getUser())) {
                 length++;
             }
         }
@@ -107,8 +105,7 @@ public class IssueRepository {
         Issue[] visitorIssues = new Issue[length];
         int index = 0;
         for (Issue issue : issues) {
-            if (issue != null && issue.getReturnDate() == null
-                    && user.equals(issue.getUser()) && user.hashCode() == issue.getUser().hashCode()) {
+            if (issue != null && issue.getReturnDate() == null && user.equals(issue.getUser())) {
                 visitorIssues[index] = issue;
                 index++;
             }

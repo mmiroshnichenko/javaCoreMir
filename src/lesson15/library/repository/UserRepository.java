@@ -45,7 +45,7 @@ public class UserRepository {
 
     public boolean deleteUser(User user) {
         for (int i = 0; i < users.length; i++) {
-            if (user.equals(users[i]) && user.hashCode() == users[i].hashCode()) {
+            if (user.equals(users[i])) {
                 users[i] = null;
 
                 return true;
