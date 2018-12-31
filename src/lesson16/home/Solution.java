@@ -92,7 +92,7 @@ public class Solution {
         char[] chars = addressPart.toCharArray();
 
         for (char ch : chars) {
-            if (!Character.isLetter(ch)) {
+            if (!Character.isLetter(ch) && !Character.isDigit(ch)) {
                 return false;
             }
         }
