@@ -4,7 +4,7 @@ import lesson16.home.Solution;
 
 public class Demo {
     public static void main(String[] args) {
-        String test = "енен еооп Tere, test dsfs 76 u6ti test fgj&fhj kjkj";
+        String test = "енен еооп Tere, dsfs 76 u6ti test fgj&fhj kjkj";
 
         Solution solution = new Solution();
 
@@ -12,5 +12,11 @@ public class Demo {
         System.out.println(solution.maxWord(test));
         System.out.println(solution.minWord(test));
         System.out.println(solution.mostCountedWord(test));
+        System.out.println(solution.validate("https://gromcode.com"));
+        System.out.println(solution.validate("https://gromcode2.com"));
+        System.out.println(solution.validate("https://gromcod@e.com"));
+        System.out.println(solution.validate("https://gromcode.com.ua"));
+        System.out.println(solution.validate("ftp://gromcode.com"));
+        System.out.println(solution.validate("https://gromcode.ua"));
     }
 }

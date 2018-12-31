@@ -72,6 +72,34 @@ public class Solution {
         return null;
     }
 
+    public boolean validate(String address) {
+        String[] parts = address.split("//");
+        if (parts.length != 2 || (!parts[0].equals("http:") && !parts[0].equals("https:"))) {
+            return false;
+        }
+
+        String[] addressParts = parts[1].split("\\.");
+
+        if (addressParts.length != 2 || !validateAddressPart(addressParts[0])
+                || (!addressParts[1].equals("com") && !addressParts[1].equals("org") && !addressParts[1].equals("net"))) {
+            return false;
+        }
+
+        return true;
+    }
+
+    private boolean validateAddressPart(String addressPart) {
+        char[] chars = addressPart.toCharArray();
+
+        for (char ch : chars) {
+            if (!Character.isLetter(ch) && !Character.isDigit(ch)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     private boolean isWord(String string) {
         char[] letters = string.toCharArray();
 
