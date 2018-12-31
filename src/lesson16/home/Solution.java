@@ -79,9 +79,21 @@ public class Solution {
         }
 
         String[] addressParts = parts[1].split("\\.");
+        String siteName;
+        String domain;
 
-        if (addressParts.length != 2 || !validateAddressPart(addressParts[0])
-                || (!addressParts[1].equals("com") && !addressParts[1].equals("org") && !addressParts[1].equals("net"))) {
+        if (addressParts.length == 3 && addressParts[0].equals("www")) {
+            siteName = addressParts[1];
+            domain = addressParts[2];
+        } else if (addressParts.length == 2) {
+            siteName = addressParts[0];
+            domain = addressParts[1];
+        } else {
+            return false;
+        }
+
+        if (siteName == null || domain == null || !validateAddressPart(siteName)
+                || (!domain.equals("com") && !domain.equals("org") && !domain.equals("net"))) {
             return false;
         }
 
