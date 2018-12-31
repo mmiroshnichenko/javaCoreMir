@@ -42,6 +42,36 @@ public class Solution {
         return minWord;
     }
 
+    public String mostCountedWord(String input) {
+        String[] strings = input.split(" ");
+
+        int[] res = new int[strings.length];
+
+        for (int i = 0; i < strings.length; i++) {
+            for (int j = 0; j < strings.length; j++) {
+                if (strings[i].equals(strings[j])) {
+                    res[i]++;
+                }
+            }
+        }
+
+        int maxRes = res[0];
+        String mostCounted = strings[0];
+
+        for (int i = 1; i < strings.length; i++) {
+            if (res[i] > maxRes) {
+                maxRes = res[i];
+                mostCounted = strings[i];
+            }
+        }
+
+        if (maxRes > 1) {
+            return mostCounted;
+        }
+
+        return null;
+    }
+
     private boolean isWord(String string) {
         char[] letters = string.toCharArray();
 
