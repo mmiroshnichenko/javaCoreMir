@@ -1,5 +1,7 @@
 package lesson16.home;
 
+import java.util.Arrays;
+
 public class Solution {
     public int countWords(String input) {
         if (input == null || input.isEmpty()) {
@@ -118,9 +120,10 @@ public class Solution {
 
     private boolean isWord(String string) {
         char[] letters = string.toCharArray();
+        String[] symbols = new String[]{"!", ";", ":", "?", "-", ",", "."};
 
         for (char letter : letters) {
-            if (!Character.isLetter(letter)) {
+            if (!Character.isLetter(letter) && !Arrays.asList(symbols).contains(new String(new char[]{letter}))) {
                 return false;
             }
         }
