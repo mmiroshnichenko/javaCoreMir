@@ -2,6 +2,10 @@ package lesson16.home;
 
 public class Solution {
     public int countWords(String input) {
+        if (input == null || input.isEmpty()) {
+            return 0;
+        }
+
         String[] strings = input.split(" ");
 
         int count = 0;

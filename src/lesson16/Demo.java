@@ -9,6 +9,8 @@ public class Demo {
         Solution solution = new Solution();
 
         System.out.println(solution.countWords(test));
+        System.out.println(solution.countWords(""));
+        System.out.println(solution.countWords(null));
         System.out.println(solution.maxWord(test));
         System.out.println(solution.minWord(test));
         System.out.println(solution.mostCountedWord(test));
