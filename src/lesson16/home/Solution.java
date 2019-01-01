@@ -120,10 +120,10 @@ public class Solution {
 
     private boolean isWord(String string) {
         char[] letters = string.toCharArray();
-        String[] symbols = new String[]{"!", ";", ":", "?", "-", ",", "."};
+        /*String[] symbols = new String[]{"!", ";", ":", "?", "-", ",", "."};*/
 
         for (char letter : letters) {
-            if (!Character.isLetter(letter) && !Arrays.asList(symbols).contains(new String(new char[]{letter}))) {
+            if (!Character.isLetter(letter) /*&& !Arrays.asList(symbols).contains(new String(new char[]{letter}))*/) {
                 return false;
             }
         }
