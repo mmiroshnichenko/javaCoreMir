@@ -21,6 +21,10 @@ public class Solution {
     }
 
     public String maxWord(String input) {
+        if (input == null || input.isEmpty()) {
+            return null;
+        }
+
         String[] strings = input.split(" ");
 
         String maxWord = strings[0];
@@ -35,6 +39,10 @@ public class Solution {
     }
 
     public String minWord(String input) {
+        if (input == null || input.isEmpty()) {
+            return null;
+        }
+
         String[] strings = input.split(" ");
 
         String minWord = strings[0];
@@ -49,6 +57,10 @@ public class Solution {
     }
 
     public String mostCountedWord(String input) {
+        if (input == null || input.isEmpty()) {
+            return null;
+        }
+
         String[] strings = input.split(" ");
 
         int[] res = new int[strings.length];
@@ -79,6 +91,10 @@ public class Solution {
     }
 
     public boolean validate(String address) {
+        if (address == null || address.isEmpty()) {
+            return false;
+        }
+
         String[] parts = address.split("//");
         if (parts.length != 2 || (!parts[0].equals("http:") && !parts[0].equals("https:"))) {
             return false;
