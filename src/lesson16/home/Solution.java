@@ -17,7 +17,7 @@ public class Solution {
             }
         }
 
-        return count;
+        return count == strings.length ? count : 0;
     }
 
     public String maxWord(String input) {
