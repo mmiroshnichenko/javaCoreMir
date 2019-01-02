@@ -4,9 +4,12 @@ import java.util.Arrays;
 
 public class Solution {
     public int countWords(String input) {
+
         if (input == null || input.isEmpty()) {
             return 0;
         }
+
+        input = input.trim();
 
         String[] strings = input.split(" ");
 
