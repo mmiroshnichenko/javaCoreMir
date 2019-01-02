@@ -11,9 +11,9 @@ public class Solution {
         int[] res = new int[words.length];
 
         for (int i = 0; i < words.length; i++) {
-            for (int j = i + 1; j < words.length; j++) {
-                if (words[i].equals(words[j])) {
-                    res[j]++;
+            for (int j = 0; j < words.length; j++) {
+                if (i != j && words[i].equals(words[j])) {
+                    res[i]++;
                 }
             }
         }
