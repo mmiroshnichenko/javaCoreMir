@@ -22,10 +22,10 @@ public class Solution {
         if (words == null || words.length == 0) {
             return null;
         }
-        String maxWord = words[0];
+        String maxWord = null;
 
         for (String word : words) {
-            if (word.length() > maxWord.length()) {
+            if (isWord(word) && (maxWord == null || word.length() > maxWord.length())) {
                 maxWord = word;
             }
         }
@@ -39,10 +39,10 @@ public class Solution {
             return null;
         }
 
-        String minWord = words[0];
+        String minWord = null;
 
         for (String word : words) {
-            if (word.length() < minWord.length()) {
+            if (isWord(word) && (minWord == null ||word.length() < minWord.length())) {
                 minWord = word;
             }
         }

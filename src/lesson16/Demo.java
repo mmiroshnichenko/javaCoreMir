@@ -4,7 +4,7 @@ import lesson16.home.Solution;
 
 public class Demo {
     public static void main(String[] args) {
-        String test = "ваыа.  на   вав343 ывыв@";
+        String test = "ваыа.  на   вав343 ывыв@ yt     .";
 
         Solution solution = new Solution();
 
