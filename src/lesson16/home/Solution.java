@@ -9,13 +9,11 @@ public class Solution {
             return 0;
         }
 
-        input = input.trim();
-
         String[] strings = input.split(" ");
 
         int count = 0;
         for (String string : strings) {
-            if (isWord(string)) {
+            if (!string.isEmpty() && isWord(string)) {
                 count++;
             }
         }
