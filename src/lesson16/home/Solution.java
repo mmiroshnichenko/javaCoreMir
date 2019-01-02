@@ -141,7 +141,7 @@ public class Solution {
         String[] words = new String[count];
         int index = 0;
         for (String string : strings) {
-            if (!string.isEmpty() /*&& isWord(string)*/) {
+            if (!string.isEmpty() && isWord(string)) {
                 words[index] = string;
                 index++;
             }
