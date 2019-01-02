@@ -9,7 +9,7 @@ public class Solution {
 
         int count = 0;
         for (String word : words) {
-            if (!isWord(word)) {
+            if (isWord(word)) {
                 count++;
             }
         }
