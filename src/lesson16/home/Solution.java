@@ -51,28 +51,28 @@ public class Solution {
     }
 
     public String mostCountedWord(String input) {
-        String[] strings = getArrayOfWords(input);
-        if (strings == null) {
+        String[] words = getArrayOfWords(input);
+        if (words == null) {
             return null;
         }
 
-        int[] res = new int[strings.length];
+        int[] res = new int[words.length];
 
-        for (int i = 0; i < strings.length; i++) {
-            for (int j = 0; j < strings.length; j++) {
-                if (strings[i].equals(strings[j])) {
+        for (int i = 0; i < words.length; i++) {
+            for (int j = 0; j < words.length; j++) {
+                if (words[i].equals(words[j])) {
                     res[i]++;
                 }
             }
         }
 
         int maxRes = res[0];
-        String mostCounted = strings[0];
+        String mostCounted = words[0];
 
-        for (int i = 1; i < strings.length; i++) {
+        for (int i = 1; i < words.length; i++) {
             if (res[i] > maxRes) {
                 maxRes = res[i];
-                mostCounted = strings[i];
+                mostCounted = words[i];
             }
         }
 
