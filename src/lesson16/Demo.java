@@ -1,6 +1,6 @@
 package lesson16;
 
-import lesson16.home.Solution;
+import lesson16.home.h1.Solution;
 
 public class Demo {
     public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package lesson16.home;
+package lesson16.home.h1;
 
 public class Solution {
     public int countWords(String input) {
