@@ -44,8 +44,8 @@ public class Solution {
     }
 
     public String mostCountedWord(String input) {
-        String[] words = input.split(" ");// getArrayOfWords(input);
-        if ( words.length == 0) {
+        String[] words = getArrayOfWords(input);
+        if (words == null || words.length == 0) {
             return null;
         }
 
@@ -141,7 +141,7 @@ public class Solution {
         String[] words = new String[count];
         int index = 0;
         for (String string : strings) {
-            if (!string.isEmpty() && isWord(string)) {
+            if (!string.isEmpty() /*&& isWord(string)*/) {
                 words[index] = string;
                 index++;
             }
