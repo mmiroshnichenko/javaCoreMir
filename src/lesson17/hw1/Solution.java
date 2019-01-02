@@ -2,12 +2,6 @@ package lesson17.hw1;
 
 public class Solution {
     public int countWords(String input) {
-        String[] words = getArrayOfWords(input);
-
-        return words.length;
-    }
-
-    private String[] getArrayOfWords(String input) {
         String[] strings = input.split(" ");
         int count = 0;
 
@@ -17,16 +11,7 @@ public class Solution {
             }
         }
 
-        String[] words = new String[count];
-        int index = 0;
-        for (String string : strings) {
-            if (!string.isEmpty() && isWord(string)) {
-                words[index] = string;
-                index++;
-            }
-        }
-
-        return words;
+        return count;
     }
 
     private boolean isWord(String string) {
