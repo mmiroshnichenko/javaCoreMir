@@ -3,9 +3,6 @@ package lesson17.hw4;
 public class Solution {
 
     public boolean validate(String address) {
-        if (address == null || address.isEmpty()) {
-            return false;
-        }
 
         String[] parts = address.split("//");
         if (parts.length != 2 || (!parts[0].equals("http:") && !parts[0].equals("https:"))) {
@@ -26,8 +23,7 @@ public class Solution {
             return false;
         }
 
-        if (siteName == null || domain == null || !validateAddressPart(siteName)
-                || (!domain.equals("com") && !domain.equals("org") && !domain.equals("net"))) {
+        if (!validateAddressPart(siteName) || (!domain.equals("com") && !domain.equals("org") && !domain.equals("net"))) {
             return false;
         }
 

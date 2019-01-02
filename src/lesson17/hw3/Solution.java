@@ -12,7 +12,7 @@ public class Solution {
 
         for (int i = 0; i < words.length; i++) {
             for (int j = 0; j < words.length; j++) {
-                if (i !=j && words[i].equals(words[j])) {
+                if (i != j && words[i].equals(words[j])) {
                     res[i]++;
                 }
             }
@@ -66,14 +66,14 @@ public class Solution {
     }
 
     private boolean isWord(String string) {
-       // char[] letters = string.toCharArray();
+        char[] letters = string.toCharArray();
         /*String[] symbols = new String[]{"!", ";", ":", "?", "-", ",", "."};*/
 
-//        for (char letter : letters) {
-//            if (!Character.isLetter(letter) /*&& !Arrays.asList(symbols).contains(new String(new char[]{letter}))*/) {
-//                return false;
-//            }
-//        }
+        for (char letter : letters) {
+            if (!Character.isLetter(letter) /*&& !Arrays.asList(symbols).contains(new String(new char[]{letter}))*/) {
+                return false;
+            }
+        }
 
         return true;
     }
