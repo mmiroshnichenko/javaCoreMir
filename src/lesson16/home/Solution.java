@@ -45,14 +45,14 @@ public class Solution {
 
     public String mostCountedWord(String input) {
         String[] words = getArrayOfWords(input);
-        if (words == null) {
+        if (words == null || words.length == 0) {
             return null;
         }
 
         int[] res = new int[words.length];
 
         for (int i = 0; i < words.length; i++) {
-            for (int j = 0; j < words.length; j++) {
+            for (int j = 1; j < words.length; j++) {
                 if (words[i].equals(words[j])) {
                     res[i]++;
                 }
