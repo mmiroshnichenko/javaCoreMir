@@ -1,19 +1,15 @@
 package lesson16.home;
 
-import java.util.Arrays;
-
 public class Solution {
     public int countWords(String input) {
-
-        if (input == null || input.isEmpty()) {
+        String[] words = getArrayOfWords(input);
+        if (words == null) {
             return 0;
         }
 
-        String[] strings = input.split(" ");
-
         int count = 0;
-        for (String string : strings) {
-            if (!string.isEmpty() && isWord(string)) {
+        for (String word : words) {
+            if (!isWord(word)) {
                 count++;
             }
         }
@@ -22,17 +18,15 @@ public class Solution {
     }
 
     public String maxWord(String input) {
-        if (input == null || input.isEmpty()) {
+        String[] words = getArrayOfWords(input);
+        if (words == null) {
             return null;
         }
+        String maxWord = words[0];
 
-        String[] strings = input.split(" ");
-
-        String maxWord = strings[0];
-
-        for (String string : strings) {
-            if (string.length() > maxWord.length()) {
-                maxWord = string;
+        for (String word : words) {
+            if (word.length() > maxWord.length()) {
+                maxWord = word;
             }
         }
 
@@ -40,17 +34,16 @@ public class Solution {
     }
 
     public String minWord(String input) {
-        if (input == null || input.isEmpty()) {
+        String[] words = getArrayOfWords(input);
+        if (words == null) {
             return null;
         }
 
-        String[] strings = input.split(" ");
+        String minWord = words[0];
 
-        String minWord = strings[0];
-
-        for (String string : strings) {
-            if (string.length() < minWord.length()) {
-                minWord = string;
+        for (String word : words) {
+            if (word.length() < minWord.length()) {
+                minWord = word;
             }
         }
 
@@ -58,11 +51,10 @@ public class Solution {
     }
 
     public String mostCountedWord(String input) {
-        if (input == null || input.isEmpty()) {
+        String[] strings = getArrayOfWords(input);
+        if (strings == null) {
             return null;
         }
-
-        String[] strings = input.split(" ");
 
         int[] res = new int[strings.length];
 
@@ -133,6 +125,36 @@ public class Solution {
         }
 
         return true;
+    }
+
+    private String[] getArrayOfWords(String input) {
+        if (input == null || input.isEmpty()) {
+            return null;
+        }
+
+        String[] strings = input.split(" ");
+        int count = 0;
+
+        for (String string : strings) {
+            if (!string.isEmpty()) {
+                count++;
+            }
+        }
+
+        if (count == 0) {
+            return null;
+        }
+
+        String[] words = new String[count];
+        int index = 0;
+        for (String string : strings) {
+            if (!string.isEmpty()) {
+                words[index] = string;
+                index++;
+            }
+        }
+
+        return words;
     }
 
     private boolean isWord(String string) {
