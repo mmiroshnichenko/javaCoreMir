@@ -69,7 +69,7 @@ public class Solution {
             }
         }
 
-        if (maxRes > 1) {
+        if (maxRes > 0) {
             return mostCounted;
         }
 
