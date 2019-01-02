@@ -4,7 +4,7 @@ public class Solution {
 
     public String mostCountedWord(String input) {
         String[] words = getArrayOfWords(input);
-        if (words == null || words.length == 0) {
+        if (words.length == 0) {
             return null;
         }
 
@@ -28,18 +28,10 @@ public class Solution {
             }
         }
 
-        if (maxRes > 0) {
-            return mostCounted;
-        }
-
-        return null;
+        return maxRes > 0 ? mostCounted : null;
     }
 
     private String[] getArrayOfWords(String input) {
-        if (input == null || input.isEmpty()) {
-            return null;
-        }
-
         String[] strings = input.split(" ");
         int count = 0;
 
@@ -47,10 +39,6 @@ public class Solution {
             if (!string.isEmpty() && isWord(string)) {
                 count++;
             }
-        }
-
-        if (count == 0) {
-            return null;
         }
 
         String[] words = new String[count];
@@ -67,10 +55,9 @@ public class Solution {
 
     private boolean isWord(String string) {
         char[] letters = string.toCharArray();
-        /*String[] symbols = new String[]{"!", ";", ":", "?", "-", ",", "."};*/
 
         for (char letter : letters) {
-            if (!Character.isLetter(letter) /*&& !Arrays.asList(symbols).contains(new String(new char[]{letter}))*/) {
+            if (!Character.isLetter(letter)) {
                 return false;
             }
         }
