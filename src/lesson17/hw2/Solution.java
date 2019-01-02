@@ -3,6 +3,9 @@ package lesson17.hw2;
 public class Solution {
     public String maxWord(String input) {
         String[] words = getArrayOfWords(input);
+        if (words.length == 0) {
+            return null;
+        }
         String maxWord = words[0];
 
         for (String word : words) {
@@ -16,6 +19,10 @@ public class Solution {
 
     public String minWord(String input) {
         String[] words = getArrayOfWords(input);
+        if (words.length == 0) {
+            return null;
+        }
+
         String minWord = words[0];
 
         for (String word : words) {
