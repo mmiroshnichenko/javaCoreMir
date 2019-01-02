@@ -7,14 +7,7 @@ public class Solution {
             return 0;
         }
 
-        int count = 0;
-        for (String word : words) {
-            if (isWord(word)) {
-                count++;
-            }
-        }
-
-        return count;
+        return words.length;
     }
 
     public String maxWord(String input) {
@@ -22,10 +15,10 @@ public class Solution {
         if (words == null || words.length == 0) {
             return null;
         }
-        String maxWord = null;
+        String maxWord = words[0];
 
         for (String word : words) {
-            if (isWord(word) && (maxWord == null || word.length() > maxWord.length())) {
+            if (word.length() > maxWord.length()) {
                 maxWord = word;
             }
         }
@@ -39,10 +32,10 @@ public class Solution {
             return null;
         }
 
-        String minWord = null;
+        String minWord = words[0];
 
         for (String word : words) {
-            if (isWord(word) && (minWord == null ||word.length() < minWord.length())) {
+            if (word.length() < minWord.length()) {
                 minWord = word;
             }
         }
@@ -136,7 +129,7 @@ public class Solution {
         int count = 0;
 
         for (String string : strings) {
-            if (!string.isEmpty()) {
+            if (!string.isEmpty() && isWord(string)) {
                 count++;
             }
         }
@@ -148,7 +141,7 @@ public class Solution {
         String[] words = new String[count];
         int index = 0;
         for (String string : strings) {
-            if (!string.isEmpty()) {
+            if (!string.isEmpty() && isWord(string)) {
                 words[index] = string;
                 index++;
             }
