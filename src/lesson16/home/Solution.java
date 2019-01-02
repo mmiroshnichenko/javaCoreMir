@@ -19,7 +19,7 @@ public class Solution {
 
     public String maxWord(String input) {
         String[] words = getArrayOfWords(input);
-        if (words == null) {
+        if (words == null || words.length == 0) {
             return null;
         }
         String maxWord = words[0];
@@ -35,7 +35,7 @@ public class Solution {
 
     public String minWord(String input) {
         String[] words = getArrayOfWords(input);
-        if (words == null) {
+        if (words == null || words.length == 0) {
             return null;
         }
 
