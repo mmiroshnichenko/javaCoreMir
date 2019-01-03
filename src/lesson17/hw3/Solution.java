@@ -2,9 +2,6 @@ package lesson17.hw3;
 
 public class Solution {
     public String mostCountedWord(String input) {
-        if (input == null) {
-            return null;
-        }
         String[] words = input.split(" ");
         if (words.length == 0) {
             return null;
