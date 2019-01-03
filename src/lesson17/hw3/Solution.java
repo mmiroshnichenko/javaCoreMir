@@ -5,14 +5,12 @@ public class Solution {
         String[] words = input.split(" ");
 
         String mostCountedWord = words[0];
-        int count = 0;
         int maxCount = 0;
 
         for (int i = 0; i < words.length; i++) {
-            count = 0;
+            int count = 0;
             for (int j = 0; j < words.length; j++) {
-                if (i != j && !words[i].isEmpty() && isWord(words[i])
-                        && !words[j].isEmpty() && isWord(words[j]) && words[i].equals(words[j])) {
+                if (i != j && !words[i].isEmpty() && isWord(words[i]) && words[i].equals(words[j])) {
                     count++;
                 }
             }
