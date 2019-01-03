@@ -4,7 +4,7 @@ public class Solution {
     public String mostCountedWord(String input) {
         String[] words = input.split(" ");
 
-        String mostCountedWord = words[0];
+        String mostCountedWord = null;
         int maxCount = 0;
 
         for (String word : words) {
@@ -20,7 +20,7 @@ public class Solution {
             }
         }
 
-        return maxCount > 0 ? mostCountedWord : null;
+        return mostCountedWord;
     }
 
     private boolean isWord(String string) {
