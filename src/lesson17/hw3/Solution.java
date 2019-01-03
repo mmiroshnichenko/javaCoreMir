@@ -2,12 +2,12 @@ package lesson17.hw3;
 
 public class Solution {
     public String mostCountedWord(String input) {
-        String[] words = input.split(" ");
+        String[] words = getArrayOfWords(input);
         if (words.length == 0) {
             return null;
         }
 
-        if (words.length == 1 && !words[0].isEmpty()) {
+        if (words.length == 1) {
             return words[0];
         }
 
@@ -28,5 +28,27 @@ public class Solution {
         }
 
         return maxCount > 0 ? mostCountedWord : null;
+    }
+
+    private String[] getArrayOfWords(String input) {
+        String[] strings = input.split(" ");
+        int count = 0;
+
+        for (String string : strings) {
+            if (!string.isEmpty()) {
+                count++;
+            }
+        }
+
+        String[] words = new String[count];
+        int index = 0;
+        for (String string : strings) {
+            if (!string.isEmpty()) {
+                words[index] = string;
+                index++;
+            }
+        }
+
+        return words;
     }
 }
