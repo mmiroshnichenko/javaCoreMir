@@ -25,16 +25,4 @@ public class Solution {
 
         return maxCount > 0 ? mostCountedWord : null;
     }
-
-    private boolean isWord(String string) {
-        char[] letters = string.toCharArray();
-
-        for (char letter : letters) {
-            if (!Character.isLetter(letter)) {
-                return false;
-            }
-        }
-
-        return true;
-    }
 }
