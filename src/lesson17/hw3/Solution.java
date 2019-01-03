@@ -8,6 +8,13 @@ public class Solution {
             return null;
         }
 
+        int[] res = getCountDoublicates(words);
+        int indexMostCounted = getIndexMostCountedWord(res);
+
+        return res[indexMostCounted] > 0 ? words[indexMostCounted] : null;
+    }
+
+    private int[] getCountDoublicates(String[] words) {
         int[] res = new int[words.length];
 
         for (int i = 0; i < words.length; i++) {
@@ -18,17 +25,20 @@ public class Solution {
             }
         }
 
-        int maxRes = res[0];
-        String mostCounted = words[0];
+        return res;
+    }
 
-        for (int i = 1; i < words.length; i++) {
+    private int getIndexMostCountedWord(int[] res) {
+        int maxRes = res[0];
+        int index = 0;
+        for (int i = 1; i < res.length; i++) {
             if (res[i] > maxRes) {
                 maxRes = res[i];
-                mostCounted = words[i];
+                index = i;
             }
         }
 
-        return maxRes > 0 ? mostCounted : null;
+        return index;
     }
 
     private String[] getArrayOfWords(String input) {
@@ -36,7 +46,7 @@ public class Solution {
         int count = 0;
 
         for (String string : strings) {
-            if (!string.isEmpty() /*&& isWord(string)*/) {
+            if (!string.isEmpty() && isWord(string)) {
                 count++;
             }
         }
@@ -44,7 +54,7 @@ public class Solution {
         String[] words = new String[count];
         int index = 0;
         for (String string : strings) {
-            if (!string.isEmpty()/* && isWord(string)*/) {
+            if (!string.isEmpty() && isWord(string)) {
                 words[index] = string;
                 index++;
             }
