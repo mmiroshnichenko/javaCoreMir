@@ -4,26 +4,16 @@ public class Solution {
 
     public boolean validate(String address) {
 
-        String[] parts = address.split("//");
-        if (parts.length != 2 || (!parts[0].equals("http:") && !parts[0].equals("https:"))) {
+        address = address.replace("//www.", "//");
+
+        String[] urlParts = address.split("//");
+        if (urlParts.length != 2 || (!urlParts[0].equals("http:") && !urlParts[0].equals("https:"))) {
             return false;
         }
 
-        String[] addressParts = parts[1].split("\\.");
-        String siteName;
-        String domain;
-
-        if (addressParts.length == 3 && addressParts[0].equals("www")) {
-            siteName = addressParts[1];
-            domain = addressParts[2];
-        } else if (addressParts.length == 2) {
-            siteName = addressParts[0];
-            domain = addressParts[1];
-        } else {
-            return false;
-        }
-
-        if (!validateAddressPart(siteName) || (!domain.equals("com") && !domain.equals("org") && !domain.equals("net"))) {
+        String[] addressParts = urlParts[1].split("\\.");
+        if (addressParts.length != 2 || !validateAddressPart(addressParts[0])
+                || (!addressParts[1].equals("com") && !addressParts[1].equals("org") && !addressParts[1].equals("net"))) {
             return false;
         }
 

@@ -1,8 +1,8 @@
-package lesson18.homeV1;
+package lesson18.homeV2;
 
 import java.util.Arrays;
 
-public class Demo {
+public class DemoV2 {
     public static void main(String[] args) {
         Solution solution = new Solution();
         String test = "dg 8787 jkj65    yuyu 7878   ";
