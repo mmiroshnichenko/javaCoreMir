@@ -11,7 +11,8 @@ public class Solution {
         for (int i = 0; i < words.length; i++) {
             count = 0;
             for (int j = 0; j < words.length; j++) {
-                if (i != j && !words[i].isEmpty() && isWord(words[i]) && words[i].equals(words[j])) {
+                if (i != j && !words[i].isEmpty() && isWord(words[i])
+                        && !words[j].isEmpty() && isWord(words[j]) && words[i].equals(words[j])) {
                     count++;
                 }
             }
@@ -22,55 +23,6 @@ public class Solution {
         }
 
         return maxCount > 0 ? mostCountedWord : null;
-    }
-
-
-    public String mostCountedWordOld(String input) {
-        String[] words = getArrayOfWords(input);
-        if (words.length == 0) {
-            return null;
-        }
-
-        String mostCountedWord = words[0];
-        int count = 0;
-        int maxCount = 0;
-
-        for (int i = 0; i < words.length; i++) {
-            count = 0;
-            for (int j = 0; j < words.length; j++) {
-                if (i != j && words[i].equals(words[j])) {
-                    count++;
-                }
-            }
-            if (count > maxCount) {
-                maxCount = count;
-                mostCountedWord = words[i];
-            }
-        }
-
-        return maxCount > 0 ? mostCountedWord : null;
-    }
-
-    private String[] getArrayOfWords(String input) {
-        String[] strings = input.split(" ");
-        int count = 0;
-
-        for (String string : strings) {
-            if (!string.isEmpty() && isWord(string)) {
-                count++;
-            }
-        }
-
-        String[] words = new String[count];
-        int index = 0;
-        for (String string : strings) {
-            if (!string.isEmpty() && isWord(string)) {
-                words[index] = string;
-                index++;
-            }
-        }
-
-        return words;
     }
 
     private boolean isWord(String string) {
