@@ -35,7 +35,7 @@ public class Solution {
         int count = 0;
 
         for (String string : strings) {
-            if (!string.isEmpty()) {
+            if (!string.isEmpty() && isWord(string)) {
                 count++;
             }
         }
@@ -43,12 +43,24 @@ public class Solution {
         String[] words = new String[count];
         int index = 0;
         for (String string : strings) {
-            if (!string.isEmpty()) {
+            if (!string.isEmpty() && isWord(string)) {
                 words[index] = string;
                 index++;
             }
         }
 
         return words;
+    }
+
+    private boolean isWord(String string) {
+        char[] letters = string.toCharArray();
+
+        for (char letter : letters) {
+            if (!Character.isLetter(letter)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
