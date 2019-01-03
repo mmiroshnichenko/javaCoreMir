@@ -2,7 +2,7 @@ package lesson17.hw3;
 
 public class Solution {
     public String mostCountedWord(String input) {
-        String[] words = getArrayOfWords(input);
+        String[] words = input.split(" ");
         if (words.length == 0) {
             return null;
         }
@@ -13,7 +13,7 @@ public class Solution {
         for (int i = 0; i < words.length; i++) {
             int count = 0;
             for (int j = i; j < words.length; j++) {
-                if (words[i].equals(words[j])) {
+                if (!words[i].isEmpty() && isWord(words[i]) && words[i].equals(words[j])) {
                     count++;
                 }
             }
@@ -24,28 +24,6 @@ public class Solution {
         }
 
         return maxCount > 0 ? mostCountedWord : null;
-    }
-
-    private String[] getArrayOfWords(String input) {
-        String[] strings = input.split(" ");
-        int count = 0;
-
-        for (String string : strings) {
-            if (!string.isEmpty() && isWord(string)) {
-                count++;
-            }
-        }
-
-        String[] words = new String[count];
-        int index = 0;
-        for (String string : strings) {
-            if (!string.isEmpty() && isWord(string)) {
-                words[index] = string;
-                index++;
-            }
-        }
-
-        return words;
     }
 
     private boolean isWord(String string) {
