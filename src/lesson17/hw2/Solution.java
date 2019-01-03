@@ -2,15 +2,13 @@ package lesson17.hw2;
 
 public class Solution {
     public String maxWord(String input) {
-        String[] words = getArrayOfWords(input);
-        if (words.length == 0) {
-            return null;
-        }
-        String maxWord = words[0];
-
+        String[] words = input.split(" ");
+        String maxWord = null;
+        int maxCount = 0;
         for (String word : words) {
-            if (word.length() > maxWord.length()) {
+            if (!word.isEmpty() && isWord(word) && word.length() > maxCount) {
                 maxWord = word;
+                maxCount = word.length();
             }
         }
 
@@ -18,42 +16,17 @@ public class Solution {
     }
 
     public String minWord(String input) {
-        String[] words = getArrayOfWords(input);
-        if (words.length == 0) {
-            return null;
-        }
-
-        String minWord = words[0];
-
+        String[] words = input.split(" ");
+        String minWord = null;
+        int minCount = -1;
         for (String word : words) {
-            if (word.length() < minWord.length()) {
+            if (!word.isEmpty() && isWord(word) && (minCount == -1 || word.length() < minCount)) {
                 minWord = word;
+                minCount = word.length();
             }
         }
 
         return minWord;
-    }
-
-    private String[] getArrayOfWords(String input) {
-        String[] strings = input.split(" ");
-        int count = 0;
-
-        for (String string : strings) {
-            if (!string.isEmpty() && isWord(string)) {
-                count++;
-            }
-        }
-
-        String[] words = new String[count];
-        int index = 0;
-        for (String string : strings) {
-            if (!string.isEmpty() && isWord(string)) {
-                words[index] = string;
-                index++;
-            }
-        }
-
-        return words;
     }
 
     private boolean isWord(String string) {
