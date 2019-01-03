@@ -7,6 +7,10 @@ public class Solution {
             return null;
         }
 
+        if (words.length == 1 && !words[0].isEmpty()) {
+            return words[0];
+        }
+
         String mostCountedWord = words[0];
         int maxCount = 0;
 

@@ -8,7 +8,7 @@ public class Demo {
                 "fgk;ldk dfg dfg dfg df gdfs";
 
 
-       // test = null;
+        test = "test";
         Solution solution = new Solution();
         System.out.println(solution.mostCountedWord(test));
     }
