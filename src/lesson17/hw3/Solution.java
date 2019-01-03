@@ -12,7 +12,7 @@ public class Solution {
 
         for (int i = 0; i < words.length; i++) {
             int count = 0;
-            for (int j = 0; j < words.length; j++) {
+            for (int j = i + 1; j < words.length; j++) {
                 if (i != j && !words[i].isEmpty() && words[i].equals(words[j])) {
                     count++;
                 }
