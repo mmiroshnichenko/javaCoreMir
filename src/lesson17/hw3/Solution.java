@@ -11,7 +11,7 @@ public class Solution {
         for (int i = 0; i < words.length; i++) {
             count = 0;
             for (int j = 0; j < words.length; j++) {
-                if (i != j && !words[i].isEmpty() && !words[j].isEmpty() && words[i].equals(words[j])) {
+                if (i != j && !words[i].isEmpty() && isWord(words[i]) && words[i].equals(words[j])) {
                     count++;
                 }
             }
