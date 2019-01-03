@@ -27,6 +27,6 @@ public class Solution {
             }
         }
 
-        return maxCount > 0 ? mostCountedWord : null;
+        return mostCountedWord;
     }
 }
