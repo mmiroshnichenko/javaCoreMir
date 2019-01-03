@@ -23,6 +23,6 @@ public class Solution {
             }
         }
 
-        return mostCountedWord;
+        return maxCount > 0 ? mostCountedWord : null;
     }
 }
