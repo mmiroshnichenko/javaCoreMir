@@ -3,23 +3,20 @@ package lesson17.hw3;
 public class Solution {
     public String mostCountedWord(String input) {
         String[] words = input.split(" ");
-        if (words.length == 0) {
-            return null;
-        }
 
         String mostCountedWord = words[0];
         int maxCount = 0;
 
-        for (int i = 0; i < words.length; i++) {
+        for (String word : words) {
             int count = 0;
-            for (int j = i; j < words.length; j++) {
-                if (!words[i].isEmpty() && isWord(words[i]) && words[i].equals(words[j])) {
+            for (String compareWord : words) {
+                if (!word.isEmpty() && isWord(word) && word.equals(compareWord)) {
                     count++;
                 }
             }
             if (count > maxCount) {
                 maxCount = count;
-                mostCountedWord = words[i];
+                mostCountedWord = word;
             }
         }
 
