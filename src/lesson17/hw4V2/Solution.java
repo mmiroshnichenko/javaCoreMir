@@ -2,6 +2,9 @@ package lesson17.hw4V2;
 
 public class Solution {
     public boolean validate(String address) {
+        if (address == null || address.isEmpty()) {
+            return false;
+        }
 
         address = address.toLowerCase()
                 .replace("https://", "http://")
