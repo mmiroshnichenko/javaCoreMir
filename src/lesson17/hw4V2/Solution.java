@@ -7,7 +7,7 @@ public class Solution {
                 .replace("https://", "http://")
                 .replace("//www.", "//");
 
-        if (address.length() < 12) {
+        if (address.length() < 13) {
             return false;
         }
 
@@ -26,7 +26,7 @@ public class Solution {
         char[] chars = siteName.toCharArray();
 
         for (char ch : chars) {
-            if (!Character.isLetter(ch)) {
+            if (!Character.isLetter(ch) && !Character.isDigit(ch)) {
                 return false;
             }
         }

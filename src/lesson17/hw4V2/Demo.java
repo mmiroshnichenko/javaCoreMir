@@ -6,6 +6,7 @@ public class Demo {
         Solution solution = new Solution();
 
         System.out.println(solution.validate(" https://gromcode.com "));
+        System.out.println(solution.validate("http://gro%*mcode.com"));
         System.out.println(solution.validate("https://gromc.ode2.com"));
         System.out.println(solution.validate("https://www.gromcode2.com"));
         System.out.println(solution.validate("https://gromcod@e.com"));
@@ -17,7 +18,7 @@ public class Demo {
         System.out.println(solution.validate("  "));
         System.out.println(solution.validate("https://GROMcode2.com"));
         System.out.println(solution.validate("https://GROMcode2.org"));
-        System.out.println(solution.validate("https://GROMcode2.net"));
-        System.out.println(solution.validate("https://www.net"));
+        System.out.println(solution.validate("HttP://GROMcode2.net"));
+        System.out.println(solution.validate("https://www.1.net"));
     }
 }
