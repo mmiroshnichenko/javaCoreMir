@@ -26,7 +26,7 @@ public class Solution {
         char[] chars = siteName.toCharArray();
 
         for (char ch : chars) {
-            if (!Character.isLetter(ch) && !Character.isDigit(ch)) {
+            if (!Character.isLetter(ch)) {
                 return false;
             }
         }
