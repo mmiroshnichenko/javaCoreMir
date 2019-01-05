@@ -21,8 +21,8 @@ public class Solution {
         return false;
     }
 
-    private boolean validateSiteName(String addressPart) {
-        char[] chars = addressPart.toCharArray();
+    private boolean validateSiteName(String siteName) {
+        char[] chars = siteName.toCharArray();
 
         for (char ch : chars) {
             if (!Character.isLetter(ch) && !Character.isDigit(ch)) {

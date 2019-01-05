@@ -13,5 +13,7 @@ public class Demo {
         System.out.println(solution.validate("ftp://gromcode.com"));
         System.out.println(solution.validate("https://gromcode.ua"));
         System.out.println(solution.validate("gdfg"));
+        System.out.println(solution.validate("https://gromyrty654456code.com"));
+        System.out.println(solution.validate("  "));
     }
 }
