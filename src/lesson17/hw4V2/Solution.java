@@ -3,9 +3,12 @@ package lesson17.hw4V2;
 public class Solution {
     public boolean validate(String address) {
 
-        address = address.trim()
-                .replace("https://", "http://")
+        address = address.replace("https://", "http://")
                 .replace("//www.", "//");
+
+        if (address.length() < 12) {
+            return false;
+        }
 
         String protocol = address.substring(0, 7);
         String domain = address.substring(address.length() - 4);
