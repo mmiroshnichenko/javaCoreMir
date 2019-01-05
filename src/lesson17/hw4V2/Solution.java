@@ -3,7 +3,8 @@ package lesson17.hw4V2;
 public class Solution {
     public boolean validate(String address) {
 
-        address = address.replace("https://", "http://")
+        address = address.trim().toLowerCase()
+                .replace("https://", "http://")
                 .replace("//www.", "//");
 
         if (address.length() < 12) {
