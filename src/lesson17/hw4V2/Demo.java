@@ -15,5 +15,9 @@ public class Demo {
         System.out.println(solution.validate("gdfg"));
         System.out.println(solution.validate("https://gromyrty654456code.com"));
         System.out.println(solution.validate("  "));
+        System.out.println(solution.validate("https://GROMcode2.com"));
+        System.out.println(solution.validate("https://GROMcode2.org"));
+        System.out.println(solution.validate("https://GROMcode2.net"));
+        System.out.println(solution.validate("https://www.net"));
     }
 }
