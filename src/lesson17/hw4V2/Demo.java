@@ -21,5 +21,7 @@ public class Demo {
         System.out.println(solution.validate("HttP://GROMcode2.net"));
         System.out.println(solution.validate("https://WWW.test.net"));
         System.out.println(solution.validate("https://WWW.net"));
+        System.out.println(solution.validate(""));
+        System.out.println(solution.validate("https://WWW.www.test.net"));
     }
 }

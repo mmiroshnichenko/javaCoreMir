@@ -2,10 +2,6 @@ package lesson17.hw4V2;
 
 public class Solution {
     public boolean validate(String address) {
-        if (address == null || address.isEmpty()) {
-            return false;
-        }
-
         address = address.toLowerCase()
                 .replace("https://", "http://")
                 .replace("//www.", "//");
@@ -18,7 +14,7 @@ public class Solution {
         String domain = address.substring(address.length() - 4);
         String siteName = address.substring(7, address.length() - 4);
         if (protocol.equals("http://") && validateSiteName(siteName)
-            && (domain.equals(".com")) || domain.equals(".org") || domain.equals(".net")) {
+            && (domain.equals(".com") || domain.equals(".org") || domain.equals(".net"))) {
             return true;
         }
 
