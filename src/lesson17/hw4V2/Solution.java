@@ -2,20 +2,20 @@ package lesson17.hw4V2;
 
 public class Solution {
     public boolean validate(String address) {
-        address = address.toLowerCase()
-                .replace("https://", "http://")
-                .replace("//www.", "//");
+        address = address.toLowerCase();
 
-        if (address.length() < 12) {
-            return false;
-        }
+        String[] startStrings = new String[]{"https://", "http://", "https://www.", "http://www."};
+        String[] endStrings = new String[]{".com", ".org", ".net"};
 
-        String protocol = address.substring(0, 7);
-        String domain = address.substring(address.length() - 4);
-        String siteName = address.substring(7, address.length() - 4);
-        if (protocol.equals("http://") && validateSiteName(siteName)
-            && (domain.equals(".com") || domain.equals(".org") || domain.equals(".net"))) {
-            return true;
+        for (String startString : startStrings) {
+            for (String endString : endStrings) {
+                int minLength = startString.length() + endString.length() + 1;
+                if (address.length() >= minLength &&  startString.equals(address.substring(0, startString.length()))
+                    && endString.equals(address.substring(address.length() - endString.length()))
+                    && validateSiteName(address.substring(startString.length(), address.length() - endString.length()))) {
+                    return true;
+                }
+            }
         }
 
         return false;
