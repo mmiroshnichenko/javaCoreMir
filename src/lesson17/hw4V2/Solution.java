@@ -10,9 +10,10 @@ public class Solution {
         for (String startString : startStrings) {
             for (String endString : endStrings) {
                 int minLength = startString.length() + endString.length() + 1;
-                if (address.length() >= minLength &&  startString.equals(address.substring(0, startString.length()))
-                    && endString.equals(address.substring(address.length() - endString.length()))
-                    && validateSiteName(address.substring(startString.length(), address.length() - endString.length()))) {
+                if (address.length() >= minLength
+                        && startString.equals(address.substring(0, startString.length()))
+                        && endString.equals(address.substring(address.length() - endString.length()))
+                        && validateSiteName(address.substring(startString.length(), address.length() - endString.length()))) {
                     return true;
                 }
             }
