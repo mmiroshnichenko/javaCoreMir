@@ -10,25 +10,17 @@ public class Controller {
         storage.delete(file);
     }
 
-    public void transferAll(Storage storageFrom, Storage storageTo) {
-        try {
-            storageTo.validateNewPacketFiles(storageFrom.getFiles());
-            for (File file : storageFrom.getFiles()) {
-                storageTo.put(file);
-                storageFrom.delete(file);
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+    public void transferAll(Storage storageFrom, Storage storageTo) throws Exception {
+        storageTo.validateNewPacketFiles(storageFrom.getFiles());
+        for (File file : storageFrom.getFiles()) {
+            storageTo.put(file);
+            storageFrom.delete(file);
         }
     }
 
-    public void transferFile(Storage storageFrom, Storage storageTo, long id) {
-        try {
-            File file = storageFrom.getFileById(id);
-            put(storageTo, file);
-            delete(storageFrom, file);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+    public void transferFile(Storage storageFrom, Storage storageTo, long id)  throws Exception {
+        File file = storageFrom.getFileById(id);
+        put(storageTo, file);
+        delete(storageFrom, file);
     }
 }
