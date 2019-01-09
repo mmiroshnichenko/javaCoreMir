@@ -1,7 +1,7 @@
 package lesson19.home;
 
 public class Controller {
-    void put(Storage storage, File file) {
+    public void put(Storage storage, File file) {
         try {
             storage.validateNewFile(file);
             storage.put(file);
@@ -11,7 +11,7 @@ public class Controller {
 
     }
 
-    void delete(Storage storage, File file) {
+    public void delete(Storage storage, File file) {
         try {
             storage.delete(file);
         } catch (Exception e) {
@@ -19,7 +19,7 @@ public class Controller {
         }
     }
 
-    void transferAll(Storage storageFrom, Storage storageTo) {
+    public void transferAll(Storage storageFrom, Storage storageTo) {
         try {
             storageTo.validateNewPacketFiles(storageFrom.getFiles());
             for (File file : storageFrom.getFiles()) {
@@ -31,7 +31,7 @@ public class Controller {
         }
     }
 
-    void transferFile(Storage storageFrom, Storage storageTo, long id) {
+    public void transferFile(Storage storageFrom, Storage storageTo, long id) {
         try {
             File file = storageFrom.getFileById(id);
             put(storageTo, file);
