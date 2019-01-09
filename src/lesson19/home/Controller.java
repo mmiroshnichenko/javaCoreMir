@@ -1,14 +1,9 @@
 package lesson19.home;
 
 public class Controller {
-    public void put(Storage storage, File file) {
-        try {
-            storage.validateNewFile(file);
-            storage.put(file);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-
+    public File put(Storage storage, File file) throws Exception{
+        storage.validateNewFile(file);
+        return storage.put(file);
     }
 
     public void delete(Storage storage, File file) {
