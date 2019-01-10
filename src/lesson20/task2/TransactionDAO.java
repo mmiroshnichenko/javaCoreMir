@@ -49,11 +49,11 @@ public class TransactionDAO {
             throw new InternalServerException("Transaction city is not allowed " + transaction.getId() + ". Can't be saved");
         }
 
-        for (Transaction tr : transactions) {
-            if (tr.equals(transaction)) {
-                throw new InternalServerException("Transaction " + transaction.getId() + " already exists");
-            }
-        }
+//        for (Transaction tr : transactions) {
+//            if (tr.equals(transaction)) {
+//                throw new InternalServerException("Transaction " + transaction.getId() + " already exists");
+//            }
+//        }
 
     }
 
