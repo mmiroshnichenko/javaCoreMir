@@ -1,6 +1,5 @@
 package lesson20.task2;
 
-import lesson20.task2.exception.BadRequestException;
 import lesson20.task2.exception.InternalServerException;
 import lesson20.task2.exception.LimitExceeded;
 
@@ -12,7 +11,7 @@ public class TransactionDAO {
     private Transaction[] transactions = new Transaction[10];
     private Utils utils = new Utils();
 
-    public Transaction save(Transaction transaction) throws LimitExceeded, InternalServerException, BadRequestException {
+    public Transaction save(Transaction transaction) throws LimitExceeded, InternalServerException {
         validate(transaction);
 
         for (int i = 0; i < transactions.length; i++) {
@@ -26,7 +25,7 @@ public class TransactionDAO {
         throw new InternalServerException("Storage of transactions is full. Transaction " + transaction.getId() + " can't be  saved");
     }
 
-    private void validate(Transaction transaction) throws LimitExceeded, InternalServerException, BadRequestException {
+    private void validate(Transaction transaction) throws LimitExceeded, InternalServerException {
         if (transaction.getAmount() > utils.getLimitSimpleTransactionAmount()) {
             throw new LimitExceeded("Transaction limit exceed " + transaction.getId() + ". Can't be saved");
         }
@@ -52,7 +51,7 @@ public class TransactionDAO {
 
         for (Transaction tr : transactions) {
             if (tr.equals(transaction)) {
-                throw new BadRequestException("Transaction " + transaction.getId() + " already exists");
+                throw new InternalServerException("Transaction " + transaction.getId() + " already exists");
             }
         }
 
