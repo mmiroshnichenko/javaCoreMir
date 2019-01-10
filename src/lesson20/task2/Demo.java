@@ -1,5 +1,6 @@
 package lesson20.task2;
 
+import lesson20.task2.exception.BadRequestException;
 import lesson20.task2.exception.InternalServerException;
 import lesson20.task2.exception.LimitExceeded;
 
@@ -10,7 +11,7 @@ import java.util.Date;
 
 public class Demo {
     public static void main(String[] args) {
-        TransactionDAO transactionDAO = new TransactionDAO();
+        Controller controller = new Controller();
 
         Transaction transaction1 = new Transaction(1001, "Kiev", 5, "test1", TransactionType.INCOME, parseDate("2019-01-10"));
         Transaction transaction2 = new Transaction(1002, "Kiev", 10, "test2", TransactionType.INCOME, parseDate("2019-01-10"));
@@ -31,97 +32,109 @@ public class Demo {
         Transaction limitCountPerDayTransaction = new Transaction(1014, "Odessa", 5, "test10", TransactionType.INCOME, parseDate("2019-01-10"));
 
         try {
-            transactionDAO.save(transaction1);
-            transactionDAO.save(transaction2);
-            transactionDAO.save(transaction3);
-            transactionDAO.save(transaction4);
-            transactionDAO.save(transaction5);
-            transactionDAO.save(transaction6);
-            transactionDAO.save(transaction7);
-            transactionDAO.save(transaction8);
-            transactionDAO.save(transaction9);
+            controller.save(transaction1);
+            controller.save(transaction2);
+            controller.save(transaction3);
+            controller.save(transaction4);
+            controller.save(transaction5);
+            controller.save(transaction6);
+            controller.save(transaction7);
+            controller.save(transaction8);
+            controller.save(transaction9);
             //transactionDAO.save(transaction10);
         } catch (LimitExceeded e) {
             System.out.println("LimitExceededException: " + e.getMessage());
+        } catch (BadRequestException e) {
+            System.out.println("Bad request exception: " + e.getMessage());
         } catch (InternalServerException e) {
             System.out.println("InternalServerException: " + e.getMessage());
         } catch (Exception e){
             System.out.println("Unexpected exception: " + e.getMessage());
         } finally {
-            System.out.println(Arrays.toString(transactionDAO.transactionList()));
+            System.out.println(Arrays.toString(controller.transactionList()));
         }
 
         //too big transaction amount
         try {
-            transactionDAO.save(tooBigTransaction);
+            controller.save(tooBigTransaction);
         } catch (LimitExceeded e) {
             System.out.println("LimitExceededException: " + e.getMessage());
+        } catch (BadRequestException e) {
+            System.out.println("Bad request exception: " + e.getMessage());
         } catch (InternalServerException e) {
             System.out.println("InternalServerException: " + e.getMessage());
         } catch (Exception e){
             System.out.println("Unexpected exception: " + e.getMessage());
         } finally {
-            System.out.println(Arrays.toString(transactionDAO.transactionList()));
+            System.out.println(Arrays.toString(controller.transactionList()));
         }
 
         //too big amount transactions per day
         try {
-            transactionDAO.save(tooBigPerDayTransaction);
+            controller.save(tooBigPerDayTransaction);
         } catch (LimitExceeded e) {
             System.out.println("LimitExceededException: " + e.getMessage());
+        } catch (BadRequestException e) {
+            System.out.println("Bad request exception: " + e.getMessage());
         } catch (InternalServerException e) {
             System.out.println("InternalServerException: " + e.getMessage());
         } catch (Exception e){
             System.out.println("Unexpected exception: " + e.getMessage());
         } finally {
-            System.out.println(Arrays.toString(transactionDAO.transactionList()));
+            System.out.println(Arrays.toString(controller.transactionList()));
         }
 
         //incorrect transaction city
         try {
-            transactionDAO.save(wrongCityTransaction);
+            controller.save(wrongCityTransaction);
         } catch (LimitExceeded e) {
             System.out.println("LimitExceededException: " + e.getMessage());
+        } catch (BadRequestException e) {
+            System.out.println("Bad request exception: " + e.getMessage());
         } catch (InternalServerException e) {
             System.out.println("InternalServerException: " + e.getMessage());
         } catch (Exception e){
             System.out.println("Unexpected exception: " + e.getMessage());
         } finally {
-            System.out.println(Arrays.toString(transactionDAO.transactionList()));
+            System.out.println(Arrays.toString(controller.transactionList()));
         }
 
         //last correct transaction per day
         try {
-            transactionDAO.save(transaction11);
+            controller.save(transaction11);
         } catch (LimitExceeded e) {
             System.out.println("LimitExceededException: " + e.getMessage());
+        } catch (BadRequestException e) {
+            System.out.println("Bad request exception: " + e.getMessage());
         } catch (InternalServerException e) {
             System.out.println("InternalServerException: " + e.getMessage());
         } catch (Exception e){
             System.out.println("Unexpected exception: " + e.getMessage());
         } finally {
-            System.out.println(Arrays.toString(transactionDAO.transactionList()));
+            System.out.println(Arrays.toString(controller.transactionList()));
         }
 
         //limit quantity transactions per day
         try {
-            transactionDAO.save(limitCountPerDayTransaction);
+            controller.save(limitCountPerDayTransaction);
         } catch (LimitExceeded e) {
             System.out.println("LimitExceededException: " + e.getMessage());
+        } catch (BadRequestException e) {
+            System.out.println("Bad request exception: " + e.getMessage());
         } catch (InternalServerException e) {
             System.out.println("InternalServerException: " + e.getMessage());
         } catch (Exception e){
             System.out.println("Unexpected exception: " + e.getMessage());
         } finally {
-            System.out.println(Arrays.toString(transactionDAO.transactionList()));
+            System.out.println(Arrays.toString(controller.transactionList()));
         }
 
         //get list by day
-        System.out.println(Arrays.toString(transactionDAO.transactionList("Kiev")));
-        System.out.println(Arrays.toString(transactionDAO.transactionList("Odessa")));
+        System.out.println(Arrays.toString(controller.transactionList("Kiev")));
+        System.out.println(Arrays.toString(controller.transactionList("Odessa")));
         //get list by amount
-        System.out.println(Arrays.toString(transactionDAO.transactionList(10)));
-        System.out.println(Arrays.toString(transactionDAO.transactionList(5)));
+        System.out.println(Arrays.toString(controller.transactionList(10)));
+        System.out.println(Arrays.toString(controller.transactionList(5)));
 
     }
 
