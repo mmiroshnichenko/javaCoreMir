@@ -1,5 +1,6 @@
 package lesson20.task2;
 
+import lesson20.task2.exception.BadRequestException;
 import lesson20.task2.exception.InternalServerException;
 import lesson20.task2.exception.LimitExceeded;
 
@@ -11,7 +12,7 @@ public class TransactionDAO {
     private Transaction[] transactions = new Transaction[10];
     private Utils utils = new Utils();
 
-    public Transaction save(Transaction transaction) throws LimitExceeded, InternalServerException {
+    public Transaction save(Transaction transaction) throws Exception {
         validate(transaction);
 
         for (int i = 0; i < transactions.length; i++) {
@@ -25,7 +26,7 @@ public class TransactionDAO {
         throw new InternalServerException("Storage of transactions is full. Transaction " + transaction.getId() + " can't be  saved");
     }
 
-    private void validate(Transaction transaction) throws LimitExceeded, InternalServerException {
+    private void validate(Transaction transaction) throws Exception {
         if (transaction.getAmount() > utils.getLimitSimpleTransactionAmount()) {
             throw new LimitExceeded("Transaction limit exceed " + transaction.getId() + ". Can't be saved");
         }
@@ -46,7 +47,7 @@ public class TransactionDAO {
         }
 
         if(!Arrays.asList(utils.getCities()).contains(transaction.getCity())) {
-            throw new InternalServerException("Transaction city is not allowed " + transaction.getId() + ". Can't be saved");
+            throw new BadRequestException("Transaction city is not allowed " + transaction.getId() + ". Can't be saved");
         }
 
 //        for (Transaction tr : transactions) {
