@@ -129,7 +129,7 @@ public class Demo {
             System.out.println(Arrays.toString(controller.transactionList()));
         }
 
-        //get list by day
+        //get list by city
         System.out.println(Arrays.toString(controller.transactionList("Kiev")));
         System.out.println(Arrays.toString(controller.transactionList("Odessa")));
         //get list by amount
