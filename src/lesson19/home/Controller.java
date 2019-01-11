@@ -19,7 +19,7 @@ public class Controller {
     }
 
     public void transferFile(Storage storageFrom, Storage storageTo, long id)  throws Exception {
-        File file = storageFrom.getFileById(id);
+        File file = storageFrom.findFileById(id);
         put(storageTo, file);
         delete(storageFrom, file);
     }

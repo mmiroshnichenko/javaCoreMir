@@ -1,5 +1,7 @@
 package lesson19.home;
 
+import java.util.Arrays;
+
 public class Storage {
     private long id;
     private File[] files;
@@ -60,69 +62,59 @@ public class Storage {
                 + id + ")");
     }
 
-    public File getFileById(long id) throws Exception {
-        File file = findFileById(id);
-        if (file == null) {
-            throw new Exception("Error: File(id: " + id + ") was not found in Storage(id: " + id + ")");
+    public File findFileById(long fileId) throws Exception{
+        for (File file : files) {
+            if (file != null && file.getId() == fileId) {
+                return file;
+            }
         }
 
-        return file;
+        throw new Exception("Error: File(id: " + fileId + ") was not found in Storage(id: " + id + ")");
     }
-
-
 
     public void validateNewFile(File file) throws Exception {
-        checkExistsFile(file);
-        checkFileFormat(file);
-        checkFreeSpaceForFile(file);
-    }
-
-    public void validateNewPacketFiles(File[] newFiles) throws Exception {
-        checkFreeCellsForPacketFiles(newFiles);
-        checkFreeSpaceForPacketFiles(newFiles);
-        checkExistsForPacketFiles(newFiles);
-        checkFileFormatForPacketFiles(newFiles);
-    }
-
-    private void checkFileFormatForPacketFiles(File[] newFiles) throws Exception{
-        for (File file : newFiles) {
-            if (file != null) {
-                checkFileFormat(file);
-            }
-        }
-    }
-
-    private void checkFileFormat(File file) throws Exception {
-        for (String formatSupported : formatsSupported) {
-            if (formatSupported.equals(file.getFormat())) {
-                return;
-            }
+        try {
+            findFileById(file.getId());
+            throw new Exception("Error: File(id: " + file.getId() + ") already exists in Storage(id: " + id + ")");
+        } catch (Exception e) {
+            System.out.println("File(id: " + file.getId() + "not found in Storage(id: " + id + "). Will be saved");
         }
 
-        throw new Exception("Error: File(id: " + id + ") has not supported format '" + file.getFormat()
-                + " in Storage(id: " + id + ")");
-    }
+        if (!Arrays.asList(formatsSupported).contains(file.getFormat())) {
+            throw new Exception("Error: File(id: " + id + ") has not supported format '" + file.getFormat()
+                    + " in Storage(id: " + id + ")");
+        }
 
-    private void checkFreeSpaceForFile(File file) throws Exception {
-        if (file.getSize() > getFreeSpace()) {
+        if (file.getSize() > storageSize - getUsedSpace()) {
             throw new Exception("Error: not enough space in Storage(id: " + id + ") for File(id: " + file.getId() + ")");
         }
     }
 
-    private void checkFreeSpaceForPacketFiles(File[] newFiles) throws Exception {
+    public void validateNewPacketFiles(File[] newFiles) throws Exception {
         long filesSize = 0;
+        int countNewFiles = 0;
         for (File file : newFiles) {
             if (file != null) {
+                try {
+                    findFileById(file.getId());
+                    throw new Exception("Error: File(id: " + file.getId() + ") already exists in Storage(id: " + id + ")");
+                } catch (Exception e) {
+                    System.out.println("File(id: " + file.getId() + "not found in Storage(id: " + id + "). Will be saved");
+                }
+
+                if (!Arrays.asList(formatsSupported).contains(file.getFormat())) {
+                    throw new Exception("Error: File(id: " + id + ") has not supported format '" + file.getFormat()
+                            + " in Storage(id: " + id + ")");
+                }
                 filesSize += file.getSize();
+                countNewFiles++;
             }
         }
 
-        if (filesSize > getFreeSpace()) {
+        if (filesSize > storageSize - getUsedSpace()) {
             throw new Exception("Error: not enough space in Storage(id: " + id + ") for Files");
         }
-    }
 
-    private void checkFreeCellsForPacketFiles(File[] newFiles) throws Exception {
         int countCells = 0;
         for (File file : files) {
             if (file == null) {
@@ -130,20 +122,9 @@ public class Storage {
             }
         }
 
-        int countNewFiles = 0;
-        for (File newFile : newFiles) {
-            if (newFile != null) {
-                countNewFiles++;
-            }
-        }
-
         if (countCells < countNewFiles) {
             throw new Exception("Error: not enough free cells in Storage(id: " + id + ") for Files");
         }
-    }
-
-    private long getFreeSpace() {
-        return storageSize - getUsedSpace();
     }
 
     private long getUsedSpace() {
@@ -155,30 +136,5 @@ public class Storage {
         }
 
         return usedSize;
-    }
-
-    private void checkExistsForPacketFiles(File[] newFiles) throws Exception{
-        for (File file : newFiles) {
-            if (file != null) {
-                checkExistsFile(file);
-            }
-        }
-    }
-
-    private void checkExistsFile(File file) throws Exception {
-        File existsFile = findFileById(file.getId());
-        if (existsFile != null) {
-            throw new Exception("Error: File(id: " + file.getId() + ") already exists in Storage(id: " + id + ")");
-        }
-    }
-
-    private File findFileById(long id) {
-        for (File file : files) {
-            if (file != null && file.getId() == id) {
-                return file;
-            }
-        }
-
-        return null;
     }
 }
