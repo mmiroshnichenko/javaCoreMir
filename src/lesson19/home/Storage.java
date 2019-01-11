@@ -77,7 +77,7 @@ public class Storage {
             findFileById(file.getId());
             throw new Exception("Error: File(id: " + file.getId() + ") already exists in Storage(id: " + id + ")");
         } catch (Exception e) {
-            System.out.println("File(id: " + file.getId() + "not found in Storage(id: " + id + "). Will be saved");
+            //System.out.println("File(id: " + file.getId() + "not found in Storage(id: " + id + "). Will be saved");
         }
 
         if (!Arrays.asList(formatsSupported).contains(file.getFormat())) {
