@@ -50,11 +50,11 @@ public class TransactionDAO {
             throw new BadRequestException("Transaction city is not allowed " + transaction.getId() + ". Can't be saved");
         }
 
-        for (Transaction tr : transactions) {
-            if (tr.equals(transaction)) {
-                throw new BadRequestException("Transaction " + transaction.getId() + " already exists");
-            }
-        }
+//        for (Transaction tr : transactions) {
+//            if (tr.equals(transaction)) {
+//                throw new BadRequestException("Transaction " + transaction.getId() + " already exists");
+//            }
+//        }
 
     }
 
