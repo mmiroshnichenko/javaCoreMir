@@ -2,10 +2,10 @@ package lesson19.home;
 
 import java.util.Arrays;
 
-public class StorageDAO {
+public class StorageHandler {
     private Storage storage;
 
-    public StorageDAO(Storage storage) {
+    public StorageHandler(Storage storage) {
         this.storage = storage;
     }
 
