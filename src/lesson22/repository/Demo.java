@@ -15,10 +15,21 @@ public class Demo {
 
         System.out.println(Arrays.deepToString(UserRepository.getUsers()));
 
-        User user3 = new User(1001, "Test", "32434234sdsfuuuuo");
+        User user3 = new User(1000, "Test", "32434234sdsfuuuuo");
         UserRepository.update(user3);
+        System.out.println(Arrays.deepToString(UserRepository.getUsers()));
+        user3 = new User(1001, "Test", "32434234sdsfuuuuo");
+        UserRepository.update(user3);
+        System.out.println(Arrays.deepToString(UserRepository.getUsers()));
 
+        UserRepository.delete(1000);
         System.out.println(Arrays.deepToString(UserRepository.getUsers()));
+        UserRepository.delete(1002);
         System.out.println(Arrays.deepToString(UserRepository.getUsers()));
+
+        User user = UserRepository.findById(1002);
+        System.out.println(user);
+        user = UserRepository.findById(1001);
+        System.out.println(user);
     }
 }
