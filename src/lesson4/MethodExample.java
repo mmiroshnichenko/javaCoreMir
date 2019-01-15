@@ -8,7 +8,7 @@ public class MethodExample {
 
         System.out.println(concat("First ", "Second ", "Third"));
 
-        //System.out.println(findDivCount(2, 10, 5));
+        //Sys.out.println(findDivCount(2, 10, 5));
         System.out.println(compareSums(2,5, 3, 10));
     }
 
