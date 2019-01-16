@@ -1,4 +1,4 @@
-package lesson25;
+package lesson25.exercise;
 
 public class TestClass <T, K, V> {
     public T doSomething1(T t) {

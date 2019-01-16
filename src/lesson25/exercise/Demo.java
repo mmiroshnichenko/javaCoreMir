@@ -1,4 +1,4 @@
-package lesson25;
+package lesson25.exercise;
 
 public class Demo {
     public static void main(String[] args) throws Exception{

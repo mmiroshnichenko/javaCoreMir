@@ -1,4 +1,4 @@
-package lesson25;
+package lesson25.exercise;
 
 public class Order extends IdEntity {
     private long id;
