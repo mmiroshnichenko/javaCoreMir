@@ -24,7 +24,7 @@ public class DemoComparator {
         System.out.println(capabilities);
 
         capabilities.sort(new DateComparator());
-
+        System.out.println("By date:");
         System.out.println(capabilities);
 
         capabilities.sort(new FullComparator());
