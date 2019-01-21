@@ -19,7 +19,14 @@ public class File implements Comparable<File> {
 
     @Override
     public int compareTo(File file) {
-        return 0;
+        int res = 0;
+        if (file.getSizeInBytes() > this.sizeInBytes) {
+            res = 1;
+        } else if (file.getSizeInBytes() < this.sizeInBytes) {
+            res = -1;
+        }
+
+        return res;
     }
 
     @Override
