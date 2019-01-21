@@ -5,7 +5,7 @@ import java.util.Comparator;
 public class FullComparator extends BaseComparator implements Comparator<Capability> {
     @Override
     public int compare(Capability o1, Capability o2) {
-        Integer res = compareObjectsByStringField(o1.getChannelName(), o2.getChannelName());
+        int res = compareObjectsByStringField(o1.getChannelName(), o2.getChannelName());
         if (res != 0) {
             return res;
         }
