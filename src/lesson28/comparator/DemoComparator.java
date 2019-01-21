@@ -6,10 +6,10 @@ import java.util.ArrayList;
 public class DemoComparator {
     public static void main(String[] args) throws Exception {
 
-        Capability capability2 = new Capability(1005, "test2", "rrrr", false, new SimpleDateFormat("yyyy-MM-dd").parse("2019-01-16"));
+        Capability capability2 = new Capability(1005, "test2", "rrrr", false, null);
         Capability capability4 = new Capability(900, "test3", "rrrr", false, new SimpleDateFormat("yyyy-MM-dd").parse("2019-01-19"));
         Capability capability3 = new Capability(900, "test", "rrrr1", true, new SimpleDateFormat("yyyy-MM-dd").parse("2019-01-18"));
-        Capability capability1 = new Capability(1001, "test", "rrrr2", true, new SimpleDateFormat("yyyy-MM-dd").parse("2019-01-14"));
+        Capability capability1 = new Capability(1001, null, "rrrr2", true, new SimpleDateFormat("yyyy-MM-dd").parse("2019-01-14"));
 
         ArrayList<Capability> capabilities = new ArrayList<>();
         capabilities.add(capability1);

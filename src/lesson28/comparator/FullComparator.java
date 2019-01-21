@@ -2,16 +2,31 @@ package lesson28.comparator;
 
 import java.util.Comparator;
 
-public class FullComparator implements Comparator<Capability> {
+public class FullComparator extends BaseComparator implements Comparator<Capability> {
     @Override
     public int compare(Capability o1, Capability o2) {
-        if (!o1.getChannelName().equals(o2.getChannelName())) {
-            return o1.getChannelName().compareTo(o2.getChannelName());
-        }
-        if (!o1.getFingerprint().equals(o2.getFingerprint())) {
-            return o1.getFingerprint().compareTo(o2.getFingerprint());
+        Integer res = compareObjectsByStringField(o1.getChannelName(), o2.getChannelName());
+        if (res != 0) {
+            return res;
         }
 
-        return (int) (o2.getDateCreated().getTime() - o1.getDateCreated().getTime());
+        res = compareObjectsByStringField(o1.getFingerprint(), o2.getFingerprint());
+        if (res != 0) {
+            return res;
+        }
+
+        DateComparator dateComparator = new DateComparator();
+        return dateComparator.compare(o1, o2);
     }
+
+    private int compareObjectsByStringField(String field1, String field2) {
+        Integer res = compareObjectsWithNull(field1, field2);
+        if (res == null) {
+            res = field1.compareTo(field2);
+        }
+
+        return res;
+    }
+
+
 }
