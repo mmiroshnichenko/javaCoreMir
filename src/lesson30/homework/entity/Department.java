@@ -19,6 +19,14 @@ public class Department {
         return employees;
     }
 
+    public Employee addEmployee(Employee employee) throws Exception {
+        if (employees.add(employee)) {
+            return employee;
+        }
+
+        throw new Exception("Error: " + employee + " already exist in " + this.toString());
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -38,7 +46,7 @@ public class Department {
     public String toString() {
         return "Department{" +
                 "type=" + type +
-                ", employees=" + employees +
+                ", employeesCount=" + employees.size() +
                 '}';
     }
 }

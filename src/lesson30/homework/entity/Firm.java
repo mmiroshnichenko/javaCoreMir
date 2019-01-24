@@ -22,4 +22,27 @@ public class Firm {
     public Set<Customer> getCustomers() {
         return customers;
     }
+
+    public Department addDepartment(Department department) throws Exception {
+        if (departments.add(department)) {
+            return department;
+        }
+
+        throw new Exception("Error: " + department + " already exist in " + this.toString());
+    }
+
+    public Customer addCustomer(Customer customer) throws Exception {
+        if (customers.add(customer)) {
+            return customer;
+        }
+
+        throw new Exception("Error: " + customer + " already serviced in " + this.toString());
+    }
+
+    @Override
+    public String toString() {
+        return "Firm{" +
+                "dateFounded=" + dateFounded +
+                '}';
+    }
 }

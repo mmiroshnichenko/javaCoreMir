@@ -39,7 +39,7 @@ public class Project {
     public String toString() {
         return "Project{" +
                 ", name='" + name + '\'' +
-                ", customer=" + customer +
+                ", customer=" + customer.getName() +
                 '}';
     }
 }

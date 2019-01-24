@@ -44,6 +44,14 @@ public class Employee implements Comparable<Employee> {
         return projects;
     }
 
+    public Project addProject(Project project) throws Exception {
+        if (projects.add(project)) {
+            return project;
+        }
+
+        throw new Exception("Error: " + project + " already exist for " + this.toString());
+    }
+
     @Override
     public int compareTo(Employee employee) {
         if (!this.lastName.equals(employee.getLastName())) {
@@ -83,8 +91,7 @@ public class Employee implements Comparable<Employee> {
                 ", lastName='" + lastName + '\'' +
                 ", dateHired=" + dateHired +
                 ", position=" + position +
-                ", department=" + department +
-                ", projects=" + projects +
+                ", department=" + department.getType() +
                 '}';
     }
 }

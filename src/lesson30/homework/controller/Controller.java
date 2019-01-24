@@ -12,39 +12,39 @@ import java.util.Set;
 
 public class Controller {
 
-    public ArrayList<Employee> employeesByProject(String projectName) {
+    public static ArrayList<Employee> employeesByProject(String projectName) {
         return EmployeeDAO.employeesByProject(projectName);
     }
 
-    public Set<Project> projectsByEmployee(Employee employee) {
+    public static Set<Project> projectsByEmployee(Employee employee) {
         return ProjectDAO.projectsByEmployee(employee);
     }
 
-    public ArrayList<Employee> employeesByDepartmentWithoutProject(DepartmentType departmentType) throws Exception {
+    public static ArrayList<Employee> employeesByDepartmentWithoutProject(DepartmentType departmentType) throws Exception {
         return EmployeeDAO.employeesByDepartmentWithoutProject(departmentType);
     }
 
-    public ArrayList<Employee> employeesWithoutProject() {
+    public static ArrayList<Employee> employeesWithoutProject() {
         return EmployeeDAO.employeesWithoutProject();
     }
 
-    public Set<Employee> employeesByTeamLead(Employee lead) throws Exception {
+    public static Set<Employee> employeesByTeamLead(Employee lead) throws Exception {
         return EmployeeDAO.employeesByTeamLead(lead);
     }
 
-    public Set<Employee> teamLeadsByEmployee(Employee employee) {
+    public static Set<Employee> teamLeadsByEmployee(Employee employee) {
         return EmployeeDAO.teamLeadsByEmployee(employee);
     }
 
-    public Set<Employee> employeesByProjectEmployee(Employee employee) {
+    public static Set<Employee> employeesByProjectEmployee(Employee employee) {
         return EmployeeDAO.employeesByProjectEmployee(employee);
     }
 
-    public Set<Project> projectsByCustomer(Customer customer) {
+    public static Set<Project> projectsByCustomer(Customer customer) {
         return ProjectDAO.projectsByCustomer(customer);
     }
 
-    public Set<Employee> employeesByCustomerProjects(Customer customer) {
+    public static Set<Employee> employeesByCustomerProjects(Customer customer) {
         return EmployeeDAO.employeesByCustomerProjects(customer);
     }
 }
