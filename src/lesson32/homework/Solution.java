@@ -13,12 +13,10 @@ public class Solution {
 
         System.out.println("Please enter numbers in line");
 
-        int attempts = 3;
-        String input;
-        int sum = 0;
-        while ((input = br.readLine()) != null) {
+        for (int i = 0; i < 3; i++) {
             try {
-                String[] txtNumbers = input.split(" ");
+                int sum = 0;
+                String[] txtNumbers = br.readLine().split(" ");
                 if (txtNumbers.length != 10) {
                     throw new Exception("Error: count of numbers must be equals 10");
                 }
@@ -29,19 +27,17 @@ public class Solution {
                     }
                     sum += number;
                 }
-                break;
+                br.close();
+
+                return sum;
             } catch (Exception e) {
-                attempts--;
-                if (attempts <= 0) {
-                    System.out.println("Your numbers are wrong. Number of attempts exceeded");
-                    break;
-                }
-                System.out.println("Your numbers are wrong. You have " + attempts + " attempts to try again");
+                System.out.println("Your numbers are wrong. You have " + (2 - i) + " attempts to try again");
             }
         }
 
+        System.out.println("Your numbers are wrong. Number of attempts exceeded");
         br.close();
 
-        return sum;
+        return 0;
     }
 }
