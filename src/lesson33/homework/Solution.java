@@ -11,13 +11,13 @@ public class Solution {
             if (!file.exists()) {
                 throw new FileNotFoundException("File with path -" + path + "- not found");
             }
-            writeTextToFile(file, readFromKeyboard());
+            writeTextToFile(file, readTextFromConsole());
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
     }
 
-    private static String readFromKeyboard() throws IOException {
+    private static String readTextFromConsole() throws IOException {
         InputStreamReader reader = new InputStreamReader(System.in);
         BufferedReader br = new BufferedReader(reader);
 
