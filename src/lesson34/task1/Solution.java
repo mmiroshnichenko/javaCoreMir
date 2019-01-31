@@ -2,18 +2,14 @@ package lesson34.task1;
 
 import java.io.*;
 
-public class Practice {
-    public static void main(String[] args) throws Exception {
-        copyFileContent("C:\\Users\\miroshnichenko\\Desktop\\test.txt", "C:\\Users\\miroshnichenko\\Desktop\\test1.txt");
-    }
-
+public class Solution {
     public static void copyFileContent(String fileFromPath, String fileToPath) throws Exception {
         validate(fileFromPath, fileToPath);
 
         writeToFile(fileToPath, readFromFile(fileFromPath));
     }
 
-    private static StringBuffer readFromFile(String path) {
+    private static StringBuffer readFromFile(String path) throws Exception {
         StringBuffer res = new StringBuffer();
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
             String line;
@@ -23,19 +19,19 @@ public class Practice {
             }
             res.replace(res.length() - 1, res.length(), "");
         } catch (FileNotFoundException e) {
-            System.err.println("File does not exist");
+            throw new FileNotFoundException("File " + path + " does not exist");
         } catch (IOException e) {
-            System.err.println("Reading from file " + path + " failed");
+            throw new IOException("Reading from file " + path + " failed");
         }
 
         return res;
     }
 
-    private static void writeToFile(String path, StringBuffer contentToWrite) {
+    private static void writeToFile(String path, StringBuffer contentToWrite) throws IOException {
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(path, true))) {
             bufferedWriter.append(contentToWrite);
         } catch (IOException e) {
-            System.err.println("Can't write to file");
+            throw new IOException("Can't write to file " + path);
         }
     }
 
