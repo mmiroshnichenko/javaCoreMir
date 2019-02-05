@@ -5,7 +5,7 @@ import lesson35.model.Hotel;
 
 public class HotelRepository extends BaseRepository<Hotel> {
 
-    public HotelRepository() throws Exception {
+    public HotelRepository() {
         super(5, "HotelDb.txt");
     }
 

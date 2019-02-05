@@ -1,3 +1,2 @@
-1;Hotel 3;Ukraine;Lviv;Street 1
-2;Hotel 4;Ukraine;Lviv;Street 2
-4;Hotel 2;Ukraine;Lviv;Street 2
+1;Hotel 1;Ukraine;Lviv;Street 1
+2;Hotel 2;Ukraine;Lviv;Street 2

@@ -13,25 +13,28 @@ public abstract class BaseRepository<T extends BaseModel> {
     protected int countFields;
     protected String pathFileDb;
 
-    protected ArrayList<T> objects = new ArrayList<>();
+    protected ArrayList<T> objects;
 
 
     public ArrayList<T> getAllObjects() throws Exception {
+        if (objects == null) {
+            objects = loadObjectsFromDb();
+        }
+
         return objects;
     }
 
-    public BaseRepository(int countFields, String pathFileDb) throws Exception {
+    public BaseRepository(int countFields, String pathFileDb) {
         this.countFields = countFields;
         this.pathFileDb = System.getProperty("user.dir") + "\\src\\lesson35\\database\\" + pathFileDb;
-        loadObjectsFromDb();
     }
 
     protected abstract T mapObject(String[] rowData) throws Exception;
 
     protected abstract String toDbRow(T object);
 
-    public T findById(long id) {
-        for (T object : objects) {
+    public T findById(long id) throws Exception {
+        for (T object : getAllObjects()) {
             if (object.getId() == id) {
                 return object;
             }
@@ -40,8 +43,8 @@ public abstract class BaseRepository<T extends BaseModel> {
         return null;
     }
 
-    public T find(T object) {
-        for (T obj : objects) {
+    public T find(T object) throws Exception {
+        for (T obj : getAllObjects()) {
             if (obj.equals(object)) {
                 return obj;
             }
@@ -67,7 +70,7 @@ public abstract class BaseRepository<T extends BaseModel> {
     }
 
     public void removeById(long id) throws Exception {
-        for (T object : objects) {
+        for (T object : getAllObjects()) {
             if (object.getId() == id) {
                 objects.remove(object);
                 break;
@@ -78,7 +81,7 @@ public abstract class BaseRepository<T extends BaseModel> {
     }
 
     public void removeObject(T object) throws Exception {
-        for (T obj : objects) {
+        for (T obj : getAllObjects()) {
             if (object.equals(obj)) {
                 objects.remove(obj);
                 break;
@@ -90,7 +93,7 @@ public abstract class BaseRepository<T extends BaseModel> {
 
     public void saveObjectsInDb() throws Exception {
         StringBuffer sb = new StringBuffer();
-        for (T object : objects) {
+        for (T object : getAllObjects()) {
             sb.append(toDbRow(object));
             sb.append("\n");
         }
@@ -98,20 +101,22 @@ public abstract class BaseRepository<T extends BaseModel> {
         writeToDb(sb, false);
     }
 
-    private void loadObjectsFromDb() throws Exception {
+    private ArrayList<T> loadObjectsFromDb() throws Exception {
+        ArrayList<T> objectsList = new ArrayList<>();
+
         StringBuffer stringBuffer = readFromDb();
-        if (stringBuffer.length() == 0) {
-            return;
-        }
+        if (stringBuffer.length() > 0) {
+            for (String row : Pattern.compile("\n").split(stringBuffer)) {
+                String[] rowData = Pattern.compile(";").split(row);
+                if (rowData.length != countFields) {
+                    throw new DataBaseException("Error: base file -" + pathFileDb + "- is broken");
+                }
 
-        for (String row : Pattern.compile("\n").split(stringBuffer)) {
-            String[] rowData = Pattern.compile(";").split(row);
-            if (rowData.length != countFields) {
-                throw new DataBaseException("Error: base file -" + pathFileDb + "- is broken");
+                objectsList.add(mapObject(rowData));
             }
-
-            objects.add(mapObject(rowData));
         }
+
+        return objectsList;
     }
 
     private StringBuffer readFromDb() throws Exception {
