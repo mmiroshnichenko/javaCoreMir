@@ -5,8 +5,18 @@ import lesson35.model.Hotel;
 
 public class HotelRepository extends BaseRepository<Hotel> {
 
-    public HotelRepository() {
+    private static HotelRepository instance = null;
+
+    private HotelRepository() {
         super(5, "HotelDb.txt");
+    }
+
+    public static synchronized  HotelRepository getInstance() {
+        if (instance == null) {
+            instance = new HotelRepository();
+        }
+
+        return instance;
     }
 
     @Override

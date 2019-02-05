@@ -5,12 +5,12 @@ import lesson35.repository.UserRepository;
 
 public class UserService {
 
-    private UserRepository userRepository = new UserRepository();
+    private UserRepository userRepository = UserRepository.getInstance();
 
-    public User registerUser(User user) {
+    public User registerUser(User user) throws Exception {
         // chek business logic
 
         //if logic is ok
-        return userRepository.registerUser(user);
+        return userRepository.addObject(user);
     }
 }

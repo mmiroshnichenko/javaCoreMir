@@ -15,6 +15,14 @@ public abstract class BaseRepository<T extends BaseModel> {
 
     protected ArrayList<T> objects;
 
+    protected abstract T mapObject(String[] rowData) throws Exception;
+
+    protected abstract String toDbRow(T object);
+
+    public BaseRepository(int countFields, String pathFileDb) {
+        this.countFields = countFields;
+        this.pathFileDb = System.getProperty("user.dir") + "\\src\\lesson35\\database\\" + pathFileDb;
+    }
 
     public ArrayList<T> getAllObjects() throws Exception {
         if (objects == null) {
@@ -23,15 +31,6 @@ public abstract class BaseRepository<T extends BaseModel> {
 
         return objects;
     }
-
-    public BaseRepository(int countFields, String pathFileDb) {
-        this.countFields = countFields;
-        this.pathFileDb = System.getProperty("user.dir") + "\\src\\lesson35\\database\\" + pathFileDb;
-    }
-
-    protected abstract T mapObject(String[] rowData) throws Exception;
-
-    protected abstract String toDbRow(T object);
 
     public T findById(long id) throws Exception {
         for (T object : getAllObjects()) {

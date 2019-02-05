@@ -4,7 +4,7 @@ import lesson35.model.Hotel;
 import lesson35.repository.HotelRepository;
 
 public class HotelService {
-    private static HotelRepository hotelRepository = new HotelRepository();
+    private HotelRepository hotelRepository = HotelRepository.getInstance();
 
     public Hotel getById(long id) throws Exception {
         return hotelRepository.findById(id);
