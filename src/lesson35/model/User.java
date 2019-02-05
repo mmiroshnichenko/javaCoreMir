@@ -48,6 +48,10 @@ public class User extends BaseModel {
         return userType;
     }
 
+    public boolean isAdmin() {
+        return userType == UserType.ADMIN;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

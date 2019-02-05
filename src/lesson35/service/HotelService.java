@@ -10,11 +10,11 @@ public class HotelService {
         return hotelRepository.findById(id);
     }
 
-    public Hotel add(Hotel hotel) throws Exception {
+    public Hotel addHotel(Hotel hotel) throws Exception {
         return hotelRepository.addObject(hotel);
     }
 
-    public void remove(long hotelId) throws Exception {
+    public void deleteHotel(long hotelId) throws Exception {
         hotelRepository.removeById(hotelId);
     }
 }
