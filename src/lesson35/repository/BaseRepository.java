@@ -13,7 +13,7 @@ public abstract class BaseRepository<T extends BaseModel> {
     protected int countFields;
     protected String pathFileDb;
 
-    protected ArrayList<T> objects;
+    protected ArrayList<T> objects = new ArrayList<>();
 
 
     public ArrayList<T> getAllObjects() throws Exception {
@@ -22,7 +22,7 @@ public abstract class BaseRepository<T extends BaseModel> {
 
     public BaseRepository(int countFields, String pathFileDb) throws Exception {
         this.countFields = countFields;
-        this.pathFileDb = pathFileDb;
+        this.pathFileDb = System.getProperty("user.dir") + "\\src\\lesson35\\database\\" + pathFileDb;
         loadObjectsFromDb();
     }
 
@@ -50,7 +50,7 @@ public abstract class BaseRepository<T extends BaseModel> {
         return null;
     }
 
-    protected T saveObject(T object) throws Exception {
+    public T addObject(T object) throws Exception {
         if (find(object) != null) {
             throw new BadRequestException("Error: " + object + " already exist");
         }
@@ -58,15 +58,26 @@ public abstract class BaseRepository<T extends BaseModel> {
         object.setId(getNextId());
 
         StringBuffer sb = new StringBuffer();
-        sb.append("\n");
         sb.append(toDbRow(object));
+        sb.append("\n");
 
         writeToDb(sb, true);
         objects.add(object);
         return object;
     }
 
-    protected void removeObject(T object) throws Exception {
+    public void removeById(long id) throws Exception {
+        for (T object : objects) {
+            if (object.getId() == id) {
+                objects.remove(object);
+                break;
+            }
+        }
+
+        saveObjectsInDb();
+    }
+
+    public void removeObject(T object) throws Exception {
         for (T obj : objects) {
             if (object.equals(obj)) {
                 objects.remove(obj);
@@ -77,19 +88,24 @@ public abstract class BaseRepository<T extends BaseModel> {
         saveObjectsInDb();
     }
 
-    protected void saveObjectsInDb() throws Exception {
+    public void saveObjectsInDb() throws Exception {
         StringBuffer sb = new StringBuffer();
         for (T object : objects) {
-            sb.append("\n");
             sb.append(toDbRow(object));
+            sb.append("\n");
         }
 
         writeToDb(sb, false);
     }
 
     private void loadObjectsFromDb() throws Exception {
-        for (String row : Pattern.compile("\n").split(readFromDb())) {
-            String[] rowData = Pattern.compile("|").split(row);
+        StringBuffer stringBuffer = readFromDb();
+        if (stringBuffer.length() == 0) {
+            return;
+        }
+
+        for (String row : Pattern.compile("\n").split(stringBuffer)) {
+            String[] rowData = Pattern.compile(";").split(row);
             if (rowData.length != countFields) {
                 throw new DataBaseException("Error: base file -" + pathFileDb + "- is broken");
             }
@@ -106,7 +122,9 @@ public abstract class BaseRepository<T extends BaseModel> {
                 res.append(line);
                 res.append("\n");
             }
-            res.replace(res.length() - 1, res.length(), "");
+            if (res.length() > 0) {
+                res.replace(res.length() - 1, res.length(), "");
+            }
         } catch (FileNotFoundException e) {
             throw new FileNotFoundException("File " + pathFileDb + " does not exist");
         } catch (IOException e) {

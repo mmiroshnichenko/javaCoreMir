@@ -15,6 +15,13 @@ public class Hotel extends BaseModel {
         this.street = street;
     }
 
+    public Hotel(String name, String country, String city, String street) {
+        this.name = name;
+        this.country = country;
+        this.city = city;
+        this.street = street;
+    }
+
     @Override
     public long getId() {
         return id;

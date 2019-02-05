@@ -6,7 +6,7 @@ import lesson35.model.Hotel;
 public class HotelRepository extends BaseRepository<Hotel> {
 
     public HotelRepository() throws Exception {
-        super(5, "..\\database\\HotelDb.txt");
+        super(5, "HotelDb.txt");
     }
 
     @Override
@@ -29,9 +29,9 @@ public class HotelRepository extends BaseRepository<Hotel> {
     @Override
     protected String toDbRow(Hotel hotel) {
         return hotel.getId()
-                + "|" + hotel.getName()
-                + "|" + hotel.getCountry()
-                + "|" + hotel.getCity()
-                + "|" + hotel.getStreet();
+                + ";" + hotel.getName()
+                + ";" + hotel.getCountry()
+                + ";" + hotel.getCity()
+                + ";" + hotel.getStreet();
     }
 }

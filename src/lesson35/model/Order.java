@@ -2,7 +2,7 @@ package lesson35.model;
 
 import java.util.Date;
 
-public class Order extends BaseModel {
+public class Order{
     private long id;
     private User user;
     private Room room;
@@ -19,7 +19,6 @@ public class Order extends BaseModel {
         this.moneyPaid = moneyPaid;
     }
 
-    @Override
     public long getId() {
         return id;
     }

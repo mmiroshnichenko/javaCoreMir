@@ -1,6 +1,6 @@
 package lesson35.model;
 
-public class User extends BaseModel {
+public class User {
     private long id;
     private String userName;
     private String password;
@@ -15,7 +15,6 @@ public class User extends BaseModel {
         this.userType = userType;
     }
 
-    @Override
     public long getId() {
         return id;
     }
