@@ -3,6 +3,8 @@ package lesson35.repository;
 import lesson35.exceptions.FormatDataException;
 import lesson35.model.Hotel;
 
+import java.util.ArrayList;
+
 public class HotelRepository extends BaseRepository<Hotel> {
 
     private static HotelRepository instance = null;
@@ -17,6 +19,28 @@ public class HotelRepository extends BaseRepository<Hotel> {
         }
 
         return instance;
+    }
+
+    public ArrayList<Hotel> findHotelByName(String name) throws Exception{
+        ArrayList<Hotel> hotels = new ArrayList<>();
+        for (Hotel hotel : getAllObjects()) {
+            if (name.equals(hotel.getName())) {
+                hotels.add(hotel);
+            }
+        }
+
+        return hotels;
+    }
+
+    public ArrayList<Hotel> findHotelByCity(String city) throws Exception {
+        ArrayList<Hotel> hotels = new ArrayList<>();
+        for (Hotel hotel : getAllObjects()) {
+            if (city.equals(hotel.getCity())) {
+                hotels.add(hotel);
+            }
+        }
+
+        return hotels;
     }
 
     @Override

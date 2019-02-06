@@ -9,12 +9,12 @@ import java.util.ArrayList;
 public class HotelController {
     private HotelService hotelService = new HotelService();
 
-    public ArrayList<Hotel> findHotelByName(String name) {
-        return null;
+    public ArrayList<Hotel> findHotelByName(String name) throws Exception {
+        return hotelService.findHotelByName(name);
     }
 
-    public ArrayList<Hotel> findHotelByCity(String city) {
-        return null;
+    public ArrayList<Hotel> findHotelByCity(String city) throws Exception {
+        return hotelService.findHotelByCity(city);
     }
 
     public Hotel addHotel(Hotel hotel) throws Exception{

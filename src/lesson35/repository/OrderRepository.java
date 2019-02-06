@@ -4,6 +4,8 @@ import lesson35.exceptions.FormatDataException;
 import lesson35.model.Order;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 
 public class OrderRepository extends BaseRepository<Order> {
     private UserRepository userRepository = UserRepository.getInstance();
@@ -22,6 +24,20 @@ public class OrderRepository extends BaseRepository<Order> {
         }
 
         return instance;
+    }
+
+    public ArrayList<Order> findActiveOrdersByRoomAndUser(long roomId, long userId) throws Exception {
+        Date currentDate = new Date();
+        ArrayList<Order> orders = new ArrayList<>();
+        for (Order order : getAllObjects()) {
+            if (order.getUser().getId() == userId
+                && order.getRoom().getId() == roomId
+                && order.getDateFrom().compareTo(currentDate) > 0 ) {
+                orders.add(order);
+            }
+        }
+
+        return orders;
     }
 
     @Override

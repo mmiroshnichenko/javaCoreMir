@@ -5,12 +5,12 @@ import lesson35.model.Room;
 import lesson35.service.AuthorizationService;
 import lesson35.service.RoomService;
 
-import java.util.TreeSet;
+import java.util.ArrayList;
 
 public class RoomController {
     private RoomService roomService = new RoomService();
 
-    public TreeSet<Room> findRooms(Filter filter) {
+    public ArrayList<Room> findRooms(Filter filter) {
         return null;
     }
 
