@@ -19,6 +19,10 @@ public class RoomService {
         roomRepository.removeById(roomId);
     }
 
+    public void clearAll() throws Exception {
+        roomRepository.clearDataInDb();
+    }
+
     public ArrayList<Room> findRooms(Filter filter) throws Exception {
         ArrayList<Room> rooms = findRoomsByNumberOfGuests(roomRepository.getAllObjects(), filter.getNumberOfGuests());
         rooms = findRoomsByPrice(rooms, filter.getPrice());

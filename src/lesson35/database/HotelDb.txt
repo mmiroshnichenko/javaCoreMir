@@ -1,2 +1,6 @@
-1;Hotel 1;Ukraine;Lviv;Street 1
-2;Hotel 2;Ukraine;Lviv;Street 2
+1;Hilton;Ukraine;Kiev;Street 1
+2;Hilton;USA;New-York;Street 2
+3;Hilton;Great Britain;London;Street 3
+4;Libid;Ukraine;Kiev;Street 4
+5;Edem;Ukraine;Lviv;Street 5
+6;Relax;Ukraine;Lviv;Street 6

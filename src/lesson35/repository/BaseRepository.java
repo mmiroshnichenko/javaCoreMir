@@ -100,6 +100,14 @@ public abstract class BaseRepository<T extends BaseModel> {
         writeToDb(sb, false);
     }
 
+    public void clearDataInDb() throws Exception {
+        if (objects == null) {
+            getAllObjects();
+        }
+        objects.clear();
+        saveObjectsInDb();
+    }
+
     private ArrayList<T> loadObjectsFromDb() throws Exception {
         ArrayList<T> objectsList = new ArrayList<>();
 

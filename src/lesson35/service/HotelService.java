@@ -34,4 +34,8 @@ public class HotelService {
         hotels.sort(new HotelComparator());
         return hotels;
     }
+
+    public void clearAll() throws Exception {
+        hotelRepository.clearDataInDb();
+    }
 }

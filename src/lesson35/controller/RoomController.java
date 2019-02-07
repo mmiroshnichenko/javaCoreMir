@@ -25,4 +25,8 @@ public class RoomController {
 
         roomService.deleteRoom(roomId);
     }
+
+    public void clearAll() throws Exception {
+        roomService.clearAll();
+    }
 }

@@ -18,4 +18,8 @@ public class UserController {
     public void logout() {
         userService.logoutUser();
     }
+
+    public void clearAll() throws Exception {
+        userService.clearAll();
+    }
 }

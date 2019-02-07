@@ -28,4 +28,8 @@ public class HotelController {
 
         hotelService.deleteHotel(hotelId);
     }
+
+    public void clearAll() throws Exception {
+        hotelService.clearAll();
+    }
 }

@@ -27,4 +27,8 @@ public class UserService {
     public void logoutUser() {
         Session.clear();
     }
+
+    public void clearAll() throws Exception {
+        userRepository.clearDataInDb();
+    }
 }

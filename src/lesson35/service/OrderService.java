@@ -29,4 +29,8 @@ public class OrderService {
             orderRepository.removeObject(order);
         }
     }
+
+    public void clearAll() throws Exception {
+        orderRepository.clearDataInDb();
+    }
 }
