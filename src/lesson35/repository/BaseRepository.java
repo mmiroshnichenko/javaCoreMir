@@ -53,8 +53,9 @@ public abstract class BaseRepository<T extends BaseModel> {
     }
 
     public T addObject(T object) throws Exception {
-        if (find(object) != null) {
-            throw new BadRequestException("Error: " + object + " already exist");
+        T existObject = find(object);
+        if (existObject != null) {
+            throw new BadRequestException("Error: " + existObject + " already exist");
         }
 
         object.setId(getNextId());
@@ -69,25 +70,36 @@ public abstract class BaseRepository<T extends BaseModel> {
     }
 
     public void removeById(long id) throws Exception {
-        for (T object : getAllObjects()) {
-            if (object.getId() == id) {
-                objects.remove(object);
-                break;
-            }
+        T object = findById(id);
+        if (object == null) {
+            throw new BadRequestException("Error: object with id:" + id + " does not exist in DB");
         }
-
+        objects.remove(object);
         saveObjectsInDb();
     }
 
     public void removeObject(T object) throws Exception {
-        for (T obj : getAllObjects()) {
-            if (object.equals(obj)) {
-                objects.remove(obj);
-                break;
+        T dbObject = find(object);
+        if (dbObject == null) {
+            throw new BadRequestException("Error: " + object + " does not exist in DB");
+        }
+        objects.remove(dbObject);
+        saveObjectsInDb();
+    }
+
+    public void updateObjectById(long id, T newObject) throws Exception {
+        int index = 0;
+        for (T object : getAllObjects()) {
+            if (object.getId() == id) {
+                objects.set(index, newObject);
+
+                saveObjectsInDb();
+                return;
             }
+            index++;
         }
 
-        saveObjectsInDb();
+        throw new BadRequestException("Error: object with id:" + id + " does not exist in DB");
     }
 
     public void saveObjectsInDb() throws Exception {

@@ -8,9 +8,6 @@ import lesson35.model.Hotel;
 import lesson35.model.Room;
 import lesson35.model.User;
 import lesson35.model.UserType;
-import lesson35.repository.HotelRepository;
-import lesson35.repository.RoomRepository;
-import lesson35.repository.UserRepository;
 
 import java.text.SimpleDateFormat;
 
@@ -116,5 +113,6 @@ public class BaseDemo {
         userController.clearAll();
         hotelController.clearAll();
         roomController.clearAll();
+        orderController.clearAll();
     }
 }

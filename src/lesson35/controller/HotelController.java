@@ -32,4 +32,8 @@ public class HotelController {
     public void clearAll() throws Exception {
         hotelService.clearAll();
     }
+
+    public ArrayList<Hotel> getAllHotels() throws Exception {
+        return hotelService.getAllHotels();
+    }
 }

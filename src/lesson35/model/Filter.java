@@ -11,41 +11,59 @@ public class Filter {
     private String country;
     private String city;
 
-    public Filter(int numberOfGuests, double price, Boolean breakfastIncluded, Boolean petsAllowed, Date dateAvailableFrom, String country, String city) {
-        this.numberOfGuests = numberOfGuests;
-        this.price = price;
-        this.breakfastIncluded = breakfastIncluded;
-        this.petsAllowed = petsAllowed;
-        this.dateAvailableFrom = dateAvailableFrom;
-        this.country = country;
-        this.city = city;
-    }
-
     public int getNumberOfGuests() {
         return numberOfGuests;
+    }
+
+    public void setNumberOfGuests(int numberOfGuests) {
+        this.numberOfGuests = numberOfGuests;
     }
 
     public double getPrice() {
         return price;
     }
 
-    public Boolean isBreakfastIncluded() {
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public Boolean getBreakfastIncluded() {
         return breakfastIncluded;
     }
 
-    public Boolean isPetsAllowed() {
+    public void setBreakfastIncluded(Boolean breakfastIncluded) {
+        this.breakfastIncluded = breakfastIncluded;
+    }
+
+    public Boolean getPetsAllowed() {
         return petsAllowed;
+    }
+
+    public void setPetsAllowed(Boolean petsAllowed) {
+        this.petsAllowed = petsAllowed;
     }
 
     public Date getDateAvailableFrom() {
         return dateAvailableFrom;
     }
 
+    public void setDateAvailableFrom(Date dateAvailableFrom) {
+        this.dateAvailableFrom = dateAvailableFrom;
+    }
+
     public String getCountry() {
         return country;
     }
 
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
     public String getCity() {
         return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 }

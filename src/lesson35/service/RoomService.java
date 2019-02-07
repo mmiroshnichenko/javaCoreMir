@@ -1,7 +1,9 @@
 package lesson35.service;
 
 import lesson35.comparator.RoomComparator;
+import lesson35.exceptions.BadRequestException;
 import lesson35.model.Filter;
+import lesson35.model.Hotel;
 import lesson35.model.Room;
 import lesson35.repository.RoomRepository;
 
@@ -10,24 +12,48 @@ import java.util.Date;
 
 public class RoomService {
     private RoomRepository roomRepository = RoomRepository.getInstance();
+    private OrderService orderService = new OrderService();
 
     public Room addRoom(Room room) throws Exception {
         return roomRepository.addObject(room);
     }
 
-    public void deleteRoom(long roomId) throws Exception {
-        roomRepository.removeById(roomId);
+    public void deleteRoomsByHotel(Hotel hotel) throws Exception {
+        for (Room room : getRoomsByHotel(hotel)) {
+            deleteRoom(room);
+        }
+    }
+
+    public void deleteRoomById(long roomId) throws Exception {
+        Room room = roomRepository.findById(roomId);
+        if (room == null) {
+            throw new BadRequestException("Error: Room with id:" + roomId + " does not exist in DB");
+        }
+
+        deleteRoom(room);
+    }
+
+    public void deleteRoom(Room room) throws Exception {
+        if (orderService.existOrdersWithRoom(room)) {
+            throw new BadRequestException("Error: cannot remove :" + room + ", already exists orders");
+        }
+
+        roomRepository.removeObject(room);
     }
 
     public void clearAll() throws Exception {
         roomRepository.clearDataInDb();
     }
 
+    public ArrayList<Room> getAllRooms() throws Exception {
+        return roomRepository.getAllObjects();
+    }
+
     public ArrayList<Room> findRooms(Filter filter) throws Exception {
         ArrayList<Room> rooms = findRoomsByNumberOfGuests(roomRepository.getAllObjects(), filter.getNumberOfGuests());
         rooms = findRoomsByPrice(rooms, filter.getPrice());
-        rooms = findRoomsByBreakfastIncluded(rooms, filter.isBreakfastIncluded());
-        rooms = findRoomsByPetsAllowed(rooms, filter.isPetsAllowed());
+        rooms = findRoomsByBreakfastIncluded(rooms, filter.getBreakfastIncluded());
+        rooms = findRoomsByPetsAllowed(rooms, filter.getPetsAllowed());
         rooms = findRoomsByDateAvailableFrom(rooms, filter.getDateAvailableFrom());
         rooms = findRoomsByCountry(rooms, filter.getCountry());
         rooms = findRoomsByCity(rooms, filter.getCity());
@@ -139,5 +165,16 @@ public class RoomService {
         }
 
         return res;
+    }
+
+    private ArrayList<Room> getRoomsByHotel(Hotel hotel) throws Exception {
+        ArrayList<Room> rooms = new ArrayList<>();
+        for (Room room : roomRepository.getAllObjects()) {
+            if (room.getHotel().equals(hotel)) {
+                rooms.add(room);
+            }
+        }
+
+        return rooms;
     }
 }
