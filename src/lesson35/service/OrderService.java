@@ -31,7 +31,7 @@ public class OrderService {
         Order order = orderRepository.addObject(new Order(user, room, dateFrom, dateTo, moneyPaid));
         if (order != null) {
             room.setDateAvailableFrom(dateTo);
-            roomRepository.updateObjectById(roomId, room);
+            roomRepository.updateObject(room);
         }
 
         return order;
@@ -41,7 +41,14 @@ public class OrderService {
         Order order = orderRepository.findById(orderId);
         validateCancelReservationParams(order, orderId);
 
+        Date dateFrom = order.getDateFrom();
+        Room room = order.getRoom();
         orderRepository.removeObject(order);
+        //я понимаю, что просто установить доступность комнаты в dateFrom от удаленного заказа - это не совсем верно
+        //но тут возможно очень много вариантов, которые тоже будут отличаться от того как это сделано на реальных проектах
+        //поэтому сделал этот простой вариант
+        room.setDateAvailableFrom(dateFrom);
+        roomRepository.updateObject(room);
     }
 
     public void clearAll() throws Exception {

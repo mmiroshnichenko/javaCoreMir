@@ -87,11 +87,11 @@ public abstract class BaseRepository<T extends BaseModel> {
         saveObjectsInDb();
     }
 
-    public void updateObjectById(long id, T newObject) throws Exception {
+    public void updateObject(T updatedObject) throws Exception {
         int index = 0;
         for (T object : getAllObjects()) {
-            if (object.getId() == id) {
-                objects.set(index, newObject);
+            if (object.getId() == updatedObject.getId()) {
+                objects.set(index, updatedObject);
 
                 saveObjectsInDb();
                 return;
@@ -99,7 +99,7 @@ public abstract class BaseRepository<T extends BaseModel> {
             index++;
         }
 
-        throw new BadRequestException("Error: object with id:" + id + " does not exist in DB");
+        throw new BadRequestException("Error: object with id:" + updatedObject.getId() + " does not exist in DB");
     }
 
     public void saveObjectsInDb() throws Exception {
