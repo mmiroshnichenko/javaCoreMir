@@ -13,7 +13,7 @@ public class OrderRepository extends BaseRepository<Order> {
     private static OrderRepository instance = null;
 
     private OrderRepository() {
-        super(6, "OrderDb.txt");
+        super("OrderDb.txt");
     }
 
     public static synchronized  OrderRepository getInstance() {
@@ -40,15 +40,5 @@ public class OrderRepository extends BaseRepository<Order> {
             throw new FormatDataException("Error: data format of object Hotel is wrong");
         }
         return order;
-    }
-
-    @Override
-    protected String toDbRow(Order order) {
-        return order.getId()
-                + ";" + order.getUser().getId()
-                + ";" + order.getRoom().getId()
-                + ";" + dateFormat.format(order.getDateFrom())
-                + ";" + dateFormat.format(order.getDateTo())
-                + ";" + order.getMoneyPaid();
     }
 }

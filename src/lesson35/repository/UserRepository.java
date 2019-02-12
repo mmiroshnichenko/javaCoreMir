@@ -10,7 +10,7 @@ public class UserRepository extends BaseRepository<User> {
     private static UserRepository instance = null;
 
     private UserRepository() {
-        super(5, "UserDb.txt");
+        super("UserDb.txt");
     }
 
     public static synchronized  UserRepository getInstance() {
@@ -64,14 +64,5 @@ public class UserRepository extends BaseRepository<User> {
             throw new FormatDataException("Error: data format of object User is wrong");
         }
         return user;
-    }
-
-    @Override
-    protected String toDbRow(User user) {
-        return user.getId()
-                + ";" + user.getUserName()
-                + ";" + user.getPassword()
-                + ";" + user.getCountry()
-                + ";" + user.getUserType();
     }
 }

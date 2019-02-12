@@ -1,5 +1,6 @@
 package lesson35.model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Order extends BaseModel{
@@ -9,6 +10,8 @@ public class Order extends BaseModel{
     private Date dateFrom;
     private Date dateTo;
     private double moneyPaid;
+
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
     public Order(long id, User user, Room room, Date dateFrom, Date dateTo, double moneyPaid) {
         this.id = id;
@@ -86,13 +89,11 @@ public class Order extends BaseModel{
 
     @Override
     public String toString() {
-        return "Order{" +
-                "id=" + id +
-                ", user=" + user +
-                ", room=" + room +
-                ", dateFrom=" + dateFrom +
-                ", dateTo=" + dateTo +
-                ", moneyPaid=" + moneyPaid +
-                '}';
+        return id
+            + ";" + user.getId()
+            + ";" + room.getId()
+            + ";" + dateFormat.format(dateFrom)
+            + ";" + dateFormat.format(dateTo)
+            + ";" + moneyPaid;
     }
 }

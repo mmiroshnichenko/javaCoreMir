@@ -15,6 +15,8 @@ public class RoomService {
     private OrderService orderService = new OrderService();
 
     public Room addRoom(Room room) throws Exception {
+        validate(room);
+
         return roomRepository.addObject(room);
     }
 
@@ -176,5 +178,23 @@ public class RoomService {
         }
 
         return rooms;
+    }
+
+    private void validate(Room room) throws BadRequestException {
+        if(room.getNumberOfGuests() <= 0) {
+            throw new BadRequestException("Error: incorrect room param: number of guests");
+        }
+
+        if(room.getPrice() <= 0) {
+            throw new BadRequestException("Error: incorrect room param: price");
+        }
+
+        if(room.getDateAvailableFrom() == null) {
+            throw new BadRequestException("Error: room param Date Available From is required");
+        }
+
+        if(room.getHotel() == null) {
+            throw new BadRequestException("Error: room param Hotel is required");
+        }
     }
 }

@@ -13,7 +13,7 @@ public class RoomRepository extends BaseRepository<Room> {
     private static RoomRepository instance = null;
 
     private RoomRepository() {
-        super(7, "RoomDb.txt");
+        super("RoomDb.txt");
     }
 
     public static synchronized  RoomRepository getInstance() {
@@ -43,16 +43,5 @@ public class RoomRepository extends BaseRepository<Room> {
             throw new FormatDataException("Error: date format of object Hotel is wrong");
         }
         return room;
-    }
-
-    @Override
-    protected String toDbRow(Room room) {
-        return room.getId()
-                + ";" + room.getNumberOfGuests()
-                + ";" + room.getPrice()
-                + ";" + room.isBreakfastIncluded()
-                + ";" + room.isPetsAllowed()
-                + ";" + dateFormat.format(room.getDateAvailableFrom())
-                + ";" + room.getHotel().getId();
     }
 }

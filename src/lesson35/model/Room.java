@@ -1,5 +1,6 @@
 package lesson35.model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Room extends BaseModel {
@@ -10,6 +11,8 @@ public class Room extends BaseModel {
     private boolean petsAllowed;
     private Date dateAvailableFrom;
     private Hotel hotel;
+
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
     public Room(long id, int numberOfGuests, double price, boolean breakfastIncluded, boolean petsAllowed, Date dateAvailableFrom, Hotel hotel) {
         this.id = id;
@@ -99,14 +102,12 @@ public class Room extends BaseModel {
 
     @Override
     public String toString() {
-        return "Room{" +
-                "id=" + id +
-                ", numberOfGuests=" + numberOfGuests +
-                ", price=" + price +
-                ", breakfastIncluded=" + breakfastIncluded +
-                ", petsAllowed=" + petsAllowed +
-                ", dateAvailableFrom=" + dateAvailableFrom +
-                ", hotel=" + hotel +
-                '}';
+        return id
+                + ";" + numberOfGuests
+                + ";" + price
+                + ";" + breakfastIncluded
+                + ";" + petsAllowed
+                + ";" + dateFormat.format(dateAvailableFrom)
+                + ";" + hotel.getId();
     }
 }

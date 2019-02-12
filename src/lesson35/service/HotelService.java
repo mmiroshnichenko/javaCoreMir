@@ -13,6 +13,8 @@ public class HotelService {
     private OrderService orderService = new OrderService();
 
     public Hotel addHotel(Hotel hotel) throws Exception {
+        validate(hotel);
+
         return hotelRepository.addObject(hotel);
     }
 
@@ -51,5 +53,23 @@ public class HotelService {
 
     public ArrayList<Hotel> getAllHotels() throws Exception {
         return hotelRepository.getAllObjects();
+    }
+
+    private void validate(Hotel hotel) throws BadRequestException {
+        if (hotel.getName() == null || hotel.getName().isEmpty()) {
+            throw new BadRequestException("Error: hotel Name is required");
+        }
+
+        if (hotel.getCountry() == null || hotel.getCountry().isEmpty()) {
+            throw new BadRequestException("Error: hotel Country is required");
+        }
+
+        if (hotel.getCity() == null || hotel.getCity().isEmpty()) {
+            throw new BadRequestException("Error: hotel City is required");
+        }
+
+        if (hotel.getStreet() == null || hotel.getStreet().isEmpty()) {
+            throw new BadRequestException("Error: hotel Street is required");
+        }
     }
 }

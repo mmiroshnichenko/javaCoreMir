@@ -1,6 +1,7 @@
 package lesson35.service;
 
 import lesson35.exceptions.AuthException;
+import lesson35.exceptions.BadRequestException;
 import lesson35.model.Session;
 import lesson35.model.User;
 import lesson35.repository.UserRepository;
@@ -10,6 +11,8 @@ public class UserService {
     private UserRepository userRepository = UserRepository.getInstance();
 
     public User registerUser(User user) throws Exception {
+        validate(user);
+
         return userRepository.registerUser(user);
     }
 
@@ -30,5 +33,23 @@ public class UserService {
 
     public void clearAll() throws Exception {
         userRepository.clearDataInDb();
+    }
+
+    private void validate(User user) throws BadRequestException {
+        if (user.getUserName() == null || user.getUserName().isEmpty()) {
+            throw new BadRequestException("Error: user Name is required");
+        }
+
+        if (user.getPassword() == null || user.getPassword().isEmpty()) {
+            throw new BadRequestException("Error: user Password is required");
+        }
+
+        if (user.getCountry() == null || user.getCountry().isEmpty()) {
+            throw new BadRequestException("Error: user Country is required");
+        }
+
+        if (user.getUserType() == null) {
+            throw new BadRequestException("Error: user Type is required");
+        }
     }
 }

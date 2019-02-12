@@ -1,7 +1,6 @@
 package lesson35.repository;
 
 import lesson35.exceptions.BadRequestException;
-import lesson35.exceptions.DataBaseException;
 import lesson35.model.BaseModel;
 
 import java.io.*;
@@ -10,26 +9,26 @@ import java.util.regex.Pattern;
 
 public abstract class BaseRepository<T extends BaseModel> {
 
-    protected int countFields;
     protected String pathFileDb;
-
-    protected ArrayList<T> objects;
 
     protected abstract T mapObject(String[] rowData) throws Exception;
 
-    protected abstract String toDbRow(T object);
-
-    public BaseRepository(int countFields, String pathFileDb) {
-        this.countFields = countFields;
+    public BaseRepository(String pathFileDb) {
         this.pathFileDb = System.getProperty("user.dir") + "\\src\\lesson35\\database\\" + pathFileDb;
     }
 
     public ArrayList<T> getAllObjects() throws Exception {
-        if (objects == null) {
-            objects = loadObjectsFromDb();
+        ArrayList<T> objectsList = new ArrayList<>();
+
+        StringBuffer stringBuffer = readFromDb();
+        if (stringBuffer.length() > 0) {
+            for (String row : Pattern.compile("\n").split(stringBuffer)) {
+                String[] rowData = Pattern.compile(";").split(row);
+                objectsList.add(mapObject(rowData));
+            }
         }
 
-        return objects;
+        return objectsList;
     }
 
     public T findById(long id) throws Exception {
@@ -53,29 +52,14 @@ public abstract class BaseRepository<T extends BaseModel> {
     }
 
     public T addObject(T object) throws Exception {
-        T existObject = find(object);
-        if (existObject != null) {
-            throw new BadRequestException("Error: " + existObject + " already exist");
-        }
-
         object.setId(getNextId());
 
         StringBuffer sb = new StringBuffer();
-        sb.append(toDbRow(object));
+        sb.append(object);
         sb.append("\n");
 
         writeToDb(sb, true);
-        objects.add(object);
         return object;
-    }
-
-    public void removeById(long id) throws Exception {
-        T object = findById(id);
-        if (object == null) {
-            throw new BadRequestException("Error: object with id:" + id + " does not exist in DB");
-        }
-        objects.remove(object);
-        saveObjectsInDb();
     }
 
     public void removeObject(T object) throws Exception {
@@ -83,17 +67,19 @@ public abstract class BaseRepository<T extends BaseModel> {
         if (dbObject == null) {
             throw new BadRequestException("Error: " + object + " does not exist in DB");
         }
-        objects.remove(dbObject);
-        saveObjectsInDb();
+        ArrayList<T> objectsList = getAllObjects();
+        objectsList.remove(dbObject);
+        saveObjectsInDb(objectsList);
     }
 
     public void updateObject(T updatedObject) throws Exception {
         int index = 0;
-        for (T object : getAllObjects()) {
+        ArrayList<T> objectsList = getAllObjects();
+        for (T object : objectsList) {
             if (object.getId() == updatedObject.getId()) {
-                objects.set(index, updatedObject);
+                objectsList.set(index, updatedObject);
 
-                saveObjectsInDb();
+                saveObjectsInDb(objectsList);
                 return;
             }
             index++;
@@ -102,10 +88,10 @@ public abstract class BaseRepository<T extends BaseModel> {
         throw new BadRequestException("Error: object with id:" + updatedObject.getId() + " does not exist in DB");
     }
 
-    public void saveObjectsInDb() throws Exception {
+    public void saveObjectsInDb(ArrayList<T> objectsList) throws Exception {
         StringBuffer sb = new StringBuffer();
-        for (T object : getAllObjects()) {
-            sb.append(toDbRow(object));
+        for (T object : objectsList) {
+            sb.append(object);
             sb.append("\n");
         }
 
@@ -113,32 +99,11 @@ public abstract class BaseRepository<T extends BaseModel> {
     }
 
     public void clearDataInDb() throws Exception {
-        if (objects == null) {
-            getAllObjects();
-        }
-        objects.clear();
-        saveObjectsInDb();
-    }
-
-    private ArrayList<T> loadObjectsFromDb() throws Exception {
-        ArrayList<T> objectsList = new ArrayList<>();
-
-        StringBuffer stringBuffer = readFromDb();
-        if (stringBuffer.length() > 0) {
-            for (String row : Pattern.compile("\n").split(stringBuffer)) {
-                String[] rowData = Pattern.compile(";").split(row);
-                if (rowData.length != countFields) {
-                    throw new DataBaseException("Error: base file -" + pathFileDb + "- is broken");
-                }
-
-                objectsList.add(mapObject(rowData));
-            }
-        }
-
-        return objectsList;
+        saveObjectsInDb(new ArrayList<>());
     }
 
     private StringBuffer readFromDb() throws Exception {
+        validateFile();
         StringBuffer res = new StringBuffer();
         try (BufferedReader br = new BufferedReader(new FileReader(pathFileDb))) {
             String line;
@@ -158,11 +123,28 @@ public abstract class BaseRepository<T extends BaseModel> {
         return res;
     }
 
-    private void writeToDb(StringBuffer contentToWrite, boolean append) throws IOException {
+    private void writeToDb(StringBuffer contentToWrite, boolean append) throws Exception {
+        validateFile();
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(pathFileDb, append))) {
             bufferedWriter.append(contentToWrite);
         } catch (IOException e) {
             throw new IOException("Can't write to file " + pathFileDb);
+        }
+    }
+
+    private void validateFile() throws Exception {
+        File file = new File(pathFileDb);
+
+        if (!file.exists()) {
+            throw new FileNotFoundException("File " + pathFileDb + " does not exist");
+        }
+
+        if (!file.canRead()) {
+            throw new Exception("File " + pathFileDb + " does not have permissions to read");
+        }
+
+        if (!file.canWrite()) {
+            throw new Exception("File " + pathFileDb + " does not have permissions to be written");
         }
     }
 

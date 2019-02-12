@@ -10,7 +10,7 @@ public class HotelRepository extends BaseRepository<Hotel> {
     private static HotelRepository instance = null;
 
     private HotelRepository() {
-        super(5, "HotelDb.txt");
+        super("HotelDb.txt");
     }
 
     public static synchronized  HotelRepository getInstance() {
@@ -58,14 +58,5 @@ public class HotelRepository extends BaseRepository<Hotel> {
             throw new FormatDataException("Error: data format of object Hotel is wrong");
         }
         return hotel;
-    }
-
-    @Override
-    protected String toDbRow(Hotel hotel) {
-        return hotel.getId()
-                + ";" + hotel.getName()
-                + ";" + hotel.getCountry()
-                + ";" + hotel.getCity()
-                + ";" + hotel.getStreet();
     }
 }
