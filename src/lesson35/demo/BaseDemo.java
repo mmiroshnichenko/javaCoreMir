@@ -14,15 +14,21 @@ import java.text.SimpleDateFormat;
 
 public class BaseDemo {
 
-    protected static UserController userController = new UserController();
-    protected static HotelController hotelController = new HotelController();
-    protected static RoomController roomController = new RoomController();
-    protected static OrderController orderController = new OrderController();
+    protected static UserController userController;
+    protected static HotelController hotelController;
+    protected static RoomController roomController;
+    protected static OrderController orderController;
+
 
     protected static SimpleDateFormat dateFormat =  new SimpleDateFormat("dd-MM-yyyy");
 
 
     protected static void fillData() throws Exception {
+        userController = new UserController();
+        hotelController = new HotelController();
+        roomController = new RoomController();
+        orderController = new OrderController();
+
         clearData();
 
         User admin = new User("Admin", "123456", "Ukraine", UserType.ADMIN);

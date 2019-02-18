@@ -8,11 +8,13 @@ import lesson35.model.Room;
 import lesson35.repository.RoomRepository;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 public class RoomService {
-    private RoomRepository roomRepository = RoomRepository.getInstance();
+    private RoomRepository roomRepository = new RoomRepository();
     private OrderService orderService = new OrderService();
+
+    public RoomService() throws Exception {
+    }
 
     public Room addRoom(Room room) throws Exception {
         validate(room);
@@ -52,121 +54,22 @@ public class RoomService {
     }
 
     public ArrayList<Room> findRooms(Filter filter) throws Exception {
-        ArrayList<Room> rooms = findRoomsByNumberOfGuests(roomRepository.getAllObjects(), filter.getNumberOfGuests());
-        rooms = findRoomsByPrice(rooms, filter.getPrice());
-        rooms = findRoomsByBreakfastIncluded(rooms, filter.getBreakfastIncluded());
-        rooms = findRoomsByPetsAllowed(rooms, filter.getPetsAllowed());
-        rooms = findRoomsByDateAvailableFrom(rooms, filter.getDateAvailableFrom());
-        rooms = findRoomsByCountry(rooms, filter.getCountry());
-        rooms = findRoomsByCity(rooms, filter.getCity());
-
+        ArrayList<Room> rooms = new ArrayList<>();
+        for (Room room : roomRepository.getAllObjects()) {
+            if (
+                (filter.getNumberOfGuests() == 0 || room.getNumberOfGuests() == filter.getNumberOfGuests())
+                && (filter.getPrice() == 0 || room.getPrice() == filter.getPrice())
+                && (filter.getBreakfastIncluded() == null || room.isBreakfastIncluded() == filter.getBreakfastIncluded())
+                && (filter.getPetsAllowed() == null || room.isPetsAllowed() == filter.getPetsAllowed())
+                && (filter.getDateAvailableFrom() == null || room.getDateAvailableFrom().equals(filter.getDateAvailableFrom()))
+                && (filter.getCountry() == null || room.getHotel().getCountry().equals(filter.getCountry()))
+                && (filter.getCity() == null || room.getHotel().getCity().equals(filter.getCity()))
+            ) {
+                rooms.add(room);
+            }
+        }
         rooms.sort(new RoomComparator());
         return rooms;
-    }
-
-    private ArrayList<Room> findRoomsByNumberOfGuests(ArrayList<Room> rooms, int numberOfGuests) {
-        if (rooms.isEmpty() || numberOfGuests == 0) {
-            return rooms;
-        }
-
-        ArrayList<Room> res = new ArrayList<>();
-        for (Room room : rooms) {
-            if (room.getNumberOfGuests() == numberOfGuests) {
-                res.add(room);
-            }
-        }
-
-        return res;
-    }
-
-    private ArrayList<Room> findRoomsByPrice(ArrayList<Room> rooms, double price) {
-        if (rooms.isEmpty() || price == 0) {
-            return rooms;
-        }
-
-        ArrayList<Room> res = new ArrayList<>();
-        for (Room room : rooms) {
-            if (room.getPrice() == price) {
-                res.add(room);
-            }
-        }
-
-        return res;
-    }
-
-    private ArrayList<Room> findRoomsByBreakfastIncluded(ArrayList<Room> rooms, Boolean breakfastIncluded) {
-        if (rooms.isEmpty() || breakfastIncluded == null) {
-            return rooms;
-        }
-
-        ArrayList<Room> res = new ArrayList<>();
-        for (Room room : rooms) {
-            if ((room.isBreakfastIncluded() && breakfastIncluded) || ((!room.isBreakfastIncluded() && !breakfastIncluded))) {
-                res.add(room);
-            }
-        }
-
-        return res;
-    }
-
-    private ArrayList<Room> findRoomsByPetsAllowed(ArrayList<Room> rooms, Boolean petsAllowed) {
-        if (rooms.isEmpty() || petsAllowed == null) {
-            return rooms;
-        }
-
-        ArrayList<Room> res = new ArrayList<>();
-        for (Room room : rooms) {
-            if ((room.isPetsAllowed() && petsAllowed) || ((!room.isPetsAllowed() && !petsAllowed))) {
-                res.add(room);
-            }
-        }
-
-        return res;
-    }
-
-    private ArrayList<Room> findRoomsByDateAvailableFrom(ArrayList<Room> rooms, Date dateAvailableFrom) {
-        if (rooms.isEmpty() || dateAvailableFrom == null) {
-            return rooms;
-        }
-
-        ArrayList<Room> res = new ArrayList<>();
-        for (Room room : rooms) {
-            if (room.getDateAvailableFrom().equals(dateAvailableFrom)) {
-                res.add(room);
-            }
-        }
-
-        return res;
-    }
-
-    private ArrayList<Room> findRoomsByCountry(ArrayList<Room> rooms, String country) {
-        if (rooms.isEmpty() || country == null) {
-            return rooms;
-        }
-
-        ArrayList<Room> res = new ArrayList<>();
-        for (Room room : rooms) {
-            if (room.getHotel().getCountry().equals(country)) {
-                res.add(room);
-            }
-        }
-
-        return res;
-    }
-
-    private ArrayList<Room> findRoomsByCity(ArrayList<Room> rooms, String city) {
-        if (rooms.isEmpty() || city == null) {
-            return rooms;
-        }
-
-        ArrayList<Room> res = new ArrayList<>();
-        for (Room room : rooms) {
-            if (room.getHotel().getCity().equals(city)) {
-                res.add(room);
-            }
-        }
-
-        return res;
     }
 
     private ArrayList<Room> getRoomsByHotel(Hotel hotel) throws Exception {

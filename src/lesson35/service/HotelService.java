@@ -8,9 +8,12 @@ import lesson35.repository.HotelRepository;
 import java.util.ArrayList;
 
 public class HotelService {
-    private HotelRepository hotelRepository = HotelRepository.getInstance();
+    private HotelRepository hotelRepository = new HotelRepository();
     private RoomService roomService = new RoomService();
     private OrderService orderService = new OrderService();
+
+    public HotelService() throws Exception {
+    }
 
     public Hotel addHotel(Hotel hotel) throws Exception {
         validate(hotel);

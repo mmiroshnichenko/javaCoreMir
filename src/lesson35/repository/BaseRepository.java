@@ -13,8 +13,9 @@ public abstract class BaseRepository<T extends BaseModel> {
 
     protected abstract T mapObject(String[] rowData) throws Exception;
 
-    public BaseRepository(String pathFileDb) {
+    public BaseRepository(String pathFileDb) throws Exception {
         this.pathFileDb = System.getProperty("user.dir") + "\\src\\lesson35\\database\\" + pathFileDb;
+        validateFile();
     }
 
     public ArrayList<T> getAllObjects() throws Exception {
@@ -103,7 +104,6 @@ public abstract class BaseRepository<T extends BaseModel> {
     }
 
     private StringBuffer readFromDb() throws Exception {
-        validateFile();
         StringBuffer res = new StringBuffer();
         try (BufferedReader br = new BufferedReader(new FileReader(pathFileDb))) {
             String line;
@@ -114,8 +114,6 @@ public abstract class BaseRepository<T extends BaseModel> {
             if (res.length() > 0) {
                 res.replace(res.length() - 1, res.length(), "");
             }
-        } catch (FileNotFoundException e) {
-            throw new FileNotFoundException("File " + pathFileDb + " does not exist");
         } catch (IOException e) {
             throw new IOException("Reading from file " + pathFileDb + " failed");
         }
@@ -124,7 +122,6 @@ public abstract class BaseRepository<T extends BaseModel> {
     }
 
     private void writeToDb(StringBuffer contentToWrite, boolean append) throws Exception {
-        validateFile();
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(pathFileDb, append))) {
             bufferedWriter.append(contentToWrite);
         } catch (IOException e) {

@@ -1,31 +1,14 @@
 package lesson35.repository;
 
-import lesson35.exceptions.AuthException;
-import lesson35.exceptions.FormatDataException;
 import lesson35.model.User;
 import lesson35.model.UserType;
 
 public class UserRepository extends BaseRepository<User> {
-
-    private static UserRepository instance = null;
-
-    private UserRepository() {
+    public UserRepository() throws Exception {
         super("UserDb.txt");
     }
 
-    public static synchronized  UserRepository getInstance() {
-        if (instance == null) {
-            instance = new UserRepository();
-        }
-
-        return instance;
-    }
-
     public User registerUser(User user) throws Exception {
-        if (findUserByName(user.getUserName()) != null) {
-            throw new AuthException("Error: " + user.getUserName() + " already registered");
-        }
-
         return addObject(user);
     }
 
@@ -50,19 +33,13 @@ public class UserRepository extends BaseRepository<User> {
     }
 
     @Override
-    protected User mapObject(String[] rowData) throws FormatDataException {
-        User user;
-        try {
-            user = new User(
+    protected User mapObject(String[] rowData) {
+        return new User(
                     Long.parseLong(rowData[0]),  // id
                     rowData[1],                  //userName
                     rowData[2],                  //password
                     rowData[3],                  //country
                     UserType.valueOf(rowData[4]) //UserType
             );
-        } catch (NumberFormatException e) {
-            throw new FormatDataException("Error: data format of object User is wrong");
-        }
-        return user;
     }
 }

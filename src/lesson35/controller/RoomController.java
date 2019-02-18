@@ -10,6 +10,9 @@ import java.util.ArrayList;
 public class RoomController {
     private RoomService roomService = new RoomService();
 
+    public RoomController() throws Exception {
+    }
+
     public ArrayList<Room> findRooms(Filter filter) throws Exception {
         return roomService.findRooms(filter);
     }

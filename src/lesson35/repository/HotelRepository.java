@@ -1,24 +1,13 @@
 package lesson35.repository;
 
-import lesson35.exceptions.FormatDataException;
 import lesson35.model.Hotel;
 
 import java.util.ArrayList;
 
 public class HotelRepository extends BaseRepository<Hotel> {
 
-    private static HotelRepository instance = null;
-
-    private HotelRepository() {
+    public HotelRepository() throws Exception {
         super("HotelDb.txt");
-    }
-
-    public static synchronized  HotelRepository getInstance() {
-        if (instance == null) {
-            instance = new HotelRepository();
-        }
-
-        return instance;
     }
 
     public ArrayList<Hotel> findHotelByName(String name) throws Exception{
@@ -44,19 +33,13 @@ public class HotelRepository extends BaseRepository<Hotel> {
     }
 
     @Override
-    protected Hotel mapObject(String[] rowData) throws FormatDataException {
-        Hotel hotel;
-        try {
-            hotel = new Hotel(
+    protected Hotel mapObject(String[] rowData) {
+        return new Hotel(
                     Long.parseLong(rowData[0]), // id
                     rowData[1],                 //name
                     rowData[2],                 //country
                     rowData[3],                 //city
                     rowData[4]                  //street
             );
-        } catch (NumberFormatException e) {
-            throw new FormatDataException("Error: data format of object Hotel is wrong");
-        }
-        return hotel;
     }
 }

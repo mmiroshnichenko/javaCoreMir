@@ -15,10 +15,13 @@ import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 public class OrderService {
-    private OrderRepository orderRepository = OrderRepository.getInstance();
-    private RoomRepository roomRepository = RoomRepository.getInstance();
-    private UserRepository userRepository = UserRepository.getInstance();
+    private OrderRepository orderRepository = new OrderRepository();
+    private RoomRepository roomRepository = new RoomRepository();
+    private UserRepository userRepository = new UserRepository();
     private SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+
+    public OrderService() throws Exception {
+    }
 
     public Order bookRoom(long roomId, long userId, Date dateFrom, Date dateTo) throws Exception {
         Room room = roomRepository.findById(roomId);
@@ -29,17 +32,15 @@ public class OrderService {
         double moneyPaid = countDays * room.getPrice();
 
         Order order = orderRepository.addObject(new Order(user, room, dateFrom, dateTo, moneyPaid));
-        if (order != null) {
-            room.setDateAvailableFrom(dateTo);
-            roomRepository.updateObject(room);
-        }
+        room.setDateAvailableFrom(dateTo);
+        roomRepository.updateObject(room);
 
         return order;
     }
 
     public void cancelReservation(long orderId) throws Exception {
         Order order = orderRepository.findById(orderId);
-        validateCancelReservationParams(order, orderId);
+        validateCancelReservationParams(order);
 
         Date dateFrom = order.getDateFrom();
         Room room = order.getRoom();
@@ -93,9 +94,9 @@ public class OrderService {
         }
     }
 
-    private void validateCancelReservationParams(Order order, long orderId) throws BadRequestException {
+    private void validateCancelReservationParams(Order order) throws BadRequestException {
         if (order == null) {
-            throw new BadRequestException("Error: order with id:" + orderId + " does not exist");
+            throw new BadRequestException("Error: order does not exist");
         }
 
         Date currentDate = new Date();

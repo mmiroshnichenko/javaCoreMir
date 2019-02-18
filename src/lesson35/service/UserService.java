@@ -8,7 +8,10 @@ import lesson35.repository.UserRepository;
 
 public class UserService {
 
-    private UserRepository userRepository = UserRepository.getInstance();
+    private UserRepository userRepository = new UserRepository();
+
+    public UserService() throws Exception {
+    }
 
     public User registerUser(User user) throws Exception {
         validate(user);
@@ -35,7 +38,11 @@ public class UserService {
         userRepository.clearDataInDb();
     }
 
-    private void validate(User user) throws BadRequestException {
+    private void validate(User user) throws Exception {
+        if (userRepository.findUserByName(user.getUserName()) != null) {
+            throw new BadRequestException("Error: " + user.getUserName() + " already registered");
+        }
+
         if (user.getUserName() == null || user.getUserName().isEmpty()) {
             throw new BadRequestException("Error: user Name is required");
         }

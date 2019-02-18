@@ -10,6 +10,9 @@ import java.util.Date;
 public class OrderController {
     private OrderService orderService = new OrderService();
 
+    public OrderController() throws Exception {
+    }
+
     public Order bookRoom(long roomId, long userId, Date dateFrom, Date dateTo) throws Exception {
         AuthorizationService.checkUserAuthorization();
 
