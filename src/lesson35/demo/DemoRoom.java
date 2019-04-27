@@ -81,7 +81,6 @@ public class DemoRoom extends BaseDemo {
                 System.out.println(room);
             }
 
-
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
